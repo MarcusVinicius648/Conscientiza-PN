@@ -27,6 +27,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "splash":{
+      "image":"./assets/splash.png",
+      "backgroundColor":"#FFFFFF",
+      "resizeMode":"contain"
     }
   }
 }

@@ -1,75 +1,87 @@
 import React from 'react';
-import {SafeAreaView,View,Text,StyleSheet,Image, Dimensions,TouchableOpacity} from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 
-import imageWelcome from '../assets/imgwelcome.png'; 
+import imageWelcome from '../assets/imgwelcome.png';
 
 import { Entypo } from '@expo/vector-icons';
 
-
 import colors from '../styles/colors';
+import fonts from '../styles/fonts';
 
-export function Welcome(){
-    return(
-        
+import { useNavigation } from '@react-navigation/core';
+
+export function Welcome() {
+
+    const navigation = useNavigation();
+
+    function handleStart() {
+        navigation.navigate('DataPage')
+    }
+
+    return (
+
         <SafeAreaView style={styles.container}>
-             <View style={styles.contain}>
+            <View style={styles.contain}>
                 <Text style={styles.title}>
-                    Consciêntiza PN
-                </Text>
-            
-            
-             <Image source={imageWelcome} style={styles.img} resizeMode="contain"/> 
-
-             <Text style={styles.subtitle}> 
-                Utilize {"\n"}
+                    Utilize {"\n"}
                 nossas funcionalidades {"\n"}
                 para uma Ponte Nova melhor!
-            </Text>
-
-            <TouchableOpacity style={styles.buttom}>
-                <Text>
-                    <Entypo name="chevron-thin-right" style={styles.buttonIcon}  />
                 </Text>
-            </TouchableOpacity>
+
+
+                <Image source={imageWelcome} style={styles.img} resizeMode="contain" />
+
+                <Text style={styles.subtitle}>
+                    Uma plataforma de apoio e fiscalização ao descarte de resíduos sólidos.
+                </Text>
+
+                <TouchableOpacity style={styles.buttom}>
+                    <Text>
+                        <Entypo name="chevron-thin-right" style={styles.buttonIcon} onPress={handleStart} />
+                    </Text>
+                </TouchableOpacity>
 
             </View>
         </SafeAreaView>
-        
-       
+
+
     )
-    /*Este resizeMode vai fazer com que se utilize corretamente a manipulação da img */
+
 }
 
 const styles = StyleSheet.create({
-    
+
     /*Global -------------------------------------------- */
-    container:{
+    container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'space-around'
     },
 
-    contain:{
-        flex:1,
-        alignItems:'center',
+    contain: {
+        flex: 1,
+        alignItems: 'center',
         justifyContent: 'space-around',
-        padding:20
-       
+        padding: 20
+
     },
     /*Titles and Subtitles -------------------------------------------- */
-    title:{
+    title: {
+        fontFamily: fonts.heading,
         lineHeight: 34,
         fontSize: 28,
         fontWeight: 'bold',
         alignContent: 'center',
+        textAlign: 'center',
         marginTop: 30,
         marginBottom: 20,
         color: colors.heading
 
     },
 
-    subtitle:{
-        textAlign:'center',
+    subtitle: {
+        textAlign: 'center',
+        fontFamily: fonts.text,
         fontSize: 18,
         paddingHorizontal: 20,
         marginTop: 40,
@@ -79,26 +91,26 @@ const styles = StyleSheet.create({
 
     /*Image -------------------------------------------- */
 
-    img:{
-      height: Dimensions.get('window').width *0.7,
-      
+    img: {
+        height: Dimensions.get('window').width * 0.7,
+
     },
 
     /* Buttom -------------------------------------------- */
-    buttom:{
+    buttom: {
         backgroundColor: colors.green,
         justifyContent: 'center',
         alignItems: 'center',
         height: 56,
         width: 56,
         borderRadius: 16,
-        marginBottom: 10
+        marginBottom: 6
     },
 
-    buttonIcon:{
-        color: colors.black,
+    buttonIcon: {
+        color: colors.white,
         fontSize: 23,
         fontWeight: 'bold'
-        
+
     },
 })
