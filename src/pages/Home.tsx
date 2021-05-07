@@ -1,13 +1,16 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View,SafeAreaView} from 'react-native';
+
+import colors from '../styles/colors';
+import fonts from '../styles/fonts';
+
+import {SideBar} from '../components/SideBar';
 
 export function Home(){
     return(
-        <View > 
-           <Text style={styles.container}>
-           This is the HomePage
-           </Text>
-        </View>
+        <SafeAreaView style={styles.container}>
+            <SideBar/>
+        </SafeAreaView>
     )
 }
 

@@ -15,7 +15,7 @@ export function Welcome() {
     const navigation = useNavigation();
 
     function handleStart() {
-        navigation.navigate('DataPage')
+        navigation.navigate('DataPage') //This function move on the client to DataPage
     }
 
     return (
