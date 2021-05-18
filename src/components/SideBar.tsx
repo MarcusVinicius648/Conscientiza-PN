@@ -52,6 +52,7 @@ export function SideBar(){
             }
         }
     }
+
     const selectFiscal = () => {
         if(selectedFiscalRoutes == true){
             setSelectedFiscalRoutes(!selectedFiscalRoutes)
@@ -62,6 +63,7 @@ export function SideBar(){
             }
         }
     }
+    
     const selectColeta = () => {
         if(selectedColetaRoutes == true){
             setSelectedColetaRoutes(!selectedColetaRoutes)
