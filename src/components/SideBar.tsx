@@ -31,48 +31,67 @@ export function SideBar(){
     // all of this Ifs is for only select one for time
 
     const selectHome = () => {
-        if(selectedHomeRoutes == true){
+        if(selectedHomeRoutes == false){
             setSelectedHomeRoutes(!selectedHomeRoutes)
-        }
-        if(selectedHomeRoutes== false){
-            if(selectedEcoPontoRoutes == false && selectedFiscalRoutes == false && selectedColetaRoutes ==false ){
-                setSelectedHomeRoutes(!selectedHomeRoutes)
+            
+            if(selectedEcoPontoRoutes == true){
+                setSelectedEcoPontoRoutes(!selectedEcoPontoRoutes)
             }
-
-        }
+            if(selectedFiscalRoutes == true){
+                setSelectedFiscalRoutes(!selectedFiscalRoutes)
+            }
+            if(selectedColetaRoutes == true){
+                setSelectedColetaRoutes(!selectedColetaRoutes)
+            }
+        }     
     }
 
     const selectEcoPonto = () => {
-        if(selectedEcoPontoRoutes == true){
+        if(selectedEcoPontoRoutes == false){
             setSelectedEcoPontoRoutes(!selectedEcoPontoRoutes)
-        }
-        if(selectedEcoPontoRoutes== false){
-            if(selectedHomeRoutes == false && selectedFiscalRoutes == false && selectedColetaRoutes ==false ){
-                setSelectedEcoPontoRoutes(!selectedEcoPontoRoutes)
+            
+            if(selectedHomeRoutes == true){
+                setSelectedHomeRoutes(!selectedHomeRoutes)
             }
-        }
+            if(selectedFiscalRoutes == true){
+                setSelectedFiscalRoutes(!selectedFiscalRoutes)
+            }
+            if(selectedColetaRoutes == true){
+                setSelectedColetaRoutes(!selectedColetaRoutes)
+            }
+        }     
     }
 
     const selectFiscal = () => {
-        if(selectedFiscalRoutes == true){
+        if(selectedFiscalRoutes == false){
             setSelectedFiscalRoutes(!selectedFiscalRoutes)
-        }
-        if(selectedFiscalRoutes== false){
-            if(selectedHomeRoutes == false && selectedEcoPontoRoutes == false && selectedColetaRoutes ==false ){
-                setSelectedFiscalRoutes(!selectedFiscalRoutes)
+            
+            if(selectedEcoPontoRoutes == true){
+                setSelectedEcoPontoRoutes(!selectedEcoPontoRoutes)
             }
-        }
+            if(selectedHomeRoutes == true){
+                setSelectedHomeRoutes(!selectedHomeRoutes)
+            }
+            if(selectedColetaRoutes == true){
+                setSelectedColetaRoutes(!selectedColetaRoutes)
+            }
+        }     
     }
     
     const selectColeta = () => {
-        if(selectedColetaRoutes == true){
+        if(selectedColetaRoutes == false){
             setSelectedColetaRoutes(!selectedColetaRoutes)
-        }
-        if(selectedColetaRoutes== false){
-            if(selectedHomeRoutes == false && selectedEcoPontoRoutes == false && selectedFiscalRoutes ==false ){
-                setSelectedColetaRoutes(!selectedColetaRoutes)
+            
+            if(selectedEcoPontoRoutes == true){
+                setSelectedEcoPontoRoutes(!selectedEcoPontoRoutes)
             }
-        }
+            if(selectedFiscalRoutes == true){
+                setSelectedFiscalRoutes(!selectedFiscalRoutes)
+            }
+            if(selectedHomeRoutes == true){
+                setSelectedHomeRoutes(!selectedHomeRoutes)
+            }
+        }     
     }
 
     
