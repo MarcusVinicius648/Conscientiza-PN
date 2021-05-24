@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Text,
     SafeAreaView,
@@ -6,7 +6,8 @@ import {
     Image,
     StyleSheet,
     Dimensions,
-    TextInput
+    TextInput,
+    Alert
 } from 'react-native';
 
 import { Button } from '../components/Button';
@@ -16,13 +17,31 @@ import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
 import { useNavigation } from '@react-navigation/core';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function DataPage() {
+    
+    const[name, setName] = useState<string>();
+    const[cep, setCep] = useState<string>();
 
     const navigation = useNavigation();
 
-    function handleMoveon() {
-        navigation.navigate('Home')
+    function handleSetValueName(userName:string){
+        setName(userName)
+    }
+    function handleSetValueCEP(userCEP:string){
+        setCep(userCEP)
+    }
+
+    async function handleMoveon() {
+        if(!name || !cep)
+        return Alert.alert("Por favor, Preencha todos os campos!😢");
+
+       
+        await AsyncStorage.setItem('@conscientizaPn:userName',name);
+        await AsyncStorage.setItem('@conscientizaPn:cep',cep);
+
+        navigation.navigate('Home');
     }
 
     return (
@@ -42,9 +61,9 @@ export function DataPage() {
                         </Text>
                     </View>
 
-                    <TextInput style={styles.input} placeholder="Digite seu nome:" />
+                    <TextInput style={styles.input} placeholder="Digite seu nome:" onChangeText={handleSetValueName} />
 
-                    <TextInput style={styles.input} placeholder="Digite seu CEP:" />
+                    <TextInput style={styles.input} placeholder="Digite seu CEP:" onChangeText={handleSetValueCEP}/>
 
                     <View style={styles.footer}>
                         <Button title="Confirmar" onPress={handleMoveon} />

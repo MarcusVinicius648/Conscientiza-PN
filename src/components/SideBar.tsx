@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
         right:0,
         height: 640,
         width:0,
-        marginRight: -100,
+        marginRight: 85,
         overflow: 'hidden', //Aqui téra que haver algo que deixe a barra invisivel
      },
 
@@ -234,9 +234,10 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top:0,
         right:0,
+        zIndex:10,
         height: 640,
         width:280,
-        marginRight: -100,
+        marginRight: 85,
         overflow: 'hidden',
      },
 
