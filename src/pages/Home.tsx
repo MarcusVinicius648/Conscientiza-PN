@@ -12,7 +12,13 @@ import {useNavigation} from '@react-navigation/core'
 
 export function Home(){
     const[userName, setUserName] = useState<string>();
+
     const[userCep,setUserCep] = useState<string>();
+    
+    const[userRua,setUserRua] = useState<string>();
+    const[userBairro,setUserBairro] = useState<string>();
+    const[userLocalidade,setUserLocalidade] = useState<string>();
+    const[userUf,setUserUf] = useState<string>();
 
     const navigation = useNavigation();
 
@@ -32,10 +38,27 @@ export function Home(){
             setUserCep(userCep || '')
         }
 
+        async function loadUserAddres() {
+            const rua = await AsyncStorage.getItem('@conscientizaPn:rua')
+            setUserRua(rua || '')
+            
+            const bairro = await AsyncStorage.getItem('@conscientizaPn:bairro')
+            setUserBairro(bairro || '')
+            
+            const localidade = await AsyncStorage.getItem('@conscientizaPn:localidade')
+            setUserLocalidade(localidade || '')
+
+            const uf = await AsyncStorage.getItem('@conscientizaPn:uf')
+            setUserUf(uf || '')
+            console.log(uf,rua,localidade,bairro)
+        }
+
+
+        loadUserAddres();
         loadUserName();
         loadUserCEP();
     },[]);
-
+    
     return(
         <SafeAreaView style={styles.container}>
             <SideBar title={"Home"}/>
@@ -53,9 +76,9 @@ export function Home(){
                 <Text style={styles.cep}> CEP: {userCep}</Text>
 
                 <Text style={styles.address}>
-                    Rua João Alves de Oliveira {"\n"}
-                    Bairro: Triângulo Novo {"\n"}
-                    Ponte Nova - MG
+                    {userRua} {"\n"}
+                    Bairro: {userBairro} {"\n"}
+                    {userLocalidade} - {userUf}
                 </Text>
             </View>
 
@@ -110,7 +133,7 @@ const styles = StyleSheet.create({
     },
 
     address:{
-        lineHeight:34,
+        lineHeight:24,
         fontSize:20,
         fontFamily: fonts.heading,
         color: colors.heading

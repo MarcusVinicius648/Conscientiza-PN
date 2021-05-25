@@ -18,13 +18,26 @@ import fonts from '../styles/fonts';
 
 import { useNavigation } from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TextInputMask } from 'react-native-masked-text'
+import  {TextInputMask}  from 'react-native-masked-text';
+
+
 
 
 export function DataPage() {
     
     const[name, setName] = useState<string>();
     const[cep, setCep] = useState<string>();
+    
+    let [dataAddress = {
+        logradouro:"...",
+        bairro:'...',
+        localidade:'...',
+        uf:'...',
+    
+    },setDataAddress] = useState();
+    
+    
+
 
     const navigation = useNavigation();
 
@@ -36,7 +49,6 @@ export function DataPage() {
     }
 
 
-
     async function handleMoveon() {
         if(!name || !cep)
         return Alert.alert("Por favor, Preencha todos os campos!😢");
@@ -45,6 +57,21 @@ export function DataPage() {
         await AsyncStorage.setItem('@conscientizaPn:userName',name);
         await AsyncStorage.setItem('@conscientizaPn:cep',cep);
 
+        let OnlyNumber = cep.replace(/\D/g, '')
+        function SearchAddressInformations(){
+          
+            fetch('https://viacep.com.br/ws/'+OnlyNumber+'/json/').then(res => res.json()).then(async data =>{
+
+                setDataAddress(dataAddress=data)
+                await AsyncStorage.setItem('@conscientizaPn:rua',dataAddress.logradouro);
+                await AsyncStorage.setItem('@conscientizaPn:bairro',dataAddress.bairro)
+                await AsyncStorage.setItem('@conscientizaPn:localidade',dataAddress.localidade)
+                await AsyncStorage.setItem('@conscientizaPn:uf',dataAddress.uf)
+                
+            }).catch();
+        }
+        
+        SearchAddressInformations();
         navigation.navigate('Home');
     }
 
