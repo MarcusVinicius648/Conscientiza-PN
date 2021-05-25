@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {SafeAreaView,View, StyleSheet,Text, Image, Button, TouchableOpacity,} from 'react-native';
+import {SafeAreaView,View, StyleSheet,Text, Image, Button, TouchableOpacity, TouchableOpacityProps,} from 'react-native';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
@@ -10,26 +10,27 @@ import iconSideBarSelected from '../assets/iconSideBarSelected.png';
 
 import GeneralStatusBarColor from '../components/GeneralStatusBarColor'; /*This import is useful for change the notification bar´s color */
 
-
 import {Entypo} from '@expo/vector-icons';
 
+interface SideBarProps extends TouchableOpacityProps{
+    title: string
+}
 
-
-export function SideBar(){
+export function SideBar({title,...rest}:SideBarProps){
     
     //This function gonna make the side´s bar appear and desappear
     const [sideBar, setSideBar] = useState(false)
-
     const showSideBar = () => setSideBar(!sideBar)
 
+
     //this function goona make the color of selected route
-    const[selectedHomeRoutes, setSelectedHomeRoutes] = useState(false)
-    const[selectedEcoPontoRoutes, setSelectedEcoPontoRoutes] = useState(false)
-    const[selectedFiscalRoutes, setSelectedFiscalRoutes] = useState(false)
-    const[selectedColetaRoutes, setSelectedColetaRoutes] = useState(false)
+    const[selectedHomeRoutes, setSelectedHomeRoutes] = useState(true ? title=="Home" : false)
+    const[selectedEcoPontoRoutes, setSelectedEcoPontoRoutes] = useState(true ? title=="Eco Ponto" :false)
+    const[selectedFiscalRoutes, setSelectedFiscalRoutes] = useState(true ? title=="Cidadão Fiscal" : false)
+    const[selectedColetaRoutes, setSelectedColetaRoutes] = useState(true ? title=="Coleta de Lixo" : false)
+
 
     // all of this Ifs is for only select one for time
-
     const selectHome = () => {
         if(selectedHomeRoutes == false){
             setSelectedHomeRoutes(!selectedHomeRoutes)
@@ -81,7 +82,7 @@ export function SideBar(){
     const selectColeta = () => {
         if(selectedColetaRoutes == false){
             setSelectedColetaRoutes(!selectedColetaRoutes)
-            
+
             if(selectedEcoPontoRoutes == true){
                 setSelectedEcoPontoRoutes(!selectedEcoPontoRoutes)
             }
@@ -109,7 +110,7 @@ export function SideBar(){
                 </TouchableOpacity>
 
                 <Text style={styles.nameBar}>
-                    Home
+                    {title}
                 </Text>
             </View>
             

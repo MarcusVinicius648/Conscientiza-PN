@@ -18,6 +18,8 @@ import fonts from '../styles/fonts';
 
 import { useNavigation } from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TextInputMask } from 'react-native-masked-text'
+
 
 export function DataPage() {
     
@@ -32,6 +34,8 @@ export function DataPage() {
     function handleSetValueCEP(userCEP:string){
         setCep(userCEP)
     }
+
+
 
     async function handleMoveon() {
         if(!name || !cep)
@@ -61,9 +65,22 @@ export function DataPage() {
                         </Text>
                     </View>
 
-                    <TextInput style={styles.input} placeholder="Digite seu nome:" onChangeText={handleSetValueName} />
+                    <TextInput style={styles.input} 
+                        placeholder="Digite seu nome:" 
+                        onChangeText={handleSetValueName}
+                        maxLength={22}
+                        />
 
-                    <TextInput style={styles.input} placeholder="Digite seu CEP:" onChangeText={handleSetValueCEP}/>
+                    <TextInputMask
+                        type={'zip-code'}
+                        style={styles.input} 
+                        placeholder="Digite seu CEP:" 
+                        onChangeText={handleSetValueCEP}
+                        keyboardType={'number-pad'}
+                        maxLength={9}
+                        value={cep}
+                        
+                        />
 
                     <View style={styles.footer}>
                         <Button title="Confirmar" onPress={handleMoveon} />

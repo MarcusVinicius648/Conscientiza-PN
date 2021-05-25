@@ -8,9 +8,17 @@ import {SideBar} from '../components/SideBar';
 import {Button} from '../components/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {useNavigation} from '@react-navigation/core'
+
 export function Home(){
     const[userName, setUserName] = useState<string>();
     const[userCep,setUserCep] = useState<string>();
+
+    const navigation = useNavigation();
+
+    function handleChangeDatas(){
+        navigation.navigate('DataPage')
+    }
     
     useEffect(() => {
 
@@ -30,7 +38,7 @@ export function Home(){
 
     return(
         <SafeAreaView style={styles.container}>
-            <SideBar/>
+            <SideBar title={"Home"}/>
 
             <View style={styles.header}>
                 <Text style={styles.meeting}>
@@ -52,7 +60,7 @@ export function Home(){
             </View>
 
             <View style={styles.footer}>
-                <Button title={"+  Atualizar CEP"}/>
+                <Button title={"+  Atualizar CEP"} onPress={handleChangeDatas}/>
             </View>
 
 

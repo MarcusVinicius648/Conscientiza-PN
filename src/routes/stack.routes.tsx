@@ -5,7 +5,9 @@ import { Welcome } from '../pages/Welcome';
 import { DataPage } from '../pages/DataPage';
 import { Home } from '../pages/Home';
 
+
 import color from '../styles/colors';
+
 
 const stackRoutes = createStackNavigator();
 
