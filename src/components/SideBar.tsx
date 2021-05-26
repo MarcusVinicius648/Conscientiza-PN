@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {SafeAreaView,View, StyleSheet,Text, Image, Button, TouchableOpacity, TouchableOpacityProps,} from 'react-native';
+import { SafeAreaView, View, StyleSheet, Text, Image, Button, TouchableOpacity, TouchableOpacityProps, } from 'react-native';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
@@ -10,176 +10,176 @@ import iconSideBarSelected from '../assets/iconSideBarSelected.png';
 
 import GeneralStatusBarColor from '../components/GeneralStatusBarColor'; /*This import is useful for change the notification bar´s color */
 
-import {Entypo} from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
-interface SideBarProps extends TouchableOpacityProps{
+interface SideBarProps extends TouchableOpacityProps {
     title: string
 }
 
-export function SideBar({title,...rest}:SideBarProps){
-    
+export function SideBar({ title, ...rest }: SideBarProps) {
+
     //This function gonna make the side´s bar appear and desappear
     const [sideBar, setSideBar] = useState(false)
     const showSideBar = () => setSideBar(!sideBar)
 
 
     //this function goona make the color of selected route
-    const[selectedHomeRoutes, setSelectedHomeRoutes] = useState(true ? title=="Home" : false)
-    const[selectedEcoPontoRoutes, setSelectedEcoPontoRoutes] = useState(true ? title=="Eco Ponto" :false)
-    const[selectedFiscalRoutes, setSelectedFiscalRoutes] = useState(true ? title=="Cidadão Fiscal" : false)
-    const[selectedColetaRoutes, setSelectedColetaRoutes] = useState(true ? title=="Coleta de Lixo" : false)
+    const [selectedHomeRoutes, setSelectedHomeRoutes] = useState(true ? title == "Home" : false)
+    const [selectedEcoPontoRoutes, setSelectedEcoPontoRoutes] = useState(true ? title == "Eco Ponto" : false)
+    const [selectedFiscalRoutes, setSelectedFiscalRoutes] = useState(true ? title == "Cidadão Fiscal" : false)
+    const [selectedColetaRoutes, setSelectedColetaRoutes] = useState(true ? title == "Coleta de Lixo" : false)
 
 
     // all of this Ifs is for only select one for time
     const selectHome = () => {
-        if(selectedHomeRoutes == false){
+        if (selectedHomeRoutes == false) {
             setSelectedHomeRoutes(!selectedHomeRoutes)
-            
-            if(selectedEcoPontoRoutes == true){
+
+            if (selectedEcoPontoRoutes == true) {
                 setSelectedEcoPontoRoutes(!selectedEcoPontoRoutes)
             }
-            if(selectedFiscalRoutes == true){
+            if (selectedFiscalRoutes == true) {
                 setSelectedFiscalRoutes(!selectedFiscalRoutes)
             }
-            if(selectedColetaRoutes == true){
+            if (selectedColetaRoutes == true) {
                 setSelectedColetaRoutes(!selectedColetaRoutes)
             }
-        }     
+        }
     }
 
     const selectEcoPonto = () => {
-        if(selectedEcoPontoRoutes == false){
+        if (selectedEcoPontoRoutes == false) {
             setSelectedEcoPontoRoutes(!selectedEcoPontoRoutes)
-            
-            if(selectedHomeRoutes == true){
+
+            if (selectedHomeRoutes == true) {
                 setSelectedHomeRoutes(!selectedHomeRoutes)
             }
-            if(selectedFiscalRoutes == true){
+            if (selectedFiscalRoutes == true) {
                 setSelectedFiscalRoutes(!selectedFiscalRoutes)
             }
-            if(selectedColetaRoutes == true){
+            if (selectedColetaRoutes == true) {
                 setSelectedColetaRoutes(!selectedColetaRoutes)
             }
-        }     
+        }
     }
 
     const selectFiscal = () => {
-        if(selectedFiscalRoutes == false){
+        if (selectedFiscalRoutes == false) {
             setSelectedFiscalRoutes(!selectedFiscalRoutes)
-            
-            if(selectedEcoPontoRoutes == true){
+
+            if (selectedEcoPontoRoutes == true) {
                 setSelectedEcoPontoRoutes(!selectedEcoPontoRoutes)
             }
-            if(selectedHomeRoutes == true){
+            if (selectedHomeRoutes == true) {
                 setSelectedHomeRoutes(!selectedHomeRoutes)
             }
-            if(selectedColetaRoutes == true){
+            if (selectedColetaRoutes == true) {
                 setSelectedColetaRoutes(!selectedColetaRoutes)
             }
-        }     
+        }
     }
-    
+
     const selectColeta = () => {
-        if(selectedColetaRoutes == false){
+        if (selectedColetaRoutes == false) {
             setSelectedColetaRoutes(!selectedColetaRoutes)
 
-            if(selectedEcoPontoRoutes == true){
+            if (selectedEcoPontoRoutes == true) {
                 setSelectedEcoPontoRoutes(!selectedEcoPontoRoutes)
             }
-            if(selectedFiscalRoutes == true){
+            if (selectedFiscalRoutes == true) {
                 setSelectedFiscalRoutes(!selectedFiscalRoutes)
             }
-            if(selectedHomeRoutes == true){
+            if (selectedHomeRoutes == true) {
                 setSelectedHomeRoutes(!selectedHomeRoutes)
             }
-        }     
+        }
     }
 
-    
-    
-    return(
-       <SafeAreaView style={styles.all}>
+
+
+    return (
+        <SafeAreaView style={styles.all}>
             <View style={styles.container}>
-                
-                <GeneralStatusBarColor backgroundColor= "#32B768"/>
-        
+
+                <GeneralStatusBarColor backgroundColor="#32B768" />
+
                 <TouchableOpacity>
-                   <Text>
-                    <Entypo name="list" style={styles.icon} onPress={showSideBar}/>
-                   </Text>
+                    <Text>
+                        <Entypo name="list" style={styles.icon} onPress={showSideBar} />
+                    </Text>
                 </TouchableOpacity>
 
                 <Text style={styles.nameBar}>
                     {title}
                 </Text>
             </View>
-            
-{/*Start the Side´s bar part --------------------------------------------*/}
-            
+
+            {/*Start the Side´s bar part --------------------------------------------*/}
+
             <View style={sideBar ? styles.activeSideMenu : styles.sideMenu} >
-                
+
                 <Text style={styles.positionIcon}>
-                 <Entypo name="chevron-small-left" style={styles.sideIcon} onPress={showSideBar}/>
+                    <Entypo name="chevron-small-left" style={styles.sideIcon} onPress={showSideBar} />
                 </Text>
-                 
-                <Image source={logoSideBar} style={styles.sideImg} resizeMode="contain"/>
+
+                <Image source={logoSideBar} style={styles.sideImg} resizeMode="contain" />
 
 
                 <Text style={styles.title}>
-                    Conscientiza PN 
+                    Conscientiza PN
                 </Text>
 
                 <Text style={styles.subtitle}>
                     Opções
                 </Text>
 
-{/*Side´s bar routes --------------------------------------------------- */}
+            {/*Side´s bar routes --------------------------------------------------- */}
 
                 <View style={styles.ways}>
 
-                    <View style={selectedHomeRoutes ? styles.activeComponentWay : styles.componentWay } >
-                        <Image source={selectedHomeRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain"/>
+                    <View style={selectedHomeRoutes ? styles.activeComponentWay : styles.componentWay} >
+                        <Image source={selectedHomeRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
                         <Text style={selectedHomeRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectHome}>Home</Text>
                     </View>
 
-                    <View  style={selectedEcoPontoRoutes ? styles.activeComponentWay : styles.componentWay }>
-                        <Image source={selectedEcoPontoRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain"/>
+                    <View style={selectedEcoPontoRoutes ? styles.activeComponentWay : styles.componentWay}>
+                        <Image source={selectedEcoPontoRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
                         <Text style={selectedEcoPontoRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectEcoPonto}>Ecoponto</Text>
                     </View>
 
-                    <View  style={selectedFiscalRoutes ? styles.activeComponentWay : styles.componentWay }>
-                        <Image source={selectedFiscalRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain"/>
+                    <View style={selectedFiscalRoutes ? styles.activeComponentWay : styles.componentWay}>
+                        <Image source={selectedFiscalRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
                         <Text style={selectedFiscalRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectFiscal}>Cidadão Fiscal</Text>
                     </View>
 
-                    <View  style={selectedColetaRoutes ? styles.activeComponentWay : styles.componentWay }>
-                        <Image source={selectedColetaRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain"/>
+                    <View style={selectedColetaRoutes ? styles.activeComponentWay : styles.componentWay}>
+                        <Image source={selectedColetaRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
                         <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectColeta}>Coleta de Lixo</Text>
                     </View>
 
 
                 </View>
-             </View>
+            </View>
 
-            
-        
-             
-             
-       </SafeAreaView>
-      
+
+
+
+
+        </SafeAreaView>
+
     )
 }
 
 const styles = StyleSheet.create({
-    
-    all:{
-        flex:1,
-        alignItems:'center',
+
+    all: {
+        flex: 1,
+        alignItems: 'center',
     },
-    
+
     /*TopBar--------------------------------------------------- */
-    container:{
-        flex:1,
+    container: {
+        flex: 1,
         position: 'absolute',
         textAlign: 'left',
         justifyContent: 'center',
@@ -189,22 +189,22 @@ const styles = StyleSheet.create({
         backgroundColor: colors.green,
         paddingLeft: 19,
         paddingBottom: 24
-        
-        
+
+
     },
 
-    icon:{
+    icon: {
         position: 'absolute',
         marginHorizontal: 19,
         marginTop: -9,
         marginLeft: -10,
-       
-        fontSize:24,
+
+        fontSize: 24,
         lineHeight: 20,
-        color:colors.white,
+        color: colors.white,
     },
 
-    nameBar:{
+    nameBar: {
         position: 'absolute',
         marginLeft: 72,
 
@@ -215,100 +215,100 @@ const styles = StyleSheet.create({
         color: colors.white
 
     },
-     /*SideBar--------------------------------------------------- */
-     sideMenu:{
-       
+    /*SideBar--------------------------------------------------- */
+    sideMenu: {
+
         backgroundColor: colors.white,
 
         position: 'absolute',
-        top:0,
-        right:0,
+        top: 0,
+        right: 0,
         height: 640,
-        width:0,
+        width: 0,
         marginRight: 85,
         overflow: 'hidden', //Aqui téra que haver algo que deixe a barra invisivel
-     },
+    },
 
-     activeSideMenu:{
+    activeSideMenu: {
         backgroundColor: colors.white,
 
         position: 'absolute',
-        top:0,
-        right:0,
-        zIndex:10,
+        top: 0,
+        right: 0,
+        zIndex: 10,
         height: 640,
-        width:280,
+        width: 280,
         marginRight: 85,
         overflow: 'hidden',
-     },
+    },
 
-     title:{
+    title: {
         position: 'absolute',
         textAlign: 'right',
         marginTop: 135,
         marginLeft: 16,
-        
-        fontSize:20,
+
+        fontSize: 20,
         fontFamily: fonts.heading,
         color: colors.heading,
         lineHeight: 24
-     },
+    },
 
-     subtitle:{
-        position:'absolute',
+    subtitle: {
+        position: 'absolute',
         textAlign: 'right',
         marginTop: 175,
         marginLeft: 16,
 
-        fontSize:14,
+        fontSize: 14,
         fontFamily: fonts.complement,
         color: colors.heading
-     },
+    },
 
-     sideImg:{
-        position:'absolute',
+    sideImg: {
+        position: 'absolute',
         marginTop: 64,
         marginLeft: 16,
         height: 55,
         width: 55,
 
         alignContent: 'space-between'
-     },
+    },
 
-     positionIcon:{
+    positionIcon: {
         position: 'absolute',
         textAlign: 'right',
         marginTop: 70,
         marginLeft: '65%',
-     },
+    },
 
-     sideIcon:{
-       fontSize: 34,
-       color: colors.heading
-     },
+    sideIcon: {
+        fontSize: 34,
+        color: colors.heading
+    },
 
     /*App Ways--------------------------------------------------- */
 
-    ways:{
+    ways: {
         position: 'absolute',
         marginTop: 210,
         borderTopColor: colors.gray,
         borderTopWidth: 1,
-        
+
         width: '100%',
         flexDirection: 'column'
 
     },
 
-    componentWay:{
+    componentWay: {
         paddingLeft: 15,
         paddingTop: 13,
         paddingBottom: 5,
         flexDirection: 'row',
-        
+
     },
 
-    activeComponentWay:{
+    activeComponentWay: {
         paddingLeft: 15,
         paddingTop: 10,
         paddingBottom: 5,
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.backgroundSelected
     },
 
-    nameWay:{
+    nameWay: {
         marginLeft: 5,
         marginTop: 4,
 
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
         color: colors.heading
     },
 
-    activeNameWay:{
+    activeNameWay: {
         marginLeft: 5,
         marginTop: 4,
 

@@ -135,7 +135,9 @@ const styles = StyleSheet.create({
     },
 
     address: {
-        lineHeight: 24,
+        
+        
+        lineHeight: 44,
         fontSize: 20,
         fontFamily: fonts.heading,
         color: colors.heading
