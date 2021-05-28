@@ -77,7 +77,11 @@ export function Home(){
 
                 <Text style={styles.address}>
                     {userRua} {"\n"}
+<<<<<<< HEAD
                     Bairro: {userBairro} {"\n"}
+=======
+                    Rua: {userBairro} {"\n"}
+>>>>>>> cf6f0b4c3d59d840837c942fa3ab26728001dcda
                     {userLocalidade} - {userUf}
                 </Text>
             </View>
