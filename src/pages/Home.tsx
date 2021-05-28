@@ -77,7 +77,7 @@ export function Home(){
 
                 <Text style={styles.address}>
                     {userRua} {"\n"}
-                    Bairro: {userBairro} {"\n"}
+                    Rua: {userBairro} {"\n"}
                     {userLocalidade} - {userUf}
                 </Text>
             </View>
