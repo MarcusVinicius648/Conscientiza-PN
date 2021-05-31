@@ -32,8 +32,8 @@ export function Welcome() {
 
                 <Text style={styles.subtitle}>
                     Uma plataforma de apoio e {"\n"}
-                    fiscalização ao descarte de {"\n"}
-                    resíduos sólidos.
+                    fiscalização ao descarte {"\n"}
+                    de resíduos sólidos.
                 </Text>
 
                 <TouchableOpacity style={styles.buttom}>
