@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
     Text,
     SafeAreaView,
@@ -7,7 +7,7 @@ import {
     StyleSheet,
     Dimensions,
     TextInput,
-    Alert
+    Alert,
 } from 'react-native';
 
 import { Button } from '../components/Button';
@@ -18,61 +18,70 @@ import fonts from '../styles/fonts';
 
 import { useNavigation } from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import  {TextInputMask}  from 'react-native-masked-text';
+import { TextInputMask } from 'react-native-masked-text';
 
 
 
 
 export function DataPage() {
-    
-    const[name, setName] = useState<string>();
-    const[cep, setCep] = useState<string>();
-    
+
+    const [name, setName] = useState<string>();
+    const [cep, setCep] = useState<string>();
+
     let [dataAddress = {
-        logradouro:"...",
-        bairro:'...',
-        localidade:'...',
-        uf:'...',
-    
-    },setDataAddress] = useState();
-    
-    
+        logradouro: "...",
+        bairro: '...',
+        localidade: '...',
+        uf: '...',
+        erro: false
+
+    }, setDataAddress] = useState();
+
 
 
     const navigation = useNavigation();
 
-    function handleSetValueName(userName:string){
+    function handleSetValueName(userName: string) {
         setName(userName)
     }
-    function handleSetValueCEP(userCEP:string){
+    function handleSetValueCEP(userCEP: string) {
         setCep(userCEP)
     }
 
 
     async function handleMoveon() {
-        if(!name || !cep)
-        return Alert.alert("Por favor, Preencha todos os campos!😢");
+        if (!name || !cep)
+            return Alert.alert("Por favor, Preencha todos os campos!😢");
 
-       
-        await AsyncStorage.setItem('@conscientizaPn:userName',name);
-        await AsyncStorage.setItem('@conscientizaPn:cep',cep);
+
+        await AsyncStorage.setItem('@conscientizaPn:userName', name);
+        await AsyncStorage.setItem('@conscientizaPn:cep', cep);
 
         let OnlyNumber = cep.replace(/\D/g, '')
-        function SearchAddressInformations(){
-          
-            fetch('https://viacep.com.br/ws/'+OnlyNumber+'/json/').then(res => res.json()).then(async data =>{
+        async function SearchAddressInformations() {
 
-                setDataAddress(dataAddress=data)
-                await AsyncStorage.setItem('@conscientizaPn:rua',dataAddress.logradouro);
-                await AsyncStorage.setItem('@conscientizaPn:bairro',dataAddress.bairro)
-                await AsyncStorage.setItem('@conscientizaPn:localidade',dataAddress.localidade)
-                await AsyncStorage.setItem('@conscientizaPn:uf',dataAddress.uf)
-                
+            fetch('https://viacep.com.br/ws/' + OnlyNumber + '/json/').then(res => res.json()).then(async data => {
+
+                setDataAddress(dataAddress = data)
+
+                if (!dataAddress.erro) {
+
+                    await AsyncStorage.setItem('@conscientizaPn:rua', dataAddress.logradouro);
+                    await AsyncStorage.setItem('@conscientizaPn:bairro', dataAddress.bairro)
+                    await AsyncStorage.setItem('@conscientizaPn:localidade', dataAddress.localidade)
+                    await AsyncStorage.setItem('@conscientizaPn:uf', dataAddress.uf)
+
+                    navigation.navigate('Home');
+                } else {
+                    Alert.alert("Este CEP está incorreto. Insira-o novamente, por favor!")
+                }
+
             }).catch();
+
         }
-        
+
         SearchAddressInformations();
-        navigation.navigate('Home');
+
     }
 
     return (
@@ -92,22 +101,22 @@ export function DataPage() {
                         </Text>
                     </View>
 
-                    <TextInput style={styles.input} 
-                        placeholder="Digite seu nome:" 
+                    <TextInput style={styles.input}
+                        placeholder="Digite seu nome:"
                         onChangeText={handleSetValueName}
                         maxLength={22}
-                        />
+                    />
 
                     <TextInputMask
                         type={'zip-code'}
-                        style={styles.input} 
-                        placeholder="Digite seu CEP:" 
+                        style={styles.input}
+                        placeholder="Digite seu CEP:"
                         onChangeText={handleSetValueCEP}
                         keyboardType={'number-pad'}
                         maxLength={9}
                         value={cep}
-                        
-                        />
+
+                    />
 
                     <View style={styles.footer}>
                         <Button title="Confirmar" onPress={handleMoveon} />
