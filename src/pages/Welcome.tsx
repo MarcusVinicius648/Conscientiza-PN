@@ -23,9 +23,9 @@ export function Welcome() {
         <SafeAreaView style={styles.container}>
             <View style={styles.contain}>
                 <Text style={styles.title}>
-                    Utilize {"\n"}
-                nossas funcionalidades {"\n"}
-                para uma Ponte Nova melhor!
+                    Utilize nossas {"\n"}
+                    funcionalidades para {"\n"}
+                    uma Ponte Nova melhor!
                 </Text>
 
 
