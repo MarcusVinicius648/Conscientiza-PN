@@ -28,11 +28,12 @@ export function Welcome() {
                     uma Ponte Nova melhor!
                 </Text>
 
-
                 <Image source={imageWelcome} style={styles.img} resizeMode="contain" />
 
                 <Text style={styles.subtitle}>
-                    Uma plataforma de apoio e fiscalização ao descarte de resíduos sólidos.
+                    Uma plataforma de apoio e {"\n"}
+                    fiscalização ao descarte de {"\n"}
+                    resíduos sólidos.
                 </Text>
 
                 <TouchableOpacity style={styles.buttom}>
@@ -43,10 +44,7 @@ export function Welcome() {
 
             </View>
         </SafeAreaView>
-
-
     )
-
 }
 
 const styles = StyleSheet.create({
@@ -63,7 +61,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
         padding: 20
-
     },
     /*Titles and Subtitles -------------------------------------------- */
     title: {
@@ -93,7 +90,6 @@ const styles = StyleSheet.create({
 
     img: {
         height: Dimensions.get('window').width * 0.7,
-
     },
 
     /* Buttom -------------------------------------------- */
@@ -111,6 +107,5 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontSize: 23,
         fontWeight: 'bold'
-
     },
 })
