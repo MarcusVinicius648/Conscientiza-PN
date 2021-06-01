@@ -128,7 +128,6 @@ const styles = StyleSheet.create({
     cep: {
         marginBottom: 34,
         marginTop: 35,
-
         fontSize: 18,
         fontFamily: fonts.heading,
         color: colors.heading
