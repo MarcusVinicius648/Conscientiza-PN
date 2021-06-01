@@ -31,8 +31,8 @@ export function Welcome() {
                 <Image source={imageWelcome} style={styles.img} resizeMode="contain" />
 
                 <Text style={styles.subtitle}>
-                    Uma plataforma de apoio e {"\n"}
-                    fiscalização ao descarte {"\n"}
+                    Uma plataforma de {"\n"}
+                    apoio e fiscalização ao descarte {"\n"}
                     de resíduos sólidos.
                 </Text>
 
