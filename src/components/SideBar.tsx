@@ -10,6 +10,8 @@ import iconSideBarSelected from '../assets/iconSideBarSelected.png';
 
 import GeneralStatusBarColor from '../components/GeneralStatusBarColor'; /*This import is useful for change the notification bar´s color */
 
+import { useNavigation } from '@react-navigation/core'
+import { Coleta } from '../pages/Coleta';
 import { Entypo } from '@expo/vector-icons';
 
 interface SideBarProps extends TouchableOpacityProps {
@@ -18,9 +20,29 @@ interface SideBarProps extends TouchableOpacityProps {
 
 export function SideBar({ title, ...rest }: SideBarProps) {
 
+    const navigation = useNavigation();
+    
+    function handleColeta(){
+        navigation.navigate('Coleta')
+    }
+
+    function handleHome(){
+        navigation.navigate('Home')
+    }
+    
+    function handleEcoponto(){
+        navigation.navigate('Ecoponto')
+    }
+
+    function handleCidadao(){
+        navigation.navigate('Cidadao')
+    }
+
     //This function gonna make the side´s bar appear and desappear
     const [sideBar, setSideBar] = useState(false)
     const showSideBar = () => setSideBar(!sideBar)
+
+
 
 
     //this function goona make the color of selected route
@@ -137,24 +159,28 @@ export function SideBar({ title, ...rest }: SideBarProps) {
 
                 <View style={styles.ways}>
 
-                    <View style={selectedHomeRoutes ? styles.activeComponentWay : styles.componentWay} >
-                        <Image source={selectedHomeRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
-                        <Text style={selectedHomeRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectHome}>Home</Text>
-                    </View>
+                <View style={selectedHomeRoutes ? styles.activeComponentWay : styles.componentWay } >
+                        <Image source={selectedHomeRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain"/>
+                        <Text style={selectedHomeRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectHome}></Text>
+                        <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay} onPress={handleHome}>Home</Text>
+                </View>
 
                     <View style={selectedEcoPontoRoutes ? styles.activeComponentWay : styles.componentWay}>
                         <Image source={selectedEcoPontoRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
-                        <Text style={selectedEcoPontoRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectEcoPonto}>Ecoponto</Text>
+                        <Text style={selectedEcoPontoRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectEcoPonto}></Text>
+                        <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay} onPress={handleEcoponto}>Ecoponto</Text>
                     </View>
 
                     <View style={selectedFiscalRoutes ? styles.activeComponentWay : styles.componentWay}>
                         <Image source={selectedFiscalRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
-                        <Text style={selectedFiscalRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectFiscal}>Cidadão Fiscal</Text>
+                        <Text style={selectedFiscalRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectFiscal}></Text>
+                        <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay} onPress={handleCidadao}>Cidadão Fiscal</Text>
                     </View>
 
-                    <View style={selectedColetaRoutes ? styles.activeComponentWay : styles.componentWay}>
-                        <Image source={selectedColetaRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
-                        <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectColeta}>Coleta de Lixo</Text>
+                    <View  style={selectedColetaRoutes ? styles.activeComponentWay : styles.componentWay }>
+                        <Image source={selectedColetaRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain"/>
+                        <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectColeta}></Text>
+                        <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay} onPress={handleColeta}>Coleta de Lixo</Text>
                     </View>
 
 
