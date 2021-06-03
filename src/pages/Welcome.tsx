@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 
 import imageWelcome from '../assets/imgwelcome.png';
@@ -10,13 +10,25 @@ import fonts from '../styles/fonts';
 
 import { useNavigation } from '@react-navigation/core';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 export function Welcome() {
 
     const navigation = useNavigation();
 
+
     function handleStart() {
+        if(!AsyncStorage.getItem('@conscientizaPn:cep')){
+
         navigation.navigate('DataPage') //This function move on the client to DataPage
+        }else{
+            
+            navigation.navigate('Home')
+        }
     }
+
+   
 
     return (
 
@@ -26,6 +38,8 @@ export function Welcome() {
                     Utilize nossas {"\n"}
                     funcionalidades para {"\n"}
                     uma Ponte Nova melhor!
+                   
+                    
                 </Text>
 
                 <Image source={imageWelcome} style={styles.img} resizeMode="contain" />

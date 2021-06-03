@@ -47,7 +47,7 @@ export function SideBar({ title, ...rest }: SideBarProps) {
 
     //this function goona make the color of selected route
     const [selectedHomeRoutes, setSelectedHomeRoutes] = useState(true ? title == "Home" : false)
-    const [selectedEcoPontoRoutes, setSelectedEcoPontoRoutes] = useState(true ? title == "Eco Ponto" : false)
+    const [selectedEcoPontoRoutes, setSelectedEcoPontoRoutes] = useState(true ? title == "EcoPonto" : false)
     const [selectedFiscalRoutes, setSelectedFiscalRoutes] = useState(true ? title == "Cidadão Fiscal" : false)
     const [selectedColetaRoutes, setSelectedColetaRoutes] = useState(true ? title == "Coleta de Lixo" : false)
 
@@ -162,19 +162,19 @@ export function SideBar({ title, ...rest }: SideBarProps) {
                 <View style={selectedHomeRoutes ? styles.activeComponentWay : styles.componentWay } >
                         <Image source={selectedHomeRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain"/>
                         <Text style={selectedHomeRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectHome}></Text>
-                        <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay} onPress={handleHome}>Home</Text>
+                        <Text style={selectedHomeRoutes ? styles.activeNameWay : styles.nameWay} onPress={handleHome}>Home</Text>
                 </View>
 
                     <View style={selectedEcoPontoRoutes ? styles.activeComponentWay : styles.componentWay}>
                         <Image source={selectedEcoPontoRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
                         <Text style={selectedEcoPontoRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectEcoPonto}></Text>
-                        <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay} onPress={handleEcoponto}>Ecoponto</Text>
+                        <Text style={selectedEcoPontoRoutes ? styles.activeNameWay : styles.nameWay} onPress={handleEcoponto}>Ecoponto</Text>
                     </View>
 
                     <View style={selectedFiscalRoutes ? styles.activeComponentWay : styles.componentWay}>
                         <Image source={selectedFiscalRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
                         <Text style={selectedFiscalRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectFiscal}></Text>
-                        <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay} onPress={handleCidadao}>Cidadão Fiscal</Text>
+                        <Text style={selectedFiscalRoutes ? styles.activeNameWay : styles.nameWay} onPress={handleCidadao}>Cidadão Fiscal</Text>
                     </View>
 
                     <View  style={selectedColetaRoutes ? styles.activeComponentWay : styles.componentWay }>
