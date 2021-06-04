@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState,useEffect } from 'react';
 import {
     Text,
     SafeAreaView,
@@ -50,6 +51,8 @@ export function DataPage() {
 
 
     async function handleMoveon() {
+       
+        
         if (!name || !cep)
             return Alert.alert("Por favor, Preencha todos os campos!😢");
 
@@ -70,6 +73,7 @@ export function DataPage() {
                     await AsyncStorage.setItem('@conscientizaPn:bairro', dataAddress.bairro)
                     await AsyncStorage.setItem('@conscientizaPn:localidade', dataAddress.localidade)
                     await AsyncStorage.setItem('@conscientizaPn:uf', dataAddress.uf)
+                    console.log(name)
 
                     navigation.navigate('Home');
                 } else {
@@ -81,9 +85,12 @@ export function DataPage() {
         }
 
         SearchAddressInformations();
-
+        
     }
 
+    
+
+         
     return (
 
         <SafeAreaView style={styles.container}>

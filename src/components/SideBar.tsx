@@ -40,7 +40,7 @@ export function SideBar({ title, ...rest }: SideBarProps) {
 
     //This function gonna make the side´s bar appear and desappear
     const [sideBar, setSideBar] = useState(false)
-    const showSideBar = () => setSideBar(!sideBar)
+    const showSideBar = () => {setSideBar(!sideBar)}
 
 
 

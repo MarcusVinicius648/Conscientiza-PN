@@ -23,14 +23,18 @@ export function Home() {
     const navigation = useNavigation();
 
     function handleChangeDatas() {
+       
         navigation.navigate('DataPage')
+        
     }
+
 
     useEffect(() => {
 
         async function loadUserName() {
-            const user = await AsyncStorage.getItem('@conscientizaPn:userName')
+            let user = await AsyncStorage.getItem('@conscientizaPn:userName')
             setUserName(user || '')
+            
         }
 
         async function loadUserCEP() {
@@ -51,16 +55,16 @@ export function Home() {
             const uf = await AsyncStorage.getItem('@conscientizaPn:uf')
             setUserUf(uf || '')
 
-
-
         }
-
+        
 
         loadUserAddres();
         loadUserName();
         loadUserCEP();
+        
+        
     }, []);
-
+    
     return (
         <SafeAreaView style={styles.container}>
             <SideBar title={"Home"} />

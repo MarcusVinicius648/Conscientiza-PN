@@ -1,4 +1,4 @@
-import React  from 'react';
+import React, { useState }  from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 
 import imageWelcome from '../assets/imgwelcome.png';
@@ -15,16 +15,26 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function Welcome() {
 
+    const[userCep,setUserCep]= useState<string>();
     const navigation = useNavigation();
 
 
     function handleStart() {
-        if(!AsyncStorage.getItem('@conscientizaPn:cep')){
+       
+        async function setCep(){
+            const cep = await AsyncStorage.getItem('@conscientizaPn:cep')
+            setUserCep(cep || '')
+        }
+        console.log(userCep)
 
-        navigation.navigate('DataPage') //This function move on the client to DataPage
-        }else{
-            
-            navigation.navigate('Home')
+       setCep()
+
+        if(!userCep){
+            navigation.navigate('DataPage') //This function move on the client to DataPage
+
+        }else{  
+            navigation.navigate('Home') 
+
         }
     }
 
