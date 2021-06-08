@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { SafeAreaView, View, StyleSheet, Text, Image, Button, TouchableOpacity, TouchableOpacityProps, } from 'react-native';
+import { SafeAreaView, View, StyleSheet, Text, Image, Button, TouchableOpacity, TouchableOpacityProps, RecyclerViewBackedScrollViewComponent, } from 'react-native';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
@@ -34,10 +34,10 @@ export function SideBar({ title, ...rest }: SideBarProps) {
 
 
     //this function goona make the color of selected route
-    const [selectedHomeRoutes, setSelectedHomeRoutes] = useState(true ? title == "Home" : false);
-    const [selectedEcoPontoRoutes, setSelectedEcoPontoRoutes] = useState(true ? title == "EcoPonto" : false);
-    const [selectedFiscalRoutes, setSelectedFiscalRoutes] = useState(true ? title == "Cidadão Fiscal" : false);
-    const [selectedColetaRoutes, setSelectedColetaRoutes] = useState(true ? title == "Coleta de Lixo" : false);
+    const [selectedHomeRoutes, setSelectedHomeRoutes] = useState(false);
+    const [selectedEcoPontoRoutes, setSelectedEcoPontoRoutes] = useState(false);
+    const [selectedFiscalRoutes, setSelectedFiscalRoutes] = useState(false);
+    const [selectedColetaRoutes, setSelectedColetaRoutes] = useState(false);
     
     console.log('Home '+selectedHomeRoutes)
     console.log('EcoPonto '+selectedEcoPontoRoutes)
@@ -50,17 +50,18 @@ export function SideBar({ title, ...rest }: SideBarProps) {
             setSelectedHomeRoutes(!selectedHomeRoutes)
         
             if (selectedEcoPontoRoutes == true) {
-                setSelectedEcoPontoRoutes(false)
+                setSelectedEcoPontoRoutes(!selectedEcoPontoRoutes)
             }
             if (selectedFiscalRoutes == true) {
-                setSelectedFiscalRoutes(false)
+                setSelectedFiscalRoutes(!selectedFiscalRoutes)
             }
             if (selectedColetaRoutes == true) {
-                setSelectedColetaRoutes(false)
+                setSelectedColetaRoutes(!selectedColetaRoutes)
             }
-        }
+            
+            setSideBar(!sideBar)
             navigation.navigate('Home')
-        
+        }
     };
 
     const selectEcoPonto = () => {
@@ -76,6 +77,8 @@ export function SideBar({ title, ...rest }: SideBarProps) {
             if (selectedColetaRoutes == true ) {
                 setSelectedColetaRoutes(!selectedColetaRoutes)
             }
+
+            setSideBar(!sideBar)
             navigation.navigate('EcoPonto')
         }
     };
@@ -93,6 +96,8 @@ export function SideBar({ title, ...rest }: SideBarProps) {
             if (selectedColetaRoutes == true) {
                 setSelectedColetaRoutes(!selectedColetaRoutes)
             }
+           
+            setSideBar(!sideBar)
             navigation.navigate('Cidadao')
         }
     };
@@ -110,11 +115,18 @@ export function SideBar({ title, ...rest }: SideBarProps) {
             if (selectedHomeRoutes == true) {
                 setSelectedHomeRoutes(!selectedHomeRoutes)
             }
+
+            setSideBar(!sideBar)
             navigation.navigate('Coleta')
         }
     };
 
-    
+    useEffect(()=>{
+        setSelectedHomeRoutes(title =='Home' ? true : false);
+        setSelectedEcoPontoRoutes(title =='EcoPonto' ? true : false);
+        setSelectedFiscalRoutes(title == 'Cidadão Fiscal' ? true : false)
+        setSelectedColetaRoutes(title =='Coleta de Lixo' ? true :false)
+    })
     return (
         <SafeAreaView style={styles.all}>
             <View style={styles.container}>
