@@ -60,9 +60,9 @@ export function Welcome() {
                     de resíduos sólidos.
                 </Text>
 
-                <TouchableOpacity style={styles.buttom}>
+                <TouchableOpacity style={styles.buttom} onPress={handleStart}>
                     <Text>
-                        <Entypo name="chevron-thin-right" style={styles.buttonIcon} onPress={handleStart} />
+                        <Entypo name="chevron-thin-right" style={styles.buttonIcon} />
                     </Text>
                 </TouchableOpacity>
 

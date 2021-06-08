@@ -22,7 +22,7 @@ const AppRoute: React.FC = () => (
         <stackRoutes.Screen name='DataPage' component={DataPage} />
         <stackRoutes.Screen name='Home' component={Home} />
         <stackRoutes.Screen name='Coleta' component={Coleta} />
-        <stackRoutes.Screen name='Ecoponto' component={Ecoponto} />
+        <stackRoutes.Screen name='EcoPonto' component={Ecoponto} />
         <stackRoutes.Screen name='Cidadao' component={Cidadao} />
 
 

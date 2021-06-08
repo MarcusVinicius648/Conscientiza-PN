@@ -20,6 +20,7 @@ import fonts from '../styles/fonts';
 import { useNavigation } from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInputMask } from 'react-native-masked-text';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 
@@ -125,8 +126,11 @@ export function DataPage() {
 
                     />
 
-                    <View style={styles.footer}>
-                        <Button title="Confirmar" onPress={handleMoveon} />
+                    <View style={styles.footer} >
+                        <TouchableOpacity onPress={handleMoveon}>
+                            <Button title="Confirmar"  />
+                        </TouchableOpacity>
+                        
                     </View>
                 </View>
             </View>

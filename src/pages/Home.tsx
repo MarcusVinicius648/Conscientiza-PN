@@ -9,6 +9,7 @@ import { Button } from '../components/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useNavigation } from '@react-navigation/core'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export function Home() {
     const [userName, setUserName] = useState<string>();
@@ -89,7 +90,9 @@ export function Home() {
             </View>
 
             <View style={styles.footer}>
-                <Button title={"+  Atualizar CEP"} onPress={handleChangeDatas} />
+                <TouchableOpacity onPress={handleChangeDatas}>
+                    <Button title={"+  Atualizar CEP"}  />
+                </TouchableOpacity>
             </View>
 
 
