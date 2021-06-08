@@ -39,10 +39,7 @@ export function SideBar({ title, ...rest }: SideBarProps) {
     const [selectedFiscalRoutes, setSelectedFiscalRoutes] = useState(false);
     const [selectedColetaRoutes, setSelectedColetaRoutes] = useState(false);
     
-    console.log('Home '+selectedHomeRoutes)
-    console.log('EcoPonto '+selectedEcoPontoRoutes)
-    console.log('Fical '+selectedFiscalRoutes)
-    console.log('Coleta '+selectedColetaRoutes)
+    
 
     // all of this Ifs is for only select one for time
     const selectHome = () => {
@@ -133,7 +130,7 @@ export function SideBar({ title, ...rest }: SideBarProps) {
 
                 <GeneralStatusBarColor backgroundColor="#32B768" />
 
-                    <TouchableOpacity onPress={showSideBar}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={showSideBar}>
                         <Text>
                             <Entypo name="list" style={styles.icon}  />
                         </Text>
@@ -149,7 +146,7 @@ export function SideBar({ title, ...rest }: SideBarProps) {
             <View style={sideBar ? styles.activeSideMenu : styles.sideMenu} >
 
                 <Text style={styles.positionIcon}>
-                    <TouchableOpacity onPress={showSideBar}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={showSideBar}>
                          <Entypo name="chevron-small-left" style={styles.sideIcon}  />
                     </TouchableOpacity>
                 </Text>
@@ -169,7 +166,7 @@ export function SideBar({ title, ...rest }: SideBarProps) {
 
                 <View style={styles.ways}>
 
-                    <TouchableOpacity onPress={selectHome}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={selectHome}>
                         <View style={selectedHomeRoutes ? styles.activeComponentWay : styles.componentWay } >
                             <Image source={selectedHomeRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain"/>
                             <Text style={selectedHomeRoutes ? styles.activeNameWay : styles.nameWay}>Home</Text>
@@ -177,7 +174,7 @@ export function SideBar({ title, ...rest }: SideBarProps) {
                     </TouchableOpacity>
                     
 
-                    <TouchableOpacity onPress={selectEcoPonto}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={selectEcoPonto}>
                         <View style={selectedEcoPontoRoutes ? styles.activeComponentWay : styles.componentWay}>
                             <Image source={selectedEcoPontoRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
                             <Text style={selectedEcoPontoRoutes ? styles.activeNameWay : styles.nameWay}>EcoPonto</Text>
@@ -185,7 +182,7 @@ export function SideBar({ title, ...rest }: SideBarProps) {
                     </TouchableOpacity>
                     
 
-                    <TouchableOpacity onPress={selectFiscal}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={selectFiscal}>
                         <View style={selectedFiscalRoutes ? styles.activeComponentWay : styles.componentWay}>
                             <Image source={selectedFiscalRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
                             <Text style={selectedFiscalRoutes ? styles.activeNameWay : styles.nameWay}>Cidadão Fiscal</Text>
@@ -193,7 +190,7 @@ export function SideBar({ title, ...rest }: SideBarProps) {
                     </TouchableOpacity>
                    
 
-                    <TouchableOpacity onPress={selectColeta}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={selectColeta}>
                         <View  style={selectedColetaRoutes ? styles.activeComponentWay : styles.componentWay }>
                             <Image source={selectedColetaRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain"/>
                             <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay}>Coleta de Lixo</Text>

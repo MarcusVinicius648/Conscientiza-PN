@@ -74,7 +74,7 @@ export function DataPage() {
                     await AsyncStorage.setItem('@conscientizaPn:bairro', dataAddress.bairro)
                     await AsyncStorage.setItem('@conscientizaPn:localidade', dataAddress.localidade)
                     await AsyncStorage.setItem('@conscientizaPn:uf', dataAddress.uf)
-                    console.log(name)
+                    
 
                     navigation.navigate('Home');
                 } else {
@@ -127,7 +127,7 @@ export function DataPage() {
                     />
 
                     <View style={styles.footer} >
-                        <TouchableOpacity onPress={handleMoveon}>
+                        <TouchableOpacity activeOpacity={0.7} onPress={handleMoveon}>
                             <Button title="Confirmar"  />
                         </TouchableOpacity>
                         

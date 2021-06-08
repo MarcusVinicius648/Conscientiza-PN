@@ -90,7 +90,7 @@ export function Home() {
             </View>
 
             <View style={styles.footer}>
-                <TouchableOpacity onPress={handleChangeDatas}>
+                <TouchableOpacity activeOpacity={0.7} onPress={handleChangeDatas}>
                     <Button title={"+  Atualizar CEP"}  />
                 </TouchableOpacity>
             </View>
