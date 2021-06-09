@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { SafeAreaView, View, StyleSheet, Text, Image, Button, TouchableOpacity, TouchableOpacityProps, } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { SafeAreaView, View, StyleSheet, Text, Image, Button, TouchableOpacity, TouchableOpacityProps, RecyclerViewBackedScrollViewComponent, } from 'react-native';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
@@ -22,41 +22,30 @@ export function SideBar({ title, ...rest }: SideBarProps) {
 
     const navigation = useNavigation();
     
-    function handleColeta(){
-        navigation.navigate('Coleta')
-    }
-
-    function handleHome(){
-        navigation.navigate('Home')
-    }
     
-    function handleEcoponto(){
-        navigation.navigate('Ecoponto')
-    }
-
-    function handleCidadao(){
-        navigation.navigate('Cidadao')
-    }
-
+   
     //This function gonna make the side´s bar appear and desappear
-    const [sideBar, setSideBar] = useState(false)
-    const showSideBar = () => setSideBar(!sideBar)
+    const [sideBar, setSideBar] = useState(false);
+    const showSideBar = () => {
+        setSideBar(!sideBar)
+    }
 
 
 
 
     //this function goona make the color of selected route
-    const [selectedHomeRoutes, setSelectedHomeRoutes] = useState(true ? title == "Home" : false)
-    const [selectedEcoPontoRoutes, setSelectedEcoPontoRoutes] = useState(true ? title == "Eco Ponto" : false)
-    const [selectedFiscalRoutes, setSelectedFiscalRoutes] = useState(true ? title == "Cidadão Fiscal" : false)
-    const [selectedColetaRoutes, setSelectedColetaRoutes] = useState(true ? title == "Coleta de Lixo" : false)
-
+    const [selectedHomeRoutes, setSelectedHomeRoutes] = useState(false);
+    const [selectedEcoPontoRoutes, setSelectedEcoPontoRoutes] = useState(false);
+    const [selectedFiscalRoutes, setSelectedFiscalRoutes] = useState(false);
+    const [selectedColetaRoutes, setSelectedColetaRoutes] = useState(false);
+    
+    
 
     // all of this Ifs is for only select one for time
     const selectHome = () => {
-        if (selectedHomeRoutes == false) {
+        if (selectedHomeRoutes == false ) {
             setSelectedHomeRoutes(!selectedHomeRoutes)
-
+        
             if (selectedEcoPontoRoutes == true) {
                 setSelectedEcoPontoRoutes(!selectedEcoPontoRoutes)
             }
@@ -66,24 +55,30 @@ export function SideBar({ title, ...rest }: SideBarProps) {
             if (selectedColetaRoutes == true) {
                 setSelectedColetaRoutes(!selectedColetaRoutes)
             }
+            
+            setSideBar(!sideBar)
+            navigation.navigate('Home')
         }
-    }
+    };
 
     const selectEcoPonto = () => {
         if (selectedEcoPontoRoutes == false) {
             setSelectedEcoPontoRoutes(!selectedEcoPontoRoutes)
 
-            if (selectedHomeRoutes == true) {
+            if (selectedHomeRoutes == true ) {
                 setSelectedHomeRoutes(!selectedHomeRoutes)
             }
-            if (selectedFiscalRoutes == true) {
+            if (selectedFiscalRoutes == true ) {
                 setSelectedFiscalRoutes(!selectedFiscalRoutes)
             }
-            if (selectedColetaRoutes == true) {
+            if (selectedColetaRoutes == true ) {
                 setSelectedColetaRoutes(!selectedColetaRoutes)
             }
+
+            setSideBar(!sideBar)
+            navigation.navigate('EcoPonto')
         }
-    }
+    };
 
     const selectFiscal = () => {
         if (selectedFiscalRoutes == false) {
@@ -98,13 +93,16 @@ export function SideBar({ title, ...rest }: SideBarProps) {
             if (selectedColetaRoutes == true) {
                 setSelectedColetaRoutes(!selectedColetaRoutes)
             }
+           
+            setSideBar(!sideBar)
+            navigation.navigate('Cidadao')
         }
-    }
+    };
 
     const selectColeta = () => {
         if (selectedColetaRoutes == false) {
             setSelectedColetaRoutes(!selectedColetaRoutes)
-
+            
             if (selectedEcoPontoRoutes == true) {
                 setSelectedEcoPontoRoutes(!selectedEcoPontoRoutes)
             }
@@ -114,34 +112,43 @@ export function SideBar({ title, ...rest }: SideBarProps) {
             if (selectedHomeRoutes == true) {
                 setSelectedHomeRoutes(!selectedHomeRoutes)
             }
+
+            setSideBar(!sideBar)
+            navigation.navigate('Coleta')
         }
-    }
+    };
 
-
-
+    useEffect(()=>{
+        setSelectedHomeRoutes(title =='Home' ? true : false);
+        setSelectedEcoPontoRoutes(title =='EcoPonto' ? true : false);
+        setSelectedFiscalRoutes(title == 'Cidadão Fiscal' ? true : false)
+        setSelectedColetaRoutes(title =='Coleta de Lixo' ? true :false)
+    })
     return (
         <SafeAreaView style={styles.all}>
             <View style={styles.container}>
 
                 <GeneralStatusBarColor backgroundColor="#32B768" />
 
-                <TouchableOpacity>
-                    <Text>
-                        <Entypo name="list" style={styles.icon} onPress={showSideBar} />
-                    </Text>
-                </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.7} onPress={showSideBar}>
+                        <Text>
+                            <Entypo name="list" style={styles.icon}  />
+                        </Text>
+                    </TouchableOpacity>
 
-                <Text style={styles.nameBar}>
-                    {title}
-                </Text>
+                    <Text style={styles.nameBar}>
+                        {title}
+                    </Text>
             </View>
 
-            {/*Start the Side´s bar part --------------------------------------------*/}
+{/*Start the Side´s bar part ---------------------------------------------------------------------------------------------------------------------------------*/}
 
             <View style={sideBar ? styles.activeSideMenu : styles.sideMenu} >
 
                 <Text style={styles.positionIcon}>
-                    <Entypo name="chevron-small-left" style={styles.sideIcon} onPress={showSideBar} />
+                    <TouchableOpacity activeOpacity={0.7} onPress={showSideBar}>
+                         <Entypo name="chevron-small-left" style={styles.sideIcon}  />
+                    </TouchableOpacity>
                 </Text>
 
                 <Image source={logoSideBar} style={styles.sideImg} resizeMode="contain" />
@@ -155,33 +162,42 @@ export function SideBar({ title, ...rest }: SideBarProps) {
                     Opções
                 </Text>
 
-            {/*Side´s bar routes --------------------------------------------------- */}
+{/*Side´s bar routes ------------------------------------------------------------------------------------------------------------------------------------ */}
 
                 <View style={styles.ways}>
 
-                <View style={selectedHomeRoutes ? styles.activeComponentWay : styles.componentWay } >
-                        <Image source={selectedHomeRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain"/>
-                        <Text style={selectedHomeRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectHome}></Text>
-                        <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay} onPress={handleHome}>Home</Text>
-                </View>
+                    <TouchableOpacity activeOpacity={0.7} onPress={selectHome}>
+                        <View style={selectedHomeRoutes ? styles.activeComponentWay : styles.componentWay } >
+                            <Image source={selectedHomeRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain"/>
+                            <Text style={selectedHomeRoutes ? styles.activeNameWay : styles.nameWay}>Home</Text>
+                        </View>
+                    </TouchableOpacity>
+                    
 
-                    <View style={selectedEcoPontoRoutes ? styles.activeComponentWay : styles.componentWay}>
-                        <Image source={selectedEcoPontoRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
-                        <Text style={selectedEcoPontoRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectEcoPonto}></Text>
-                        <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay} onPress={handleEcoponto}>Ecoponto</Text>
-                    </View>
+                    <TouchableOpacity activeOpacity={0.7} onPress={selectEcoPonto}>
+                        <View style={selectedEcoPontoRoutes ? styles.activeComponentWay : styles.componentWay}>
+                            <Image source={selectedEcoPontoRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
+                            <Text style={selectedEcoPontoRoutes ? styles.activeNameWay : styles.nameWay}>EcoPonto</Text>
+                        </View>
+                    </TouchableOpacity>
+                    
 
-                    <View style={selectedFiscalRoutes ? styles.activeComponentWay : styles.componentWay}>
-                        <Image source={selectedFiscalRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
-                        <Text style={selectedFiscalRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectFiscal}></Text>
-                        <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay} onPress={handleCidadao}>Cidadão Fiscal</Text>
-                    </View>
+                    <TouchableOpacity activeOpacity={0.7} onPress={selectFiscal}>
+                        <View style={selectedFiscalRoutes ? styles.activeComponentWay : styles.componentWay}>
+                            <Image source={selectedFiscalRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain" />
+                            <Text style={selectedFiscalRoutes ? styles.activeNameWay : styles.nameWay}>Cidadão Fiscal</Text>
+                        </View>
+                    </TouchableOpacity>
+                   
 
-                    <View  style={selectedColetaRoutes ? styles.activeComponentWay : styles.componentWay }>
-                        <Image source={selectedColetaRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain"/>
-                        <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay} onPress={selectColeta}></Text>
-                        <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay} onPress={handleColeta}>Coleta de Lixo</Text>
-                    </View>
+                    <TouchableOpacity activeOpacity={0.7} onPress={selectColeta}>
+                        <View  style={selectedColetaRoutes ? styles.activeComponentWay : styles.componentWay }>
+                            <Image source={selectedColetaRoutes ? iconSideBarSelected : iconSideBar} resizeMode="contain"/>
+                            <Text style={selectedColetaRoutes ? styles.activeNameWay : styles.nameWay}>Coleta de Lixo</Text>
+                        </View>
+                    </TouchableOpacity>
+                    
+                   
 
 
                 </View>
@@ -249,7 +265,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0,
         right: 0,
-        height: 640,
+        height: '100%',
         width: 0,
         marginRight: 85,
         overflow: 'hidden', //Aqui téra que haver algo que deixe a barra invisivel
@@ -260,11 +276,10 @@ const styles = StyleSheet.create({
 
         position: 'absolute',
         top: 0,
-        right: 0,
+        left: 0,
         zIndex: 10,
         height: 640,
         width: 280,
-        marginRight: 85,
         overflow: 'hidden',
     },
 

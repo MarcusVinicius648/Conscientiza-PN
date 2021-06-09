@@ -5,7 +5,7 @@ import { Welcome } from '../pages/Welcome';
 import { DataPage } from '../pages/DataPage';
 import { Home } from '../pages/Home';
 import { Coleta } from '../pages/Coleta';
-import { Ecoponto } from '../pages/Ecoponto';
+import { Ecoponto } from '../pages/EcoPonto';
 import { Cidadao } from '../pages/Cidadao';
 
 import color from '../styles/colors';

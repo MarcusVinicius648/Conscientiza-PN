@@ -20,7 +20,7 @@ export function Ecoponto() {
 
             <SafeAreaView style={styles.container}>
 
-            <SideBar title={"Ecoponto"}/>
+            <SideBar title={"EcoPonto"}/>
 
             </SafeAreaView>
 

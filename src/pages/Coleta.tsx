@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from 'react';
-import { SafeAreaView, View, Text, StyleSheet } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet,TouchableWithoutFeedback,Linking } from 'react-native';
 
 import { Feather } from '@expo/vector-icons'; 
 import { SideBar } from '../components/SideBar';
@@ -24,27 +24,27 @@ export function Coleta() {
 
     const navigation = useNavigation();
 
-    async function handleimg1() {
+     async function handleimg1() {
         
-        alert("A coleta residencial é feita em domicílio e abrange os resíduos domésticos, de pequeno e médio porte, como sacos de lixo e caixas. \n\nClique no link e selecione o mês atual para obter informações sobre a coleta em seu bairro.");
-        
-    }
-
-    async function handleimg2() {
-        
-        alert("A coleta seletiva consiste na separação e classificação dos resíduos para a reciclagem. \n\nClique no link e selecione o mês atual para obter informações sobre a coleta em seu bairro.");
+        await alert("A coleta residencial é feita em domicílio e abrange os resíduos domésticos, de pequeno e médio porte, como sacos de lixo e caixas. \n\nClique no link e selecione o mês atual para obter informações sobre a coleta em seu bairro.");
         
     }
 
-    async function handleimg3() {
+     async function handleimg2() {
         
-        alert("A coleta de volumosos é feita em domicílio e abrange resíduos de grande porte, como camas e sofás. \n\nClique no link e selecione o mês atual para obter informações.");
+        await alert("A coleta seletiva consiste na separação e classificação dos resíduos para a reciclagem. \n\nClique no link e selecione o mês atual para obter informações sobre a coleta em seu bairro.");
         
     }
 
-    async function handleimg4() {
+     async function handleimg3() {
         
-        alert("A coleta na zona rural abrange as zonas rurais de Ponte Nova. \n\nClique no link, selecione a seção de download e, em seguida, o mês atual para obter informações.");
+        await alert("A coleta de volumosos é feita em domicílio e abrange resíduos de grande porte, como camas e sofás. \n\nClique no link e selecione o mês atual para obter informações.");
+        
+    }
+
+     async function handleimg4() {
+        
+        await alert("A coleta na zona rural abrange as zonas rurais de Ponte Nova. \n\nClique no link, selecione a seção de download e, em seguida, o mês atual para obter informações.");
         
     }
 
@@ -87,58 +87,60 @@ export function Coleta() {
 
         <SafeAreaView>
 
-            <View>
+            <View style={styles.container}>
 
-            <SafeAreaView style={styles.container}>
+                <SideBar title={"Coleta de Lixo"}/>
 
-            <SideBar title={"Coleta de Lixo"}/>
+                    <View style={styles.header}>
+                        
+                        <Text style={styles.cep}> CEP: {userCep} {"\n"}  </Text>
+                        
+                    </View>
+                    
+                    <View style={styles.header}>
 
-            <View style={styles.header}>
-                
-                <Text style={styles.cep}> CEP: {userCep} {"\n"}  </Text>
-                
-            </View>
+                        <Text style={styles.bairro}>{userBairro} </Text>
+        
+                        <Feather name="help-circle" size={19} color="#52665A" style ={styles.img1} onPress={handleimg1}  />
+                        <Feather name="help-circle" size={19} color="#52665A" style = {styles.img2} onPress={handleimg2} />
+                        <Feather name="help-circle" size={19} color="#52665A" style = {styles.img3} onPress={handleimg3} />
+                        <Feather name="help-circle" size={19} color="#52665A" style = {styles.img4}  onPress={handleimg4} />
+                            
+                    </View>
+
+                    <View style={styles.main}>
+                        
+                        <Text style={styles.list}> </Text>
+
+                        <Text style={styles.address}>
+
+                            <Text style={styles.addresstwo}>Coleta Residencial {'\n'}</Text>
+                            Link {"\n"}
+                            
+                            {"\n"}
+
+                            <Text style={styles.addresstwo}>Coleta Seletiva {'\n'}</Text>
+                            Link {"\n"}
+                            
+                            {"\n"}
+
+                            <Text style={styles.addresstwo}>Coleta Volumosos {'\n'}</Text>
+                                <Text style={styles.link} onPress={()=>{Linking.openURL('https://abre.ai/volumosos');}} > 
+                                    Link para a coleta de volumosos!{'\n'}
+                                </Text> 
+
+                            {"\n"}
+
+                            <Text style={styles.addresstwo}>Coleta Zona Rural {'\n'}</Text>
+                                <Text style={styles.link} onPress={()=>{Linking.openURL( 'https://abre.ai/zonarural');}}> 
+                                    Link para a coleta na zona rural!{"\n"}
+                                </Text>
+
+                        </Text>
+
+                </View>
+
             
-            <View style={styles.header}>
-
-                <Text style={styles.bairro}>{userBairro} </Text>
-                
-                <Feather name="help-circle" size={19} color="#52665A" style = {styles.img1} onPress={handleimg1} />
-                <Feather name="help-circle" size={19} color="#52665A" style = {styles.img2} onPress={handleimg1} />
-                <Feather name="help-circle" size={19} color="#52665A" style = {styles.img3} onPress={handleimg3} />
-                <Feather name="help-circle" size={19} color="#52665A" style = {styles.img4} onPress={handleimg4} />
-
-            </View>
-
-            <View style={styles.main}>
-                
-                <Text style={styles.list}> </Text>
-
-                <Text style={styles.address}>
-
-                <Text style={styles.addresstwo}>Coleta Residencial {'\n'} </Text>
-                    link {"\n"}
-                    
-                    {"\n"}
-
-                    <Text style={styles.addresstwo}>Coleta Seletiva {'\n'} </Text>
-                    link {"\n"}
-                    
-                    {"\n"}
-
-                    <Text style={styles.addresstwo}>Coleta Volumosos {'\n'} </Text>
-                    https://abre.ai/volumosos {'\n'}
-
-                    {"\n"}
-
-                    <Text style={styles.addresstwo}>Coleta Zona Rural {'\n'} </Text>
-                    https://abre.ai/zonarural {"\n"}
-
-                </Text>
-
-            </View>
-
-            </SafeAreaView>
              
             </View>
 
@@ -233,7 +235,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.heading,
         lineHeight: 200,     
         color: colors.heading,
-        alignContent: 'center',
+       marginLeft:-30,
         textAlign: 'center',
 
     },
@@ -258,5 +260,10 @@ const styles = StyleSheet.create({
         color: colors.heading,
 
     },
+    link:{
+        color:colors.green,
+        
+    },
+    
     
 });

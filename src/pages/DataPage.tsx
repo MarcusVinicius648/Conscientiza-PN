@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState,useEffect } from 'react';
 import {
     Text,
     SafeAreaView,
@@ -19,6 +20,7 @@ import fonts from '../styles/fonts';
 import { useNavigation } from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInputMask } from 'react-native-masked-text';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 
@@ -50,6 +52,8 @@ export function DataPage() {
 
 
     async function handleMoveon() {
+       
+        
         if (!name || !cep)
             return Alert.alert("Por favor, Preencha todos os campos!😢");
 
@@ -70,6 +74,7 @@ export function DataPage() {
                     await AsyncStorage.setItem('@conscientizaPn:bairro', dataAddress.bairro)
                     await AsyncStorage.setItem('@conscientizaPn:localidade', dataAddress.localidade)
                     await AsyncStorage.setItem('@conscientizaPn:uf', dataAddress.uf)
+                    
 
                     navigation.navigate('Home');
                 } else {
@@ -81,9 +86,12 @@ export function DataPage() {
         }
 
         SearchAddressInformations();
-
+        
     }
 
+    
+
+         
     return (
 
         <SafeAreaView style={styles.container}>
@@ -118,8 +126,11 @@ export function DataPage() {
 
                     />
 
-                    <View style={styles.footer}>
-                        <Button title="Confirmar" onPress={handleMoveon} />
+                    <View style={styles.footer} >
+                        <TouchableOpacity activeOpacity={0.7} onPress={handleMoveon}>
+                            <Button title="Confirmar"  />
+                        </TouchableOpacity>
+                        
                     </View>
                 </View>
             </View>

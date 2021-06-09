@@ -9,6 +9,7 @@ import { Button } from '../components/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useNavigation } from '@react-navigation/core'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export function Home() {
     const [userName, setUserName] = useState<string>();
@@ -23,14 +24,18 @@ export function Home() {
     const navigation = useNavigation();
 
     function handleChangeDatas() {
+       
         navigation.navigate('DataPage')
+        
     }
+
 
     useEffect(() => {
 
         async function loadUserName() {
-            const user = await AsyncStorage.getItem('@conscientizaPn:userName')
+            let user = await AsyncStorage.getItem('@conscientizaPn:userName')
             setUserName(user || '')
+            
         }
 
         async function loadUserCEP() {
@@ -51,16 +56,16 @@ export function Home() {
             const uf = await AsyncStorage.getItem('@conscientizaPn:uf')
             setUserUf(uf || '')
 
-
-
         }
-
+        
 
         loadUserAddres();
         loadUserName();
         loadUserCEP();
+        
+        
     }, []);
-
+    
     return (
         <SafeAreaView style={styles.container}>
             <SideBar title={"Home"} />
@@ -85,7 +90,9 @@ export function Home() {
             </View>
 
             <View style={styles.footer}>
-                <Button title={"+  Atualizar CEP"} onPress={handleChangeDatas} />
+                <TouchableOpacity activeOpacity={0.7} onPress={handleChangeDatas}>
+                    <Button title={"+  Atualizar CEP"}  />
+                </TouchableOpacity>
             </View>
 
 
