@@ -1,9 +1,10 @@
 import React, {useEffect,useState} from 'react';
-import { SafeAreaView, View, Text, StyleSheet,TouchableWithoutFeedback,Linking } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet,TouchableWithoutFeedback,Linking, TouchableOpacity} from 'react-native';
 
 import { Feather } from '@expo/vector-icons'; 
 import { SideBar } from '../components/SideBar';
 import { useNavigation } from '@react-navigation/core';
+import api from '../server/api';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
@@ -21,69 +22,98 @@ export function Coleta() {
     const [userLocalidade, setUserLocalidade] = useState<string>();
     const [userUf, setUserUf] = useState<string>();
 
+    const [data, setData] = useState<Data[]>([]);
+    const [tipo, setTipo] = useState(0);
+
+    interface Params {
+        bairro: string;
+    }
+    
+    interface Data {
+        codigo: number;
+        tipo: number;
+        bairro: string;
+        dia_semana: number;
+        periodo: string;
+        horario: string;
+    }
+    
+    function getDiaSemana(dia: number){
+        switch(dia){
+            case 0: return 'Domingo';
+            case 1: return 'Segunda-Feira';
+            case 2: return 'Terça-Feira';
+            case 3: return 'Quarta-Feira';
+            case 4: return 'Quinta-Feira';
+            case 5: return 'Sexta-Feira';
+            case 6: return 'Sábado';
+        }
+    }
+    
+    useEffect(() => {
+        api.get(`coletas/${userBairro}`).then(response => {
+            setData(response.data);
+        }); 
+    }, []);
 
     const navigation = useNavigation();
 
-     async function handleimg1() {
+        function handleResidencial() {
         
-        await alert("A coleta residencial é feita em domicílio e abrange os resíduos domésticos, de pequeno e médio porte, como sacos de lixo e caixas. \n\nClique no link e selecione o mês atual para obter informações sobre a coleta em seu bairro.");
-        
-    }
-
-     async function handleimg2() {
-        
-        await alert("A coleta seletiva consiste na separação e classificação dos resíduos para a reciclagem. \n\nClique no link e selecione o mês atual para obter informações sobre a coleta em seu bairro.");
-        
-    }
-
-     async function handleimg3() {
-        
-        await alert("A coleta de volumosos é feita em domicílio e abrange resíduos de grande porte, como camas e sofás. \n\nClique no link e selecione o mês atual para obter informações.");
-        
-    }
-
-     async function handleimg4() {
-        
-        await alert("A coleta na zona rural abrange as zonas rurais de Ponte Nova. \n\nClique no link, selecione a seção de download e, em seguida, o mês atual para obter informações.");
-        
-    }
-
-    useEffect(() => {
-
-        async function loadUserName() {
-            const user = await AsyncStorage.getItem('@conscientizaPn:userName')
-            setUserName(user || '')
-        }
-
-        async function loadUserCEP() {
-            const userCep = await AsyncStorage.getItem('@conscientizaPn:cep')
-            setUserCep(userCep || '')
-        }
-
-        async function loadUserAddres() {
-            const rua = await AsyncStorage.getItem('@conscientizaPn:rua')
-            setUserRua(rua || '')
-
-            const bairro = await AsyncStorage.getItem('@conscientizaPn:bairro')
-            setUserBairro(bairro || '')
-
-            const localidade = await AsyncStorage.getItem('@conscientizaPn:localidade')
-            setUserLocalidade(localidade || '')
-
-            const uf = await AsyncStorage.getItem('@conscientizaPn:uf')
-            setUserUf(uf || '')
-
-
+            navigation.navigate('Residencial') 
 
         }
 
+        function handleSeletiva() {
 
-        loadUserAddres();
-        loadUserName();
-        loadUserCEP();
-    }, []);
+            navigation.navigate('Seletiva') 
+
+        }
+
+        function handleVolumosos() {
+            
+            navigation.navigate('Volumosos') 
+
+        }
+
+        useEffect(() => {
+
+            async function loadUserName() {
+                let user = await AsyncStorage.getItem('@conscientizaPn:userName')
+                setUserName(user || '')
+                
+            }
+    
+            async function loadUserCEP() {
+                const userCep = await AsyncStorage.getItem('@conscientizaPn:cep')
+                setUserCep(userCep || '')
+            }
+    
+            async function loadUserAddres() {
+                const rua = await AsyncStorage.getItem('@conscientizaPn:rua')
+                setUserRua(rua || '')
+    
+                const bairro = await AsyncStorage.getItem('@conscientizaPn:bairro')
+                setUserBairro(bairro || '')
+    
+                const localidade = await AsyncStorage.getItem('@conscientizaPn:localidade')
+                setUserLocalidade(localidade || '')
+    
+                const uf = await AsyncStorage.getItem('@conscientizaPn:uf')
+                setUserUf(uf || '')
+    
+            }
+            
+    
+            loadUserAddres();
+            loadUserName();
+            loadUserCEP();
+            
+            
+        }, []);
 
     return (
+
 
         <SafeAreaView>
 
@@ -100,12 +130,56 @@ export function Coleta() {
                     <View style={styles.header}>
 
                         <Text style={styles.bairro}>{userBairro} </Text>
-        
-                        <Feather name="help-circle" size={19} color="#52665A" style ={styles.img1} onPress={handleimg1}  />
-                        <Feather name="help-circle" size={19} color="#52665A" style = {styles.img2} onPress={handleimg2} />
-                        <Feather name="help-circle" size={19} color="#52665A" style = {styles.img3} onPress={handleimg3} />
-                        <Feather name="help-circle" size={19} color="#52665A" style = {styles.img4}  onPress={handleimg4} />
-                            
+
+                        
+                        <View style = {styles.header2}>
+                        
+                            <TouchableOpacity 
+                                style={styles.buttom}
+                                activeOpacity={0.7}
+                                onPress={handleResidencial}
+                            >
+                            <Text style = {styles.text}>
+                                ?
+                            </Text>
+
+                            </TouchableOpacity>
+
+                            <TouchableOpacity 
+                                style={styles.buttom}
+                                activeOpacity={0.7}
+                                onPress={handleResidencial}
+                            >
+                            <Text style = {styles.text}>
+                                ?
+                            </Text>
+
+                            </TouchableOpacity>
+
+                            <TouchableOpacity 
+                                style={styles.buttom}
+                                activeOpacity={0.7}
+                                onPress={handleSeletiva}
+                            >
+                            <Text style = {styles.text}>
+                                ?
+                            </Text>
+
+                            </TouchableOpacity>
+
+                            <TouchableOpacity 
+                                style={styles.buttom}
+                                activeOpacity={0.7}
+                                onPress={handleVolumosos}
+                            >
+                            <Text style = {styles.text}>
+                                ?
+                            </Text>
+
+                            </TouchableOpacity>
+
+                       </View>
+
                     </View>
 
                     <View style={styles.main}>
@@ -115,13 +189,26 @@ export function Coleta() {
                         <Text style={styles.address}>
 
                             <Text style={styles.addresstwo}>Coleta Residencial {'\n'}</Text>
-                            Link {"\n"}
+                            {data.filter(coleta => coleta.tipo == 1).map(coleta => (
+                                <View key={String(coleta.codigo)}>
+                                    <Text style = {styles.addresstwo}>                        
+                                        {getDiaSemana(coleta.dia_semana)} - {coleta.periodo} - {coleta.horario} horas
+                                    </Text>                    
+                                </View>
+                            ))}
                             
                             {"\n"}
 
                             <Text style={styles.addresstwo}>Coleta Seletiva {'\n'}</Text>
-                            Link {"\n"}
-                            
+                            {data.filter(coleta => coleta.tipo == 2).map(coleta => (
+                                <View key={String(coleta.codigo)}>
+                                    {coleta.tipo == 2 && (
+                                        <Text style = {styles.addresstwo}>                        
+                                            {getDiaSemana(coleta.dia_semana)} - {coleta.periodo} - {coleta.horario} horas
+                                        </Text>
+                                    )}                    
+                                </View>
+                            ))}
                             {"\n"}
 
                             <Text style={styles.addresstwo}>Coleta Volumosos {'\n'}</Text>
@@ -148,9 +235,45 @@ export function Coleta() {
 
     )
 
+    
+
 }
 
 const styles = StyleSheet.create({
+
+    buttom: {
+        backgroundColor: colors.gray,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 19,
+        width: 19,
+        borderRadius: 16,
+        marginBottom: 27,
+        borderWidth: 1,
+        borderColor: colors.heading,
+
+        
+    },
+
+    header2: {
+        position: 'absolute',
+        flex: 1,
+        marginLeft: 255,
+        marginTop: 255,
+        flexDirection: 'column',
+    },
+
+    buttonIcon: {
+        color: colors.white,
+        fontSize: 23,
+        fontWeight: 'bold'
+    },
+
+    text:{
+        color: colors.heading,
+        fontSize:12,
+
+    },
 
     container:{
 

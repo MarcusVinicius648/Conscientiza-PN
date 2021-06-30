@@ -20,7 +20,7 @@ export function Ecoponto() {
 
             <SafeAreaView style={styles.container}>
 
-            <SideBar title={"EcoPonto"}/>
+            <SideBar title={"Ponto de Coleta Voluntária"}/>
 
             </SafeAreaView>
 
