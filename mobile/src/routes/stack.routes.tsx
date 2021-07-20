@@ -10,6 +10,7 @@ import { Ecoponto } from '../pages/Ecoponto';
 import { Volumosos } from '../pages/Volumosos';
 import { Residencial } from '../pages/Residencial';
 import { Seletiva } from '../pages/Seletiva';
+import { About } from '../pages/About';
 
 import color from '../styles/colors';
 
@@ -39,7 +40,10 @@ const AppRoute: React.FC = () => (
             component={Home} 
         />
 
-        
+        <stackRoutes.Screen 
+            name="About" 
+            component={About} 
+        />
 
         <stackRoutes.Screen 
             name="Coleta" 

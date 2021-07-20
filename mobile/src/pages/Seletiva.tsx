@@ -1,86 +1,70 @@
 import React, { useState }  from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
-
 import imageWelcome from '../assets/imgSeletiva.png';
-import { Coleta } from '../pages/Coleta';
-
-import { SideBar } from '../components/SideBar';
-import GeneralStatusBarColor from '../components/GeneralStatusBarColor'; 
-
-import { Entypo } from '@expo/vector-icons';
+import { StatusBarTop } from '../components/StatusBarTop';
+import { Button } from '../components/Button';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
-import { useNavigation } from '@react-navigation/core';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
 export function Seletiva() {
-
-    const[userCep,setUserCep]= useState<string>();
-    const navigation = useNavigation();
-
-
-    function handleStart() {
-       
-        
-        navigation.navigate('Coleta') //This function move on the client to DataPage
-
-    
-    }
-
-   
 
     return (
 
         <SafeAreaView style={styles.container}>
-            
-            <View style={styles.bar}>
+            <StatusBarTop 
+                title={'Coleta Seletiva'} 
+                activeIconBack={true} 
+                activeIconAbout={false}
+            />            
 
-                <GeneralStatusBarColor backgroundColor="#32B768" />
-
-                    <TouchableOpacity activeOpacity={0.7} onPress={handleStart}>
-                        <Text>
-                            <Entypo name="chevron-thin-left" style={styles.icon}  />
-                        </Text>
-                    </TouchableOpacity>
-
-                    <Text style={styles.nameBar}>
-                        Coleta Seletiva
-                    </Text>
-            </View>
-
-            <View style={styles.contain}>
-            
+            <View style={styles.contain}>            
                 <Text style={styles.subtitle}>
-                    {'\n'}{'\n'} 
-                    {'\n'}{'\n'}
                     A coleta seletiva é um método que otimiza 
                     os processos de destinição dos resíduos e rejeitos. 
                     Ela exige que haja uma separação dos lixos em 
-                    úmidos, secos, recicláveis e orgânicos.{'\n'}
-                   
-                    
+                    úmidos, secos, recicláveis e orgânicos.   
                 </Text>
 
                 <Image source={imageWelcome} style={styles.img} resizeMode="contain" />
-
-                
-                <Text style={styles.subtitle}>
-                   {'\n'}
-                   
-                    
-                </Text>
-
-                
-
-                
-                
-
-
             </View>
+
+            <View style={styles.agrupamento}>
+                <TouchableOpacity activeOpacity={0.7} style={styles.button}>
+                    <Text style={styles.text} >
+                        1
+                    </Text>
+                </TouchableOpacity> 
+                <TouchableOpacity activeOpacity={0.7} style={styles.button}>
+                    <Text style={styles.text} >
+                        2
+                    </Text>
+                </TouchableOpacity> 
+                <TouchableOpacity activeOpacity={0.7} style={styles.button}>
+                    <Text style={styles.text} >
+                        3
+                    </Text>
+                </TouchableOpacity> 
+            </View>
+
+            <View style={styles.agrupamento}>
+                <TouchableOpacity activeOpacity={0.7} style={styles.button}>
+                    <Text style={styles.text} >
+                        4
+                    </Text>
+                </TouchableOpacity> 
+                <TouchableOpacity activeOpacity={0.7} style={styles.button}>
+                    <Text style={styles.text} >
+                        5
+                    </Text>
+                </TouchableOpacity> 
+                <TouchableOpacity activeOpacity={0.7} style={styles.button}>
+                    <Text style={styles.text} >
+                        6
+                    </Text>
+                </TouchableOpacity> 
+            </View>
+
         </SafeAreaView>
     )
 }
@@ -92,15 +76,11 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
     },
-
     contain: {
         alignItems: 'center',
         justifyContent: 'space-around',
-        padding: 20,
-        
-    },
-  
-
+        padding: 20,        
+    }, 
     subtitle: {
         textAlign: 'center',
         fontFamily: fonts.heading,
@@ -111,12 +91,32 @@ const styles = StyleSheet.create({
         color: colors.coletas,
     },
 
-    /*Image -------------------------------------------- */
 
+    agrupamento: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    button: {
+        backgroundColor: colors.green,
+        height: 56,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 16,
+        margin: 2
+    },
+    text: {
+        fontSize: 16,
+        margin: 20,
+        color: colors.white,
+        fontFamily: fonts.heading
+    },
+
+
+    /*Image -------------------------------------------- */
     img: {
         height: Dimensions.get('window').width * 0.7,
     },
-
     /* Buttom -------------------------------------------- */
     buttom: {
         backgroundColor: colors.green,
@@ -127,13 +127,11 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         marginBottom: 6
     },
-
     buttonIcon: {
         color: colors.white,
         fontSize: 23,
         fontWeight: 'bold'
     },
-
     bar: {
         flex: 1,
         position: 'absolute',
@@ -145,10 +143,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.green,
         paddingLeft: 19,
         paddingBottom: 24
-    
-    
-    },
-    
+    },    
     nameBar: {
         position: 'absolute',
         marginLeft: 72,
@@ -157,10 +152,8 @@ const styles = StyleSheet.create({
         fontWeight: "500",
         fontSize: 20,
         lineHeight: 55,
-        color: colors.white
-    
-    },
-    
+        color: colors.white    
+    },    
     icon: {
         position: 'absolute',
         marginHorizontal: 19,

@@ -1,88 +1,83 @@
-import React, { useState }  from 'react';
-import { SafeAreaView, View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
+import React  from 'react';
+import { SafeAreaView, View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
 
 import imageWelcome from '../assets/imgResidencial.png';
+import imageSacoLixo from '../assets/garbage.png';
+import imageCaixa from '../assets/box.png';
+import imageRelogio from '../assets/clock.png';
+import imageLixeira from '../assets/trash.png';
+import imageReciclagem from '../assets/recycle.png';
 
-import { SideBar } from '../components/SideBar';
-import GeneralStatusBarColor from '../components/GeneralStatusBarColor'; 
-import { Coleta } from '../pages/Coleta';
-
-import { Entypo } from '@expo/vector-icons';
-
+import { StatusBarTop } from '../components/StatusBarTop';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
-import { useNavigation } from '@react-navigation/core';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
 export function Residencial() {
 
-    const[userCep,setUserCep]= useState<string>();
-    const navigation = useNavigation();
-
-
-    function handleStart() {
-       
-        
-        navigation.navigate('Coleta') //This function move on the client to DataPage
-
-    
-}
-
-   
-
     return (
+        <SafeAreaView style={styles.container}>   
+            <StatusBarTop 
+                title={'Coleta Tradicional'} 
+                activeIconBack={true} 
+                activeIconAbout={false}
+            />
 
-        <SafeAreaView style={styles.container}>
-            
-            <View style={styles.bar}>
+            <ScrollView>
+                <View style={styles.description}>            
+                    <Text style={styles.textDescription}>  
+                        A coleta de lixo tradicional é realizada pela prefeitura de Ponte Nova 
+                        em diferentes dias da semana em todos os bairros da cidade. Este tipo de 
+                        coleta é realizada por caminhões de lixo específicos, onde os garis recolhem 
+                        o lixo deixado pelo morador na porta de suas casas ou em cestos de lixo 
+                        localizados em diferentes pontos pela cidade.
+                    </Text>                
+                </View>
 
-                <GeneralStatusBarColor backgroundColor="#32B768" />
-
-                    <TouchableOpacity activeOpacity={0.7} onPress={handleStart}>
-                        <Text>
-                            <Entypo name="chevron-thin-left" style={styles.icon}  />
-                        </Text>
-                    </TouchableOpacity>
-
-                    <Text style={styles.nameBar}>
-                        Coleta Residencial
+                <View>
+                    <Text style={styles.textDescription}>  
+                        Para manter o correto descarte de lixo, siga algumas dicas:
                     </Text>
-            </View>
 
-            <View style={styles.contain}>
-            
-                <Text style={styles.subtitle}>
-                {'\n'} 
-                {'\n'}
-                {'\n'}  
-                {'\n'}
-                    A coleta de lixo domiciliar é realizada pelo serviço público de limpeza. 
-                    Postos pelos moradores em sacolas de plástico, os garis recolhem o lixo, 
-                    os quais são colocados num caminhão que macera todos os produtos para 
-                    serem levados nos locais denominados de aterros sanitários.{'\n'}
-                   
+                    <Text style={styles.textDescription}>  
+                        1. Embale corretamente seu lixo.
+                    </Text>
+
+                    <View style={styles.viewImg}>
+                        <Image source={imageSacoLixo} style={styles.image} />
+                    </View>                    
+
+                    <Text style={styles.textDescription}>  
+                        2. Proteja materiais cortantes.
+                    </Text>
+
+                    <View style={styles.viewImg}>
+                        <Image source={imageCaixa} style={styles.image} />
+                    </View>  
+
+                    <Text style={styles.textDescription}>  
+                        3. Deposite na frente de sua casa um pouco antes do horário de início da coleta ou deposite em locais específicos para descarte.                   
+                    </Text>
+
+                    <View style={styles.viewImg}>
+                        <Image source={imageRelogio} style={styles.image} />
+                        <Image source={imageLixeira} style={styles.image} />
+                    </View> 
+
+                    <Text style={styles.textDescription}>  
+                        4. Dê preferência em descartar materiais recicláveis no dia da coleta seletiva.                    
+                    </Text>
+
+                    <View style={styles.viewImg}>
+                        <Image source={imageReciclagem} style={styles.image} />
+                    </View> 
+                </View>
+
+                <View>
                     
-                </Text>
+                </View>
+            </ScrollView>
 
-                <Image source={imageWelcome} style={styles.img} resizeMode="contain" />
-
-                
-                <Text style={styles.subtitle}>
-                   {'\n'}
-                   
-                    
-                </Text>
-
-                
-
-                
-                
-
-
-            </View>
         </SafeAreaView>
     )
 }
@@ -93,30 +88,36 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: '100%',
+        backgroundColor: colors.background
     },
-
-    contain: {
+    description: {
         alignItems: 'center',
         justifyContent: 'space-around',
-        padding: 20,
-        
-    },
-  
-
-    subtitle: {
+        padding: 10,        
+    }, 
+    textDescription: {
         textAlign: 'center',
         fontFamily: fonts.heading,
         fontSize: 17,
-        paddingHorizontal: 20,
-        marginTop: 40,
-        marginBottom: 20,
-        color: colors.coletas,
+        paddingHorizontal: 10,
+        marginTop: 20,
+        marginBottom: 10,
+        color: colors.black,
     },
 
     /*Image -------------------------------------------- */
-
     img: {
         height: Dimensions.get('window').width * 0.7,
+    },
+    viewImg: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row'        
+    },
+    image: {
+        height: 65,
+        width: 65,
+        marginLeft: 5
     },
 
     /* Buttom -------------------------------------------- */
@@ -129,49 +130,42 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         marginBottom: 6
     },
-
     buttonIcon: {
         color: colors.white,
         fontSize: 23,
         fontWeight: 'bold'
+    },    
+    bar: {
+        flex: 1,
+        position: 'absolute',
+        textAlign: 'left',
+        justifyContent: 'center',
+        width: '100%',
+        height: 56,
+        marginTop: 24,
+        backgroundColor: colors.green,
+        paddingLeft: 19,
+        paddingBottom: 24
     },
-    
-bar: {
-    flex: 1,
-    position: 'absolute',
-    textAlign: 'left',
-    justifyContent: 'center',
-    width: '100%',
-    height: 56,
-    marginTop: 24,
-    backgroundColor: colors.green,
-    paddingLeft: 19,
-    paddingBottom: 24
+    nameBar: {
+        position: 'absolute',
+        marginLeft: 72,
 
+        fontFamily: fonts.text,
+        fontWeight: "500",
+        fontSize: 20,
+        lineHeight: 55,
+        color: colors.white
+    },
+    icon: {
+        position: 'absolute',
+        marginHorizontal: 19,
+        marginTop: -10,
+        marginLeft: -8,
 
-},
-
-nameBar: {
-    position: 'absolute',
-    marginLeft: 72,
-
-    fontFamily: fonts.text,
-    fontWeight: "500",
-    fontSize: 20,
-    lineHeight: 55,
-    color: colors.white
-
-},
-
-icon: {
-    position: 'absolute',
-    marginHorizontal: 19,
-    marginTop: -10,
-    marginLeft: -8,
-
-    fontSize: 19,
-    lineHeight: 20,
-    color: colors.white,
-},
+        fontSize: 19,
+        lineHeight: 20,
+        color: colors.white,
+    },
 
 })

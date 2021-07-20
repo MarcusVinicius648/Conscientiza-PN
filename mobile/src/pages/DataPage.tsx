@@ -1,5 +1,5 @@
 
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Text,
     SafeAreaView,
@@ -20,10 +20,6 @@ import fonts from '../styles/fonts';
 import { useNavigation } from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInputMask } from 'react-native-masked-text';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-
-
-
 
 export function DataPage() {
 
@@ -39,8 +35,6 @@ export function DataPage() {
 
     }, setDataAddress] = useState();
 
-
-
     const navigation = useNavigation();
 
     function handleSetValueName(userName: string) {
@@ -50,13 +44,10 @@ export function DataPage() {
         setCep(userCEP)
     }
 
-
-    async function handleMoveon() {
-       
+    async function handleMoveon() {       
         
         if (!name || !cep)
             return Alert.alert("Por favor, Preencha todos os campos!😢");
-
 
         await AsyncStorage.setItem('@conscientizaPn:userName', name);
         await AsyncStorage.setItem('@conscientizaPn:cep', cep);
@@ -85,32 +76,25 @@ export function DataPage() {
 
         }
 
-        SearchAddressInformations();
-        
-    }
-
-    
-
+        SearchAddressInformations();        
+    }  
          
     return (
 
         <SafeAreaView style={styles.container}>
-
             <View style={styles.content}>
-
                 <View style={styles.form}>
 
                     <View style={styles.header}>
-
                         <Image source={ImgData} style={styles.img} resizeMode="contain" />
 
                         <Text style={styles.label}>
-                            Informe seu nome e o seu CEP:
+                            Informe seu nome e CEP
                         </Text>
                     </View>
 
                     <TextInput style={styles.input}
-                        placeholder="Digite seu nome:"
+                        placeholder="Digite seu nome"
                         onChangeText={handleSetValueName}
                         maxLength={22}
                     />
@@ -118,7 +102,7 @@ export function DataPage() {
                     <TextInputMask
                         type={'zip-code'}
                         style={styles.input}
-                        placeholder="Digite seu CEP:"
+                        placeholder="Digite seu CEP"
                         onChangeText={handleSetValueCEP}
                         keyboardType={'number-pad'}
                         maxLength={9}
@@ -126,20 +110,13 @@ export function DataPage() {
 
                     />
 
-                    <View style={styles.footer} >
-                        <TouchableOpacity activeOpacity={0.7} onPress={handleMoveon}>
-                            <Button title="Confirmar"  />
-                        </TouchableOpacity>
-                        
+                    <View style={styles.footer}>                        
+                        <Button title="Confirmar" onPress={handleMoveon} />
                     </View>
                 </View>
             </View>
         </SafeAreaView>
     )
-
-
-
-
 }
 
 const styles = StyleSheet.create({
@@ -149,13 +126,12 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'space-around'
-
+        justifyContent: 'space-around',
+        backgroundColor: colors.background
     },
     content: {
         flex: 1,
         width: '100%',
-
     },
 
     /*Texts -------------------------------------- */
@@ -164,9 +140,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 54,
         alignItems: 'center',
-        width: '100%',
-
-    },
+        width: '100%',    },
     header: {
         alignItems: 'center',
     },
@@ -178,14 +152,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: colors.heading,
         fontFamily: fonts.heading
-
     },
     /*Img-------------------------------------- */
     img: {
         height: Dimensions.get('window').width * 0.4,
         marginTop: -140,
         marginLeft: 20,
-
     },
 
     /*Inputs-------------------------------------- */
@@ -204,7 +176,6 @@ const styles = StyleSheet.create({
 
     /*Footer-------------------------------------- */
     footer: {
-
         marginTop: 50,
         marginBottom: -100,
         width: '100%',
