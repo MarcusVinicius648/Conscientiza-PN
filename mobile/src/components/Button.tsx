@@ -3,7 +3,6 @@ import { Text, TouchableOpacity, TouchableOpacityProps, StyleSheet } from 'react
 
 import color from '../styles/colors';
 import fonts from '../styles/fonts';
-import font from '../styles/fonts';
 
 interface ButtonProps extends TouchableOpacityProps {
     title: string;
@@ -11,15 +10,12 @@ interface ButtonProps extends TouchableOpacityProps {
 /*Used the interface to change the content of component button */
 
 export function Button({ title, ...rest }: ButtonProps) {
-    return (
-       
-            <TouchableOpacity activeOpacity={0.7} style={styles.container}>
-            <Text style={styles.text} {...rest}>
+    return (       
+        <TouchableOpacity activeOpacity={0.7} style={styles.container} {...rest}>
+            <Text style={styles.text} >
                 {title}
             </Text>
-            </TouchableOpacity>
-       
-       
+        </TouchableOpacity> 
     )
 }
 
@@ -34,6 +30,7 @@ const styles = StyleSheet.create({
 
     text: {
         fontSize: 16,
+        margin: 20,
         color: color.white,
         fontFamily: fonts.heading
     },
