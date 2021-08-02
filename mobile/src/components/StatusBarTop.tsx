@@ -23,7 +23,7 @@ export function StatusBarTop({ title, activeIconBack, activeIconAbout, ...rest }
                     <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Icon 
                             name="arrow-left" 
-                            size={28} 
+                            size={20} 
                             color={colors.white}
                         />
                     </TouchableOpacity>  
@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
         width: 60
     },
     titleRegion: {
-        height: 56,
+        height: 46,
+        marginRight:300
     },
     iconHelp: {
         alignItems: 'center',
@@ -74,13 +75,12 @@ const styles = StyleSheet.create({
         width: 60
     },
     text: {
-        //position: 'absolute',
-        //marginLeft: 10,
-        marginTop: 12,
-
+        position: 'absolute',
+        paddingRight:80,
+        marginTop: 16,
         fontFamily: fonts.text,
         //fontWeight: '500',
-        fontSize: 22,
+        fontSize: 20,
         color: colors.white
     },
 });
