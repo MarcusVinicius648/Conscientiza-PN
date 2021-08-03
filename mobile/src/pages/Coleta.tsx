@@ -116,10 +116,10 @@ const styles = StyleSheet.create({
         backgroundColor: colors.background
     },
     header: {
-        padding: 20
+        padding: 20,
     },
     text: {
-        fontFamily: fonts.text,
+        fontFamily: fonts.heading,
         color: colors.black,
         fontSize: 22
     },

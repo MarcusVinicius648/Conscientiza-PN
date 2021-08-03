@@ -11,6 +11,7 @@ import { Volumosos } from '../pages/Volumosos';
 import { Residencial } from '../pages/Residencial';
 import { Seletiva } from '../pages/Seletiva';
 import { About } from '../pages/About';
+import { Detail } from '../pages/Detail';
 
 import color from '../styles/colors';
 
@@ -74,6 +75,11 @@ const AppRoute: React.FC = () => (
             name="Seletiva" 
             component={Seletiva} 
         />  
+
+        <stackRoutes.Screen 
+            name="Detail" 
+            component={Detail} 
+        />
     </stackRoutes.Navigator>
 )
 

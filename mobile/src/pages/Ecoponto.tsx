@@ -1,6 +1,6 @@
 import React, {useState,useEffect }from 'react';
 
-import { Alert, SafeAreaView, StyleSheet,Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, SafeAreaView, StyleSheet,Text, TouchableOpacity, View } from 'react-native';
 import { SideBar } from '../components/SideBar';
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation, useRoute } from '@react-navigation/core';
@@ -23,14 +23,20 @@ export function Ecoponto() {
 
     const[initialPositions, setInicialPositions] = useState<[number,number]>([0,0]);
 
+    const navigation = useNavigation();
+    function handleNavigateToDetail(id: number) {
+        navigation.navigate('Detail', { point_id: id });
+      }
+
     useEffect(()=>{
         async function loadPosition(){
-            const {status} = await Location.requestPermissionsAsync();
+            const {status} = await Location.requestForegroundPermissionsAsync();
 
             if (status !== 'granted') {
                 Alert.alert('Precisamos de sua permissão para obter a localização');
                 return;
             }
+
             const location = await Location.getCurrentPositionAsync();
             const {latitude, longitude} = location.coords;
             console.log(latitude, longitude);
@@ -38,9 +44,11 @@ export function Ecoponto() {
                 latitude,
                 longitude
             ])
+            console.log(initialPositions[0],initialPositions[1]);
         }
         loadPosition();
     },[]);
+
     return (      
         <SafeAreaView style={styles.container}>
             <StatusBarTop 
@@ -95,17 +103,31 @@ export function Ecoponto() {
 
 
             <View style={styles.mapContainer}>
-                <MapView 
-                    style={styles.map}
-                    initialRegion={{
-                        latitude:initialPositions[0],
-                        longitude:initialPositions[1],
-                        latitudeDelta: 0.014,
-                        longitudeDelta: 0.014,
-                    }}
-                >
-
-                </MapView>
+                { initialPositions[0] !== 0 && (
+                    <MapView 
+                        style={styles.map}
+                        initialRegion={{
+                            latitude:initialPositions[0],
+                            longitude:initialPositions[1],
+                            latitudeDelta: 0.014,
+                            longitudeDelta: 0.014,
+                        }}
+                    >
+                        <Marker
+                            coordinate={{ 
+                                latitude: -20.4046901,
+                                longitude:-42.9012992, 
+                            }}
+                            style={styles.marker} 
+                            onPress={()=>handleNavigateToDetail(1)}
+                        >
+                            <View style={styles.mapMarkerContainer}>
+                            <Image style={styles.mapMarkerImage} source={require('../assets/atack.png')} />
+                            <Text style={styles.mapMarkerTitle}>Atac</Text>        
+                    </View>
+                        </Marker>
+                    </MapView>
+            ) }
             </View>
         </SafeAreaView>
     )
@@ -164,6 +186,31 @@ const styles = StyleSheet.create({
     titleFilter:{
         fontSize:15,
         fontFamily:fonts.text
+    },
+    marker:{
+        width: 90,
+        height: 80,
+    },
+    mapMarkerContainer:{
+        width: 90,
+        height: 70,
+        backgroundColor: colors.green,
+        flexDirection: 'column',
+        borderRadius: 8,
+        overflow: 'hidden',
+        alignItems: 'center'
+    },
+    mapMarkerImage:{ 
+        width: 90,
+        height: 55,
+        resizeMode: 'cover',
+    },
+    mapMarkerTitle:{
+    flex: 1,
+    fontFamily:fonts.complement,
+    color: colors.white,
+    fontSize: 15,
+    lineHeight: 18,
     },
 });
 
