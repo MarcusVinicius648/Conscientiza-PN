@@ -18,9 +18,7 @@ export function Welcome() {
     const[userCep,setUserCep]= useState<string>();
     const navigation = useNavigation();
 
-
     function handleStart() {
-       
         async function setCep(){
             const cep = await AsyncStorage.getItem('@conscientizaPn:cep')
             setUserCep(cep || '')
@@ -31,14 +29,10 @@ export function Welcome() {
 
         if(!userCep){
             navigation.navigate('DataPage') //This function move on the client to DataPage
-
         }else{  
             navigation.navigate('Home') 
-
         }
     }
-
-   
 
     return (
 
@@ -47,19 +41,14 @@ export function Welcome() {
                 <Text style={styles.title}>
                     Utilize nossas {"\n"}
                     funcionalidades para {"\n"}
-                    uma Ponte Nova melhor!
-                   
-                    
+                    uma Ponte Nova melhor!   
                 </Text>
-
                 <Image source={imageWelcome} style={styles.img} resizeMode="contain" />
-
                 <Text style={styles.subtitle}>
                     Uma plataforma de {"\n"}
                     apoio e fiscalização ao descarte {"\n"}
                     de resíduos sólidos.
                 </Text>
-
                 <TouchableOpacity 
                     style={styles.buttom}
                     activeOpacity={0.7}
@@ -70,7 +59,6 @@ export function Welcome() {
                         style={styles.buttonIcon} 
                     />
                 </TouchableOpacity>
-
             </View>
         </SafeAreaView>
     )
@@ -85,7 +73,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         backgroundColor: colors.background
     },
-
     contain: {
         flex: 1,
         alignItems: 'center',
@@ -103,9 +90,7 @@ const styles = StyleSheet.create({
         marginTop: 30,
         marginBottom: 20,
         color: colors.heading
-
     },
-
     subtitle: {
         textAlign: 'center',
         fontFamily: fonts.text,
@@ -115,13 +100,10 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         color: colors.heading
     },
-
     /*Image -------------------------------------------- */
-
     img: {
         height: Dimensions.get('window').width * 0.7,
     },
-
     /* Buttom -------------------------------------------- */
     buttom: {
         backgroundColor: colors.green,
@@ -132,7 +114,6 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         marginBottom: 6
     },
-
     buttonIcon: {
         color: colors.white,
         fontSize: 23,

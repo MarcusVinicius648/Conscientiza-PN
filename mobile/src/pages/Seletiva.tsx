@@ -6,6 +6,7 @@ import { Button } from '../components/Button';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export function Seletiva() {
 
@@ -17,54 +18,56 @@ export function Seletiva() {
                 activeIconBack={true} 
                 activeIconAbout={false}
             />            
+            <ScrollView>
+                <View style={styles.contain}>            
+                    <Text style={styles.subtitle}>
+                        A coleta seletiva é um método que otimiza 
+                        os processos de destinição dos resíduos e rejeitos. 
+                        Ela exige que haja uma separação dos lixos em 
+                        úmidos, secos, recicláveis e orgânicos.   
+                    </Text>
 
-            <View style={styles.contain}>            
-                <Text style={styles.subtitle}>
-                    A coleta seletiva é um método que otimiza 
-                    os processos de destinição dos resíduos e rejeitos. 
-                    Ela exige que haja uma separação dos lixos em 
-                    úmidos, secos, recicláveis e orgânicos.   
-                </Text>
+                    <Image source={imageWelcome} style={styles.img} resizeMode="contain" />
+                </View>
 
-                <Image source={imageWelcome} style={styles.img} resizeMode="contain" />
-            </View>
+                <View style={styles.agrupamento}>
+                    <TouchableOpacity activeOpacity={0.7} style={styles.button}>
+                        <Text style={styles.text} >
+                            1
+                        </Text>
+                    </TouchableOpacity> 
+                    <TouchableOpacity activeOpacity={0.7} style={styles.button}>
+                        <Text style={styles.text} >
+                            2
+                        </Text>
+                    </TouchableOpacity> 
+                    <TouchableOpacity activeOpacity={0.7} style={styles.button}>
+                        <Text style={styles.text} >
+                            3
+                        </Text>
+                    </TouchableOpacity> 
+                </View>
 
-            <View style={styles.agrupamento}>
-                <TouchableOpacity activeOpacity={0.7} style={styles.button}>
-                    <Text style={styles.text} >
-                        1
-                    </Text>
-                </TouchableOpacity> 
-                <TouchableOpacity activeOpacity={0.7} style={styles.button}>
-                    <Text style={styles.text} >
-                        2
-                    </Text>
-                </TouchableOpacity> 
-                <TouchableOpacity activeOpacity={0.7} style={styles.button}>
-                    <Text style={styles.text} >
-                        3
-                    </Text>
-                </TouchableOpacity> 
-            </View>
+                <View style={styles.agrupamento}>
+                    <TouchableOpacity activeOpacity={0.7} style={styles.button}>
+                        <Text style={styles.text} >
+                            4
+                        </Text>
+                    </TouchableOpacity> 
+                    <TouchableOpacity activeOpacity={0.7} style={styles.button}>
+                        <Text style={styles.text} >
+                            5
+                        </Text>
+                    </TouchableOpacity> 
+                    <TouchableOpacity activeOpacity={0.7} style={styles.button}>
+                        <Text style={styles.text} >
+                            6
+                        </Text>
+                    </TouchableOpacity> 
+                </View>
 
-            <View style={styles.agrupamento}>
-                <TouchableOpacity activeOpacity={0.7} style={styles.button}>
-                    <Text style={styles.text} >
-                        4
-                    </Text>
-                </TouchableOpacity> 
-                <TouchableOpacity activeOpacity={0.7} style={styles.button}>
-                    <Text style={styles.text} >
-                        5
-                    </Text>
-                </TouchableOpacity> 
-                <TouchableOpacity activeOpacity={0.7} style={styles.button}>
-                    <Text style={styles.text} >
-                        6
-                    </Text>
-                </TouchableOpacity> 
-            </View>
-
+            </ScrollView>
+            
         </SafeAreaView>
     )
 }
@@ -83,15 +86,13 @@ const styles = StyleSheet.create({
     }, 
     subtitle: {
         textAlign: 'center',
-        fontFamily: fonts.heading,
+        fontFamily: fonts.text,
         fontSize: 17,
         paddingHorizontal: 20,
         marginTop: 40,
         marginBottom: 20,
         color: colors.coletas,
     },
-
-
     agrupamento: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -109,9 +110,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         margin: 20,
         color: colors.white,
-        fontFamily: fonts.heading
+        fontFamily: fonts.text
     },
-
 
     /*Image -------------------------------------------- */
     img: {

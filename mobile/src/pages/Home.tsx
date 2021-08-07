@@ -55,13 +55,11 @@ export function Home() {
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar backgroundColor={colors.green_dark}/>  
-
             <StatusBarTop 
                 title={'Conscientiza PN'} 
                 activeIconBack={false} 
                 activeIconAbout={true}
             />
-
             <View style={styles.header}>
                 <Text style={styles.meeting}>
                     Bem vindo(a),
@@ -73,7 +71,6 @@ export function Home() {
 
             <View style={styles.main}>
                 <Text style={styles.cep}>CEP: {userCep}</Text>
-
                 <Text style={styles.address}>
                     {userRua} {"\n"}
                     Bairro: {userBairro} {"\n"}
@@ -109,7 +106,7 @@ export function Home() {
                         PEV
                     </Text>
                 </TouchableOpacity> 
-
+                
                 <TouchableOpacity activeOpacity={0.5} style={styles.menuItem}>
                     <Image 
                         source={ImgCidadaoFiscal} 

@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     }, 
     subtitle: {
         textAlign: 'center',
-        fontFamily: fonts.heading,
+        fontFamily: fonts.text,
         fontSize: 17,
         paddingHorizontal: 20,
         marginTop: 40,

@@ -6,11 +6,16 @@ import MapView, { Marker } from 'react-native-maps';
 import { useNavigation, useRoute } from '@react-navigation/core';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Location from 'expo-location';
+import api from '../server/api';
 
 import fonts from '../styles/fonts';
 import colors from '../styles/colors';
 import { StatusBarTop } from '../components/StatusBarTop';
 
+interface Item{
+    id:number;
+    title:string;
+}
 
 interface Params {
     cep: string;
@@ -18,16 +23,14 @@ interface Params {
 }
 
 export function Ecoponto() {  
+
+    const[items,setItems] = useState<Item[]>([]);
+    const[selectedItems, setSelectedItems] = useState<number[]>([]);
     const route = useRoute();
     const { cep, bairro } = route.params as Params;
-
     const[initialPositions, setInicialPositions] = useState<[number,number]>([0,0]);
-
     const navigation = useNavigation();
-    function handleNavigateToDetail(id: number) {
-        navigation.navigate('Detail', { point_id: id });
-      }
-
+    
     useEffect(()=>{
         async function loadPosition(){
             const {status} = await Location.requestForegroundPermissionsAsync();
@@ -49,6 +52,27 @@ export function Ecoponto() {
         loadPosition();
     },[]);
 
+    useEffect(()=>{
+        api.get('items').then(response =>{
+            setItems(response.data);
+        })
+    },[]);
+
+    function handleNavigateToDetail(id: number) {
+        navigation.navigate('Detail', { point_id: id });
+      }
+    
+      function handleSelectItem(id: number) {
+        const alreadySelected = selectedItems.findIndex(item => item === id);
+    
+        if (alreadySelected >= 0) {
+          const filteredItems = selectedItems.filter(item => item !== id);
+    
+          setSelectedItems(filteredItems);
+        } else {
+          setSelectedItems([ ...selectedItems, id ]);
+        }
+      }
     return (      
         <SafeAreaView style={styles.container}>
             <StatusBarTop 
@@ -66,38 +90,21 @@ export function Ecoponto() {
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{ paddingHorizontal: 20 }}
                 >
-                    <TouchableOpacity
-                         activeOpacity={0.6}
-                         style={styles.cardFilter}
-                    >
+                   {items.map(item =>(
+                        <TouchableOpacity
+                            key={String(item.id)}
+                            activeOpacity={0.6}
+                            style={[
+                                styles.cardFilter,
+                                selectedItems.includes(item.id) ? styles.selectedItem : {}
+                            ]}
+                            onPress={()=> handleSelectItem(item.id)}
+                        >
                         <Text style={styles.titleFilter}>
-                            Plástico
+                            {item.title}
                         </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                         activeOpacity={0.6}
-                         style={styles.cardFilter}
-                    >
-                        <Text style={styles.titleFilter}>
-                            Papel
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                         activeOpacity={0.6}
-                         style={styles.cardFilter}
-                    >
-                        <Text style={styles.titleFilter}>
-                            Pilhas
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                         activeOpacity={0.6}
-                         style={styles.cardFilter}
-                    >
-                        <Text style={styles.titleFilter}>
-                            Óleo
-                        </Text>
-                    </TouchableOpacity>
+                   </TouchableOpacity>
+                   ))}
                 </ScrollView>
             </View>
 

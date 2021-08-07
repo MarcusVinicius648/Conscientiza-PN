@@ -97,12 +97,12 @@ const styles = StyleSheet.create({
     }, 
     textDescription: {
         textAlign: 'center',
-        fontFamily: fonts.heading,
+        fontFamily: fonts.text,
         fontSize: 17,
         paddingHorizontal: 10,
         marginTop: 20,
         marginBottom: 10,
-        color: colors.black,
+        color: colors.coletas,
     },
 
     /*Image -------------------------------------------- */

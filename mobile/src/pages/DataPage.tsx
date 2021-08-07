@@ -22,7 +22,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInputMask } from 'react-native-masked-text';
 
 export function DataPage() {
-
     const [name, setName] = useState<string>();
     const [cep, setCep] = useState<string>();
 
@@ -32,7 +31,6 @@ export function DataPage() {
         localidade: '...',
         uf: '...',
         erro: false
-
     }, setDataAddress] = useState();
 
     const navigation = useNavigation();
@@ -58,7 +56,6 @@ export function DataPage() {
             fetch('https://viacep.com.br/ws/' + OnlyNumber + '/json/').then(res => res.json()).then(async data => {
 
                 setDataAddress(dataAddress = data)
-
                 if (!dataAddress.erro) {
 
                     await AsyncStorage.setItem('@conscientizaPn:rua', dataAddress.logradouro);
@@ -66,16 +63,12 @@ export function DataPage() {
                     await AsyncStorage.setItem('@conscientizaPn:localidade', dataAddress.localidade)
                     await AsyncStorage.setItem('@conscientizaPn:uf', dataAddress.uf)
                     
-
                     navigation.navigate('Home');
                 } else {
                     Alert.alert("Este CEP está incorreto. Insira-o novamente, por favor!")
                 }
-
             }).catch();
-
         }
-
         SearchAddressInformations();        
     }  
          
@@ -84,7 +77,6 @@ export function DataPage() {
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
                 <View style={styles.form}>
-
                     <View style={styles.header}>
                         <Image source={ImgData} style={styles.img} resizeMode="contain" />
 
@@ -92,13 +84,11 @@ export function DataPage() {
                             Informe seu nome e CEP
                         </Text>
                     </View>
-
                     <TextInput style={styles.input}
                         placeholder="Digite seu nome"
                         onChangeText={handleSetValueName}
                         maxLength={22}
                     />
-
                     <TextInputMask
                         type={'zip-code'}
                         style={styles.input}
@@ -109,7 +99,6 @@ export function DataPage() {
                         value={cep}
 
                     />
-
                     <View style={styles.footer}>                        
                         <Button title="Confirmar" onPress={handleMoveon} />
                     </View>
@@ -133,7 +122,6 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
     },
-
     /*Texts -------------------------------------- */
     form: {
         flex: 1,
@@ -144,7 +132,6 @@ const styles = StyleSheet.create({
     header: {
         alignItems: 'center',
     },
-
     label: {
         marginTop: 20,
 
@@ -173,7 +160,6 @@ const styles = StyleSheet.create({
         padding: 10,
         textAlign: 'center',
     },
-
     /*Footer-------------------------------------- */
     footer: {
         marginTop: 50,
