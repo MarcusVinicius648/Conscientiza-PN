@@ -1,11 +1,11 @@
 import React, { useState }  from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
-import imageWelcome from '../assets/imgSeletiva.png';
-import { StatusBarTop } from '../components/StatusBarTop';
-import { Button } from '../components/Button';
+import imageWelcome from '../../assets/imgSeletiva.png';
+import { StatusBarTop } from '../../components/StatusBarTop';
+import { Button } from '../../components/Button';
 
-import colors from '../styles/colors';
-import fonts from '../styles/fonts';
+import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 import { ScrollView } from 'react-native-gesture-handler';
 
 export function Seletiva() {

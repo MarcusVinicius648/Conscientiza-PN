@@ -1,17 +1,17 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { Welcome } from '../pages/Welcome';
-import { DataPage } from '../pages/DataPage';
-import { Home } from '../pages/Home';
-import { Coleta } from '../pages/Coleta';
-import { Cidadao } from '../pages/Cidadao';
-import { Ecoponto } from '../pages/Ecoponto';
-import { Volumosos } from '../pages/Volumosos';
-import { Residencial } from '../pages/Residencial';
-import { Seletiva } from '../pages/Seletiva';
-import { About } from '../pages/About';
-import { Detail } from '../pages/Detail';
+import { Welcome } from '../pages/Inicial/Welcome';
+import { DataPage } from '../pages/Inicial/DataPage';
+import { Home } from '../pages/Inicial/Home';
+import { Coleta } from '../pages/Coleta/Coleta';
+import { Cidadao } from '../pages/Cidadao/Cidadao';
+import { Ecoponto } from '../pages/EcoPonto/Ecoponto';
+import { Volumosos } from '../pages/Coleta/Volumosos';
+import { Residencial } from '../pages/Coleta/Residencial';
+import { Seletiva } from '../pages/Coleta/Seletiva';
+import { About } from '../pages/Inicial/About';
+import { Detail } from '../pages/EcoPonto/Detail';
 
 import color from '../styles/colors';
 

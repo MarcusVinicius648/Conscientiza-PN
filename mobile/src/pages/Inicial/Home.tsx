@@ -3,14 +3,14 @@ import { StyleSheet, Image, Text, View, SafeAreaView, StatusBar, ScrollView, Tou
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/core';
 
-import colors from '../styles/colors';
-import fonts from '../styles/fonts';
-import { StatusBarTop } from '../components/StatusBarTop';
+import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
+import { StatusBarTop } from '../../components/StatusBarTop';
 
-import ImgColeta from '../assets/garbage-truck.png';
-import ImgPEV from '../assets/recycling.png';
-import ImgCidadaoFiscal from '../assets/olho.png'
-import ImgCep from '../assets/updated.png';
+import ImgColeta from '../../assets/garbage-truck.png';
+import ImgPEV from '../../assets/recycling.png';
+import ImgCidadaoFiscal from '../../assets/olho.png'
+import ImgCep from '../../assets/updated.png';
 
 export function Home() {
     const [userName, setUserName] = useState<string>();

@@ -11,11 +11,11 @@ import {
     Alert,
 } from 'react-native';
 
-import { Button } from '../components/Button';
+import { Button } from '../../components/Button';
 
-import ImgData from '../assets/imgdata.png';
-import colors from '../styles/colors';
-import fonts from '../styles/fonts';
+import ImgData from '../../assets/imgdata.png';
+import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 import { useNavigation } from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';

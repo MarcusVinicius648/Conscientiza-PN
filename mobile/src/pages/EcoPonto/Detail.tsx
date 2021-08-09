@@ -4,8 +4,8 @@ import { Feather as Icon, FontAwesome } from '@expo/vector-icons';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import fonts from '../styles/fonts';
-import colors from '../styles/colors';
+import fonts from '../../styles/fonts';
+import colors from '../../styles/colors';
 
 export function Detail() {
 
@@ -28,7 +28,7 @@ export function Detail() {
                 </Text>
             </View>
 
-            <Image style={styles.pointImage} source={require('../assets/atack.png')} />
+            <Image style={styles.pointImage} source={require('../../assets/atack.png')} />
 
             <Text style={styles.title}>
                 Atacado Central do Triângulo Novo

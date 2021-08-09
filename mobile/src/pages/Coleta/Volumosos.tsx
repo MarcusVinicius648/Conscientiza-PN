@@ -1,11 +1,11 @@
 import React from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 
-import imageWelcome from '../assets/imgVolumosos.png';
-import { StatusBarTop } from '../components/StatusBarTop';
+import imageWelcome from '../../assets/imgVolumosos.png';
+import { StatusBarTop } from '../../components/StatusBarTop';
 
-import colors from '../styles/colors';
-import fonts from '../styles/fonts';
+import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 
 export function Volumosos() {

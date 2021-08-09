@@ -1,16 +1,16 @@
 import React, {useState,useEffect }from 'react';
 
 import { Alert, Image, SafeAreaView, StyleSheet,Text, TouchableOpacity, View } from 'react-native';
-import { SideBar } from '../components/SideBar';
+import { SideBar } from '../../components/SideBar';
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation, useRoute } from '@react-navigation/core';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as Location from 'expo-location';
-import api from '../server/api';
+import api from '../../server/api';
 
-import fonts from '../styles/fonts';
-import colors from '../styles/colors';
-import { StatusBarTop } from '../components/StatusBarTop';
+import fonts from '../../styles/fonts';
+import colors from '../../styles/colors';
+import { StatusBarTop } from '../../components/StatusBarTop';
 
 interface Item{
     id:number;
@@ -67,12 +67,12 @@ export function Ecoponto() {
     
         if (alreadySelected >= 0) {
           const filteredItems = selectedItems.filter(item => item !== id);
-    
           setSelectedItems(filteredItems);
         } else {
           setSelectedItems([ ...selectedItems, id ]);
         }
       }
+
     return (      
         <SafeAreaView style={styles.container}>
             <StatusBarTop 
@@ -108,7 +108,6 @@ export function Ecoponto() {
                 </ScrollView>
             </View>
 
-
             <View style={styles.mapContainer}>
                 { initialPositions[0] !== 0 && (
                     <MapView 
@@ -128,9 +127,10 @@ export function Ecoponto() {
                             style={styles.marker} 
                             onPress={()=>handleNavigateToDetail(1)}
                         >
+                            <View style={styles.arrowDown}></View>   
                             <View style={styles.mapMarkerContainer}>
-                            <Image style={styles.mapMarkerImage} source={require('../assets/atack.png')} />
-                            <Text style={styles.mapMarkerTitle}>Atac</Text>        
+                            <Text style={styles.mapMarkerTitle}>?</Text>   
+                              
                     </View>
                         </Marker>
                     </MapView>
@@ -195,29 +195,38 @@ const styles = StyleSheet.create({
         fontFamily:fonts.text
     },
     marker:{
-        width: 90,
-        height: 80,
+        width: 60,
+        height: 60,
     },
     mapMarkerContainer:{
-        width: 90,
-        height: 70,
+        width: 50,
+        height: 40,
         backgroundColor: colors.green,
         flexDirection: 'column',
-        borderRadius: 8,
+        borderRadius: 4,
         overflow: 'hidden',
         alignItems: 'center'
     },
-    mapMarkerImage:{ 
-        width: 90,
-        height: 55,
-        resizeMode: 'cover',
+    arrowDown:{
+        position: 'absolute',
+        marginLeft: 19,
+        marginTop: 38,
+        width: 0,
+        height:0,
+        borderLeftWidth: 12,
+        borderLeftColor: 'transparent',
+        borderRightWidth: 12,
+        borderRightColor: 'transparent',
+        borderTopColor:colors.green,
+        borderTopWidth: 12
     },
     mapMarkerTitle:{
-    flex: 1,
-    fontFamily:fonts.complement,
-    color: colors.white,
-    fontSize: 15,
-    lineHeight: 18,
+        flex: 1,
+        fontFamily:fonts.complement,
+        color: colors.white,
+        fontSize: 25,
+        lineHeight: 15,
+        paddingTop:25
     },
 });
 

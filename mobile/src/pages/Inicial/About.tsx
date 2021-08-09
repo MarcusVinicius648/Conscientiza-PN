@@ -1,15 +1,15 @@
 import React from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 
-import { StatusBarTop } from '../components/StatusBarTop';
-import colors from '../styles/colors';
+import { StatusBarTop } from '../../components/StatusBarTop';
+import colors from '../../styles/colors';
 
-import ImgFelippe from '../assets/Foto-Felippe.png';
-import ImgMarcosVinicius from '../assets/Foto-Marcus-Vinicius.png';
-import ImgJoaoVictor from '../assets/Foto-Joao-Victor.png';
-import ImgJosue from '../assets/Foto-Josue.png';
-import ImgLeonardo from '../assets/Foto-Leonardo.png';
-import fonts from '../styles/fonts';
+import ImgFelippe from '../../assets/Foto-Felippe.png';
+import ImgMarcosVinicius from '../../assets/Foto-Marcus-Vinicius.png';
+import ImgJoaoVictor from '../../assets/Foto-Joao-Victor.png';
+import ImgJosue from '../../assets/Foto-Josue.png';
+import ImgLeonardo from '../../assets/Foto-Leonardo.png';
+import fonts from '../../styles/fonts';
 
 export function About(){
 

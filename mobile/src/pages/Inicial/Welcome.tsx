@@ -1,12 +1,12 @@
 import React, { useState }  from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 
-import imageWelcome from '../assets/imgwelcome.png';
+import imageWelcome from '../../assets/imgwelcome.png';
 
 import { Entypo } from '@expo/vector-icons';
 
-import colors from '../styles/colors';
-import fonts from '../styles/fonts';
+import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 import { useNavigation } from '@react-navigation/core';
 

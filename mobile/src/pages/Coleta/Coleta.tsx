@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Text, Linking } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/core';
 
-import { StatusBarTop } from '../components/StatusBarTop';
-import { CardHeader } from '../components/CardHeader';
-import { CardItems } from '../components/CardItems';
-import api from '../server/api';
+import { StatusBarTop } from '../../components/StatusBarTop';
+import { CardHeader } from '../../components/CardHeader';
+import { CardItems } from '../../components/CardItems';
+import api from '../../server/api';
 
-import colors from '../styles/colors';
-import fonts from '../styles/fonts';
+import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 interface Params {
     cep: string;

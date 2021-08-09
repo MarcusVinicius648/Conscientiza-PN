@@ -2,16 +2,16 @@ import React  from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 
-import imageWelcome from '../assets/imgResidencial.png';
-import imageSacoLixo from '../assets/garbage.png';
-import imageCaixa from '../assets/box.png';
-import imageRelogio from '../assets/clock.png';
-import imageLixeira from '../assets/trash.png';
-import imageReciclagem from '../assets/recycle.png';
+import imageWelcome from '../../assets/imgResidencial.png';
+import imageSacoLixo from '../../assets/garbage.png';
+import imageCaixa from '../../assets/box.png';
+import imageRelogio from '../../assets/clock.png';
+import imageLixeira from '../../assets/trash.png';
+import imageReciclagem from '../../assets/recycle.png';
 
-import { StatusBarTop } from '../components/StatusBarTop';
-import colors from '../styles/colors';
-import fonts from '../styles/fonts';
+import { StatusBarTop } from '../../components/StatusBarTop';
+import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 export function Residencial() {
 
