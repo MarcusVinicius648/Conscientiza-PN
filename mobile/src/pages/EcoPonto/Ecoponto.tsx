@@ -17,6 +17,12 @@ interface Item{
     title:string;
 }
 
+interface Point{
+    id:number;
+    latitude: number;
+    longitude: number;
+}
+
 interface Params {
     cep: string;
     bairro: string;
@@ -26,6 +32,7 @@ export function Ecoponto() {
 
     const[items,setItems] = useState<Item[]>([]);
     const[selectedItems, setSelectedItems] = useState<number[]>([]);
+    const [points, setPoints] = useState<Point[]>([]);
     const route = useRoute();
     const { cep, bairro } = route.params as Params;
     const[initialPositions, setInicialPositions] = useState<[number,number]>([0,0]);
@@ -39,15 +46,13 @@ export function Ecoponto() {
                 Alert.alert('Precisamos de sua permissão para obter a localização');
                 return;
             }
-
             const location = await Location.getCurrentPositionAsync();
             const {latitude, longitude} = location.coords;
-            console.log(latitude, longitude);
             setInicialPositions([
                 latitude,
                 longitude
             ])
-            console.log(initialPositions[0],initialPositions[1]);
+            
         }
         loadPosition();
     },[]);
@@ -57,6 +62,18 @@ export function Ecoponto() {
             setItems(response.data);
         })
     },[]);
+
+    useEffect(()=>{
+        api.get('points',{
+            params:{
+                items:selectedItems
+            }
+        }).then(response =>{
+          
+            setPoints(response.data)
+        })
+       
+    },[selectedItems])
 
     function handleNavigateToDetail(id: number) {
         navigation.navigate('Detail', { point_id: id });
@@ -71,7 +88,7 @@ export function Ecoponto() {
         } else {
           setSelectedItems([ ...selectedItems, id ]);
         }
-      }
+    }
 
     return (      
         <SafeAreaView style={styles.container}>
@@ -118,21 +135,25 @@ export function Ecoponto() {
                             latitudeDelta: 0.014,
                             longitudeDelta: 0.014,
                         }}
-                    >
-                        <Marker
-                            coordinate={{ 
-                                latitude: -20.4046901,
-                                longitude:-42.9012992, 
-                            }}
-                            style={styles.marker} 
-                            onPress={()=>handleNavigateToDetail(1)}
-                        >
+                    >   
+                        {points.map((point)=>(
+                            <Marker
+                                key={String(point.id)}
+                                coordinate={{ 
+                                    latitude: point.latitude,
+                                    longitude:point.longitude, 
+                                }}
+                                style={styles.marker} 
+                                onPress={()=>handleNavigateToDetail(point.id)}
+                            >
                             <View style={styles.arrowDown}></View>   
                             <View style={styles.mapMarkerContainer}>
-                            <Text style={styles.mapMarkerTitle}>?</Text>   
-                              
-                    </View>
+                                <Text style={styles.mapMarkerTitle}>
+                                    ?
+                                </Text>   
+                            </View>
                         </Marker>
+                        ))}
                     </MapView>
             ) }
             </View>

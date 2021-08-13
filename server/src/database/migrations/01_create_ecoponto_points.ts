@@ -16,6 +16,7 @@ export async function up(knex:Knex) {
         table.time('horarioFuncionamentoInicio').notNullable();
         table.time('horarioFuncionamentoFim').notNullable();
         table.boolean('abreDomingo').notNullable();
+        table.integer('items').notNullable();
         
     });
 }
