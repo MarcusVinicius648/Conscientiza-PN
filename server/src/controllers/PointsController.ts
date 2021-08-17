@@ -9,8 +9,8 @@ class PointsController{
         
         //O PROBLEMA ESTÁ NESTE FILTRO E NO AUTOINCREMENTE DA TABELA(TEM QUE FAZER O COMANDO PARA REINICIAR O AUTOINCREMENTE)
         const points = await knex('points')
-        .whereIn('points.items',parsedItems)
-        .distinct()
+        //.whereIn('points.items',parsedItems)
+        //.distinct()
         .select('points.*');
 
         console.log(points)
@@ -25,23 +25,17 @@ class PointsController{
 
     async show(request:Request, response:Response){
         const {id} = request.params;
+        
+        const point = await knex('points').where('id', id).first();
 
-        const points = await knex('points').where('id', id).first();
-
-        if(!points){
+        if(!point){
             return response.status(400).json({message: 'Point not found.'});
         }
         
         const serializedPoints ={
-            ...points 
+            ...point
         }
-
-        const items = await knex('items')
-        .join('points_items', 'items.id', '=', 'poinst_items.items_id')
-        .where('points_items.points_id', id)
-        .select('items.title');
-
-        return response.json({points: serializedPoints, items})
+        return response.json({point: serializedPoints})
     }
 
 }

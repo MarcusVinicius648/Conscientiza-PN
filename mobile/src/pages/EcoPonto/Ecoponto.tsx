@@ -1,5 +1,4 @@
 import React, {useState,useEffect }from 'react';
-
 import { Alert, Image, SafeAreaView, StyleSheet,Text, TouchableOpacity, View } from 'react-native';
 import { SideBar } from '../../components/SideBar';
 import MapView, { Marker } from 'react-native-maps';

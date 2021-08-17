@@ -1,15 +1,63 @@
-import React from 'react';
-import { SafeAreaView, Text, TouchableOpacity, View, StyleSheet, Image } from 'react-native';
+import React,{useState,useEffect} from 'react';
+import { SafeAreaView, Text, TouchableOpacity, View, StyleSheet, Image, Linking } from 'react-native';
 import { Feather as Icon, FontAwesome } from '@expo/vector-icons';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import * as MailComposer from 'expo-mail-composer';
+import api from '../../server/api';
 
 import fonts from '../../styles/fonts';
 import colors from '../../styles/colors';
 
+interface Params{
+ point_id: number
+}
+
+interface Data{
+   point:{ 
+        image: string;
+        name: string;
+        rua: string;
+        email: string;
+        whatsapp: string;
+        numberAddress: number;
+        bairro: string;
+        city: string;
+        uf: string;
+        horarioFuncionamentoInicio: string;
+        horarioFuncionamentoFim: string;
+        abreDomingo: boolean;
+        id:number;
+   };
+}
+
 export function Detail() {
 
+    const [data, setData] = useState<Data>({} as Data);
+    const route = useRoute();
+    const routeParams = route.params as Params;
     const navigation = useNavigation();
+
+    useEffect(()=>{
+        api.get(`points/${routeParams.point_id}`).then((response) => {
+            setData(response.data);
+          });
+    },[]);
+    
+    function handleWhatsapp() {
+        Linking.openURL(`whatsapp://send?phone=${data.point.whatsapp}&text=Tenho interesse sobre a coleta de resíduos em seu estabelecimento!`);
+      }
+
+    function handleComposeMail() {
+        MailComposer.composeAsync({
+          subject: 'Interesse na coleta de resíduos',
+          recipients: [data.point.email],
+        });
+    }
+
+    if (!data.point) {
+        return null;
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -28,44 +76,38 @@ export function Detail() {
                 </Text>
             </View>
 
-            <Image style={styles.pointImage} source={require('../../assets/atack.png')} />
+            <Image style={styles.pointImage} source={{uri:data.point.image}} />
 
             <Text style={styles.title}>
-                Atacado Central do Triângulo Novo
+                {data.point.name}
             </Text>
-
-
+            
             <View style={styles.address}>
                 <Text style={styles.titleAddress}>Matriz:</Text>
                 <Text style={styles.textAddress}>
-                    Rua Santo Antonio, n° 87 / Santo Antônio {'\n'}
-                    Ponte Nova - MG
-                </Text>
-                <Text style={styles.titleAddress}>Filiais:</Text>
-                <Text style={styles.textAddress}>
-                    Rua Francisco Ozanan, n° 97 / Centro {'\n'}
-                    Ponte Nova - MG
+                    Rua {data.point.rua}, n° {data.point.numberAddress} / {data.point.bairro} {'\n'}
+                    {data.point.city} - {data.point.uf}
                 </Text>
 
                 <Text style={styles.titleAddress}>Funcionamento da Matriz:</Text>
                 <Text style={styles.textAddress}>
-                    Segunda à Sábado das 07:30hs às 21:00hs e {'\n'}
-                    Domingo das 07:30hs às 13:00hs
+                    Segunda à Sábado das {data.point.horarioFuncionamentoInicio}hs às {data.point.horarioFuncionamentoFim}hs e {'\n'}
                 </Text>
-                <Text style={styles.titleAddress}>Funcionamento das Filiais:</Text>
-                <Text style={styles.textAddress}>
-                    Segunda à Sábado das 07:30hs às 19:20hs e {'\n'}
-                    Domingo das 07:30hs às 13:00hs
-                </Text>
+
+                {
+                    <Text style={styles.textAddress}>
+                        Domingo das 08:00:00hs às 13:00:00hs
+                    </Text>
+                }
+                
             </View>
 
-
             <View style={styles.footer}>
-                <RectButton style={styles.button}>
+                <RectButton style={styles.button} onPress={handleWhatsapp}>
                     <FontAwesome name="whatsapp" size={20} color="#FFF" />
                     <Text style={styles.buttonText}>Whatsapp</Text>
                 </RectButton>
-                <RectButton style={styles.button}>
+                <RectButton style={styles.button} onPress={handleComposeMail}>
                     <Icon name="mail" size={20} color="#FFF" />
                     <Text style={styles.buttonText}>E-mail</Text>
                 </RectButton>
@@ -112,11 +154,10 @@ const styles = StyleSheet.create({
         color: colors.white
     },
     pointImage: {
-        width: '99%',
-        marginLeft: 2,
+        width: '100%',
         height: 120,
         resizeMode: 'cover',
-        borderRadius: 10,
+        borderRadius: 9,
         marginTop: 10,
     },
     title: {
@@ -126,29 +167,32 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     address: {
-        marginTop: 3,
+        marginTop: 15,
         marginLeft: 15,
         lineHeight: 10
     },
     titleAddress: {
         fontFamily: fonts.heading,
         color: colors.gray_dark,
-        marginTop: 6,
+        marginTop: 15,
         fontSize: 15
     },
     textAddress: {
         fontFamily: fonts.text,
         color: colors.gray_dark,
+        marginTop:10,
+        lineHeight:20
     },
 
     footer: {
         borderTopWidth: StyleSheet.hairlineWidth,
         borderColor: colors.gray,
+        width:'100%',
         paddingVertical: 10,
         paddingHorizontal: 22,
         flexDirection: 'row',
         justifyContent: 'space-between',
-
+        marginTop:55
     },
     button: {
         width: '48%',
