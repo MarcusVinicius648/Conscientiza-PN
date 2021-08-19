@@ -17,6 +17,6 @@ routes.get('/', (request, response) => {
 routes.get('/items', itemsController.index);
 routes.get('/coletas/:bairro', coletasController.show);
 routes.get('/points',pointsController.index);
-routes.get('/points:id',pointsController.show)
+routes.get('/points/:id',pointsController.show)
 
 export default routes;

@@ -18,8 +18,8 @@ interface Item{
 
 interface Point{
     id:number;
-    latitude: number;
-    longitude: number;
+    latitude:number;
+    longitude:number
 }
 
 interface Params {
@@ -31,11 +31,11 @@ export function Ecoponto() {
 
     const[items,setItems] = useState<Item[]>([]);
     const[selectedItems, setSelectedItems] = useState<number[]>([]);
-    const [points, setPoints] = useState<Point[]>([]);
-    const route = useRoute();
-    const { cep, bairro } = route.params as Params;
+    const[points, setPoints] = useState<Point[]>([]);
     const[initialPositions, setInicialPositions] = useState<[number,number]>([0,0]);
     const navigation = useNavigation();
+    const route = useRoute();
+    const { cep, bairro } = route.params as Params;
     
     useEffect(()=>{
         async function loadPosition(){
@@ -68,10 +68,9 @@ export function Ecoponto() {
                 items:selectedItems
             }
         }).then(response =>{
-          
             setPoints(response.data)
         })
-       
+        
     },[selectedItems])
 
     function handleNavigateToDetail(id: number) {
@@ -136,7 +135,7 @@ export function Ecoponto() {
                         }}
                     >   
                         {points.map((point)=>(
-                            <Marker
+                           <Marker
                                 key={String(point.id)}
                                 coordinate={{ 
                                     latitude: point.latitude,

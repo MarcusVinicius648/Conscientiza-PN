@@ -14,21 +14,13 @@ interface Params{
 }
 
 interface Data{
-   point:{ 
-        image: string;
-        name: string;
-        rua: string;
-        email: string;
-        whatsapp: string;
-        numberAddress: number;
-        bairro: string;
-        city: string;
-        uf: string;
-        horarioFuncionamentoInicio: string;
-        horarioFuncionamentoFim: string;
-        abreDomingo: boolean;
-        id:number;
-   };
+    id:number;
+    imagem:string;
+    nome:string;
+    email:string;
+    whatsapp:string;
+    endereco:string;
+    descricao:string;
 }
 
 export function Detail() {
@@ -39,67 +31,65 @@ export function Detail() {
     const navigation = useNavigation();
 
     useEffect(()=>{
-        api.get(`points/${routeParams.point_id}`).then((response) => {
+        api.get(`points/${routeParams.point_id}`).then( (response) => {
             setData(response.data);
           });
     },[]);
     
     function handleWhatsapp() {
-        Linking.openURL(`whatsapp://send?phone=${data.point.whatsapp}&text=Tenho interesse sobre a coleta de resíduos em seu estabelecimento!`);
-      }
+        Linking.openURL(`whatsapp://send?phone=${data.whatsapp}&text=Tenho interesse sobre a coleta de resíduos seletiva em seu estabelecimento! Necessito de algumas informações adicionais!`);
+    }
 
     function handleComposeMail() {
         MailComposer.composeAsync({
-          subject: 'Interesse na coleta de resíduos',
-          recipients: [data.point.email],
+          subject: 'Interesse na coleta de resíduos seletiva',
+          recipients: [data.email],
         });
     }
 
-    if (!data.point) {
+    if (!data) {
         return null;
     }
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.iconBack}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Icon
-                        name="arrow-left"
-                        size={20}
-                        color={colors.white}
-                    />
-                </TouchableOpacity>
+           <View style={styles.detailBox}>
+                <View style={styles.iconBack}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Icon
+                            name="arrow-left"
+                            size={20}
+                            color={colors.white}
+                        />
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.titleRegion}>
+                    <Text style={styles.text}>
+                        Detalhes
+                    </Text>
+                </View>
             </View>
-            <View style={styles.titleRegion}>
-                <Text style={styles.text}>
-                    Detalhes
+
+            <Image 
+                style={styles.pointImage} 
+                source={require('../../assets/atack.png')} 
+            />
+            <View style={styles.titleContainer}>
+                <Text style={styles.title}>
+                    {data.nome}
                 </Text>
             </View>
-
-            <Image style={styles.pointImage} source={{uri:data.point.image}} />
-
-            <Text style={styles.title}>
-                {data.point.name}
-            </Text>
             
             <View style={styles.address}>
                 <Text style={styles.titleAddress}>Matriz:</Text>
                 <Text style={styles.textAddress}>
-                    Rua {data.point.rua}, n° {data.point.numberAddress} / {data.point.bairro} {'\n'}
-                    {data.point.city} - {data.point.uf}
+                   {data.endereco} {'\n'}
+                   Ponte Nova - MG
                 </Text>
-
-                <Text style={styles.titleAddress}>Funcionamento da Matriz:</Text>
+                <Text style={styles.titleAddress}>Funcionamento:</Text>
                 <Text style={styles.textAddress}>
-                    Segunda à Sábado das {data.point.horarioFuncionamentoInicio}hs às {data.point.horarioFuncionamentoFim}hs e {'\n'}
+                    {data.descricao}
                 </Text>
-
-                {
-                    <Text style={styles.textAddress}>
-                        Domingo das 08:00:00hs às 13:00:00hs
-                    </Text>
-                }
-                
             </View>
 
             <View style={styles.footer}>
@@ -119,15 +109,15 @@ export function Detail() {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
+        marginLeft: 0
+    },
+    detailBox: {
+        width: '100%',
         backgroundColor: colors.green,
         height: 56,
         flexDirection: 'row',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
-    },
-    detailBox: {
-        width: '100%',
-        marginLeft: 0
     },
     iconBack: {
         alignItems: 'center',
@@ -160,11 +150,15 @@ const styles = StyleSheet.create({
         borderRadius: 9,
         marginTop: 10,
     },
+    titleContainer:{
+        marginLeft:10,
+        marginBottom: -10
+    },
     title: {
         fontFamily: fonts.heading,
         color: colors.gray_dark,
         marginLeft: 7,
-        fontSize: 20
+        fontSize: 24,
     },
     address: {
         marginTop: 15,
@@ -192,7 +186,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 22,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop:55
+        marginTop:55,
+        paddingTop:40
     },
     button: {
         width: '48%',
