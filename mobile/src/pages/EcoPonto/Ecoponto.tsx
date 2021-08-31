@@ -32,7 +32,7 @@ export function Ecoponto() {
     const[items,setItems] = useState<Item[]>([]);
     const[selectedItems, setSelectedItems] = useState<number[]>([]);
     const[points, setPoints] = useState<Point[]>([]);
-    const[initialPositions, setInicialPositions] = useState<[number,number]>([0,0]);
+    const[initialPositions, setInicialPositions] = useState<[number,number]>([0,0,]);
     const navigation = useNavigation();
     const route = useRoute();
     const { cep, bairro } = route.params as Params;
@@ -40,18 +40,20 @@ export function Ecoponto() {
     useEffect(()=>{
         async function loadPosition(){
             const {status} = await Location.requestForegroundPermissionsAsync();
-
-            if (status !== 'granted') {
+            
+            if (status !== 'granted'){
                 Alert.alert('Precisamos de sua permissão para obter a localização');
                 return;
             }
+
             const location = await Location.getCurrentPositionAsync();
             const {latitude, longitude} = location.coords;
+            
             setInicialPositions([
                 latitude,
                 longitude
-            ])
-            
+            ]);
+           
         }
         loadPosition();
     },[]);
@@ -79,7 +81,7 @@ export function Ecoponto() {
     
       function handleSelectItem(id: number) {
         const alreadySelected = selectedItems.findIndex(item => item === id);
-    
+        
         if (alreadySelected >= 0) {
           const filteredItems = selectedItems.filter(item => item !== id);
           setSelectedItems(filteredItems);

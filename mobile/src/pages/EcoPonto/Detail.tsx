@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { SafeAreaView, Text, TouchableOpacity, View, StyleSheet, Image, Linking } from 'react-native';
-import { Feather as Icon, FontAwesome } from '@expo/vector-icons';
+import { Feather as Icon } from '@expo/vector-icons';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as MailComposer from 'expo-mail-composer';
@@ -37,7 +37,7 @@ export function Detail() {
     },[]);
     
     function handleWhatsapp() {
-        Linking.openURL(`whatsapp://send?phone=${data.whatsapp}&text=Tenho interesse sobre a coleta de resíduos seletiva em seu estabelecimento! Necessito de algumas informações adicionais!`);
+        Linking.openURL(`tel://${data.whatsapp}`);
     }
 
     function handleComposeMail() {
@@ -94,8 +94,8 @@ export function Detail() {
 
             <View style={styles.footer}>
                 <RectButton style={styles.button} onPress={handleWhatsapp}>
-                    <FontAwesome name="whatsapp" size={20} color="#FFF" />
-                    <Text style={styles.buttonText}>Whatsapp</Text>
+                    <Icon name="phone-call" size={20} color="#FFF" />
+                    <Text style={styles.buttonText}>Telefone</Text>
                 </RectButton>
                 <RectButton style={styles.button} onPress={handleComposeMail}>
                     <Icon name="mail" size={20} color="#FFF" />
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     },
     pointImage: {
         width: '100%',
-        height: 120,
+        height: 210,
         resizeMode: 'cover',
         borderRadius: 9,
         marginTop: 10,
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
     },
     address: {
-        marginTop: 15,
+        marginTop: 10,
         marginLeft: 15,
         lineHeight: 10
     },
@@ -169,13 +169,14 @@ const styles = StyleSheet.create({
         fontFamily: fonts.heading,
         color: colors.gray_dark,
         marginTop: 15,
-        fontSize: 15
+        fontSize: 15,
     },
     textAddress: {
         fontFamily: fonts.text,
         color: colors.gray_dark,
         marginTop:10,
-        lineHeight:20
+        lineHeight:20,
+        fontSize:12
     },
 
     footer: {
@@ -186,8 +187,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 22,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop:55,
-        paddingTop:40
+        marginTop:10,
+        paddingTop:20,
     },
     button: {
         width: '48%',
