@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Text, Linking } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/core';
-
+import { useRoute } from '@react-navigation/core';
 import { StatusBarTop } from '../../components/StatusBarTop';
 import { CardHeader } from '../../components/CardHeader';
 import { CardItems } from '../../components/CardItems';
 import api from '../../server/api';
-
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
@@ -92,15 +90,15 @@ export function Coleta() {
                     title={'Coleta de Volumosos'} 
                     page={'Volumosos'}
                 />
-                    <Text style={styles.link} onPress={()=>{Linking.openURL('https://abre.ai/volumosos');}} > 
+                    <Text style={styles.link} onPress={()=>{Linking.openURL('https://www.pontenova.mg.gov.br/downloads/categoria/coleta-de-volumosos/10127');}} > 
                         Link para a coleta de volumosos!{'\n'}
                     </Text> 
 
                 <CardHeader 
                     title={'Coleta Zona Rural'} 
-                    page={'Zona Rural'}
+                    page={'Rural'}
                 />
-                    <Text style={styles.link} onPress={()=>{Linking.openURL( 'https://abre.ai/zonarural');}}> 
+                    <Text style={styles.link} onPress={()=>{Linking.openURL( 'https://www.pontenova.mg.gov.br/bus_ava.aspx?search=lixo&f=&t=&m=1&c=');}}> 
                         Link para a coleta na zona rural!{"\n"}
                     </Text>
 
