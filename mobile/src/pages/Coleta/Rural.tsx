@@ -1,19 +1,24 @@
 import React  from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
+
+import imageRural from '../../assets/hills.png';
 import imageSacoLixo from '../../assets/garbage.png';
-import imageRec from '../../assets/trash-can.png';
-import imageLata1 from '../../assets/dump.png';
-import imageSeletiva from '../../assets/seletiva.png';
+import imageCaixa from '../../assets/box.png';
+import imageRelogio from '../../assets/digital-clock.png';
+import imageLixeira from '../../assets/dump.png';
+import imageCalendario from '../../assets/schedule.png';
+
 import { StatusBarTop } from '../../components/StatusBarTop';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
-export function Seletiva() {
+export function Rural() {
 
     return (
         <SafeAreaView style={styles.container}>   
             <StatusBarTop 
-                title={'Coleta Seletiva'} 
+                title={'Coleta na Zona Rural'} 
                 activeIconBack={true} 
                 activeIconAbout={false}
             />
@@ -21,15 +26,16 @@ export function Seletiva() {
             <ScrollView>
                 <View style={styles.description}>            
                     <Text style={styles.textDescription}>  
-                        A coleta seletiva é um método que otimiza os processos de destinação dos resíduos
-                        e rejeitos. Ela exige que haja uma separação dos lixos em úmidos, secos, recicláveis
-                        e orgânicos. 
+                        A coleta na zona rural é realizada pela prefeitura de Ponte Nova 
+                        em diferentes dias da semana. Este tipo de coleta é realizada por 
+                        caminhões de lixo específicos, onde os garis recolhem o lixo deixado 
+                        pelo morador na porta de suas casas.
                     </Text>                
                 </View>
 
                 <View style={styles.viewImg}>
-                    <Image source={imageSeletiva} style={styles.image} />
-                </View>      
+                    <Image source={imageRural} style={styles.image} />
+                </View>     
 
                 <View>
                     <Text style={styles.textDescription}>  
@@ -37,45 +43,35 @@ export function Seletiva() {
                     </Text>
 
                     <Text style={styles.textDescription}>  
-                        1. Separe seu lixo.
+                        1. Embale corretamente seu lixo.
                     </Text>
-
-                    <Text style={styles.textDescription}>  
-                        Separe seu lixo dividindo-o em dois grupos: os recicláveis e os
-                        não recicláveis.
-                    </Text>   
-
-                    <View style={styles.viewImg}>
-                        <Image source={imageRec} style={styles.image} />
-                    </View>                    
-
-                    <Text style={styles.textDescription}>  
-                        2. Seja pratico.
-                    </Text>
-
-                    <Text style={styles.textDescription}>  
-                        Para facilitar a sua vida, coloque pequenas lixeiras ou sacos
-                        com as indicações de quais tipos de materiais cada um a deve conter.
-                    </Text>   
 
                     <View style={styles.viewImg}>
                         <Image source={imageSacoLixo} style={styles.image} />
+                    </View>                    
+
+                    <Text style={styles.textDescription}>  
+                        2. Proteja materiais cortantes.
+                    </Text>
+
+                    <View style={styles.viewImg}>
+                        <Image source={imageCaixa} style={styles.image} />
                     </View>  
 
                     <Text style={styles.textDescription}>  
-                        3. Recicle.                   
+                        3. Se atente ao horario.                    
                     </Text>
 
                     <Text style={styles.textDescription}>  
-                        Separados os recicláveis, também é aconselhável que os materiais
-                        recicláveis estejam sempre limpos e secos, para facilitar o processos
-                        de reciclagem.
-                    </Text>  
+                        Deposite na frente de sua casa um pouco antes do horário de início da coleta 
+                        (Fique atento as datas! O caminhão passa em dias específicos do mês). {'\n'}                   
+                    </Text>
 
                     <View style={styles.viewImg}>
-                        <Image source={imageLata1} style={styles.image} />
+                        <Image source={imageCalendario} style={styles.image} />
+                        <Image source={imageLixeira} style={styles.image} />
                     </View> 
-                    
+
                 </View>
 
                 <View>
@@ -161,6 +157,16 @@ const styles = StyleSheet.create({
         fontSize: 20,
         lineHeight: 55,
         color: colors.white
+    },
+    icon: {
+        position: 'absolute',
+        marginHorizontal: 19,
+        marginTop: -10,
+        marginLeft: -8,
+
+        fontSize: 19,
+        lineHeight: 20,
+        color: colors.white,
     },
 
 })

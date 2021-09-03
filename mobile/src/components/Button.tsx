@@ -7,6 +7,7 @@ import fonts from '../styles/fonts';
 interface ButtonProps extends TouchableOpacityProps {
     title: string;
 }
+
 /*Used the interface to change the content of component button */
 
 export function Button({ title, ...rest }: ButtonProps) {

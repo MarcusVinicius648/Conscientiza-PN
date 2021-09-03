@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { Welcome } from '../pages/Inicial/Welcome';
 import { DataPage } from '../pages/Inicial/DataPage';
+import { Rural } from '../pages/Coleta/Rural';
 import { Home } from '../pages/Inicial/Home';
 import { Coleta } from '../pages/Coleta/Coleta';
 import { Cidadao } from '../pages/Cidadao/Cidadao';
@@ -49,6 +50,11 @@ const AppRoute: React.FC = () => (
         <stackRoutes.Screen 
             name="Coleta" 
             component={Coleta} 
+        />
+
+        <stackRoutes.Screen 
+            name="Rural" 
+            component={Rural} 
         />
 
         <stackRoutes.Screen 
