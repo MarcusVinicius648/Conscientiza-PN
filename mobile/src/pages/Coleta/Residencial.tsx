@@ -1,14 +1,11 @@
 import React  from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/core';
-
-import imageWelcome from '../../assets/imgResidencial.png';
+import imageResidencial from '../../assets/house.png';
 import imageSacoLixo from '../../assets/garbage.png';
 import imageCaixa from '../../assets/box.png';
-import imageRelogio from '../../assets/clock.png';
-import imageLixeira from '../../assets/trash.png';
+import imageRelogio from '../../assets/digital-clock.png';
+import imageLixeira from '../../assets/dump.png';
 import imageReciclagem from '../../assets/recycle.png';
-
 import { StatusBarTop } from '../../components/StatusBarTop';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
@@ -33,6 +30,10 @@ export function Residencial() {
                         localizados em diferentes pontos pela cidade.
                     </Text>                
                 </View>
+
+                <View style={styles.viewImg}>
+                    <Image source={imageResidencial} style={styles.image} />
+                </View>     
 
                 <View>
                     <Text style={styles.textDescription}>  
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginTop: 20,
         marginBottom: 10,
-        color: colors.coletas,
+        color: colors.heading,
     },
 
     /*Image -------------------------------------------- */

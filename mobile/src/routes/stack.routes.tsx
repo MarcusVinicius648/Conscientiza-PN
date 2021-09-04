@@ -12,7 +12,7 @@ import { Residencial } from '../pages/Coleta/Residencial';
 import { Seletiva } from '../pages/Coleta/Seletiva';
 import { About } from '../pages/Inicial/About';
 import { Detail } from '../pages/EcoPonto/Detail';
-
+import { Rural } from '../pages/Coleta/Rural';
 import color from '../styles/colors';
 
 const stackRoutes = createStackNavigator();
@@ -64,6 +64,11 @@ const AppRoute: React.FC = () => (
         <stackRoutes.Screen 
             name="Residencial" 
             component={Residencial} 
+        />
+
+        <stackRoutes.Screen 
+            name="Rural" 
+            component={Rural} 
         />
 
         <stackRoutes.Screen 
