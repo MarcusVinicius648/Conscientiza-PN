@@ -172,7 +172,6 @@ const styles = StyleSheet.create({
        textAlign:'left', 
        fontSize:14,
        fontFamily:fonts.complement
-        
     },
     mapContainer:{
         width: '98%',
