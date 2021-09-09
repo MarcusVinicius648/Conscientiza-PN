@@ -1,22 +1,28 @@
 import React, {useEffect,useState} from 'react';
 import { SafeAreaView, View, Text, StyleSheet,Alert, TouchableOpacity } from 'react-native';
 import {StatusBarTop} from '../../components/StatusBarTop';
-import { useNavigation } from '@react-navigation/core';
+import { useNavigation, useRoute } from '@react-navigation/core';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import {Button} from '../../components/Button';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import { Registro } from './Registro';
 
+interface Params{
+    nome: string
+}
 
 export function Cidadao() {
-
+    const navigation = useNavigation();
+    const route = useRoute();
+    const nome = route.params as Params
     const[initialPositions, setInicialPositions] = useState<[number,number]>([0,0,]);
+
     useEffect(()=>{
         async function loadPosition(){
             const {status} = await Location.requestForegroundPermissionsAsync();
-            
             if (status !== 'granted'){
                 Alert.alert('Precisamos de sua permissão para obter a localização');
                 return;
@@ -33,6 +39,7 @@ export function Cidadao() {
         }
         loadPosition();
     },[]);
+
     return (
         <SafeAreaView style={styles.container}>
             <StatusBarTop 
@@ -76,7 +83,9 @@ export function Cidadao() {
             </View>
 
             <TouchableOpacity 
+                activeOpacity={0.8}
                 style={styles.buttonContainer}
+                onPress={() => navigation.navigate('Registro')}
             > 
                 <Button title={'+ Registrar uma ocorrência'}/>
             </TouchableOpacity>
