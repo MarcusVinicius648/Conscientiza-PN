@@ -7,7 +7,7 @@ import { Home } from '../pages/Inicial/Home';
 import { Coleta } from '../pages/Coleta/Coleta';
 import { Cidadao } from '../pages/Cidadao/Cidadao';
 import { Registro } from '../pages/Cidadao/Registro';
-import { CameraPage } from '../pages/Cidadao/CameraPage';
+import { Detalhes } from '../pages/Cidadao/Detalhes';
 import { Ecoponto } from '../pages/EcoPonto/Ecoponto';
 import { Volumosos } from '../pages/Coleta/Volumosos';
 import { Residencial } from '../pages/Coleta/Residencial';
@@ -92,10 +92,9 @@ const AppRoute: React.FC = () => (
             component={Registro} 
         />
         <stackRoutes.Screen 
-            name="CameraPage" 
-            component={CameraPage} 
+            name="Detalhes" 
+            component={Detalhes} 
         />
-
     </stackRoutes.Navigator>
 )
 

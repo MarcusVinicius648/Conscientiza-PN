@@ -17,7 +17,7 @@ interface Params{
 export function Cidadao() {
     const navigation = useNavigation();
     const route = useRoute();
-    const nome = route.params as Params
+    const Username = route.params as Params
     const[initialPositions, setInicialPositions] = useState<[number,number]>([0,0,]);
 
     useEffect(()=>{
@@ -85,7 +85,7 @@ export function Cidadao() {
             <TouchableOpacity 
                 activeOpacity={0.8}
                 style={styles.buttonContainer}
-                onPress={() => navigation.navigate('Registro')}
+                onPress={() => navigation.navigate('Registro',{nome:Username})}
             > 
                 <Button title={'+ Registrar uma ocorrência'}/>
             </TouchableOpacity>
