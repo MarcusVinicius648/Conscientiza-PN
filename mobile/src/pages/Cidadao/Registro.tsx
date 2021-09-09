@@ -35,7 +35,9 @@ export function Registro(){
                 activeIconBack={true}
             />
 
-            <ScrollView>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
                 <View style={styles.inputsContainer}>
                     <TextInput
                         placeholder={'Bairro'} 

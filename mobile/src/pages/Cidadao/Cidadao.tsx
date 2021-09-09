@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from 'react';
-import { SafeAreaView, View, Text, StyleSheet,Alert, TouchableOpacity } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet,Alert, TouchableOpacity, ScrollView } from 'react-native';
 import {StatusBarTop} from '../../components/StatusBarTop';
 import { useNavigation, useRoute } from '@react-navigation/core';
 import MapView, { Marker } from 'react-native-maps';
@@ -49,7 +49,7 @@ export function Cidadao() {
             />
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>
-                    Selecione uma ocorrência para ver mais detalhes!
+                     Quanto mais vermelho o ícone estiver, significa que mais pessoas estão insatisfeitas com o mesmo problema!
                 </Text>
             </View>
 
@@ -64,20 +64,21 @@ export function Cidadao() {
                             longitudeDelta: 0.014,
                         }}
                     > 
-                        <Marker
-                            coordinate={{ 
-                                latitude:-20.410735550013100, 
-                                longitude:-42.89270396080260, 
-                            }}
-                            style={styles.marker} 
-                        >
-                            <View style={[styles.arrowDown,styles.mapMarkerArrowRed]}></View>   
-                            <View style={[styles.mapMarkerContainer,styles.mapMarkerContainerRed]}>
-                                <Text style={styles.mapMarkerTitle}>
-                                    !
-                                </Text>   
-                            </View>
-                        </Marker>
+                            <Marker
+                                coordinate={{ 
+                                    latitude:-20.410735550013100, 
+                                    longitude:-42.89270396080260, 
+                                }}
+                                style={styles.marker} 
+                                onPress= {() => navigation.navigate('Detalhes')}
+                            >
+                                <View style={[styles.arrowDown,styles.mapMarkerArrowRed]}></View>   
+                                <View style={[styles.mapMarkerContainer,styles.mapMarkerContainerRed]}>
+                                    <Text style={styles.mapMarkerTitle}>
+                                        !
+                                    </Text>   
+                                </View>
+                            </Marker>            
                     </MapView>
             )}
             </View>
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     },
     titleContainer:{
         marginLeft:15,
-        marginTop:15,
+        marginTop:10,
         marginBottom:15
     },
     title:{
@@ -121,9 +122,14 @@ const styles = StyleSheet.create({
     },
     buttonContainer:{
         marginHorizontal:50,
-        width: '70%'
+        width: '70%',
+        marginTop:-8
     },
     marker:{
+        width: 60,
+        height: 60,
+    },
+    markerContainer:{
         width: 60,
         height: 60,
     },
