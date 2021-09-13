@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Image, Text, View, SafeAreaView, StatusBar, ScrollView, TouchableOpacity } from 'react-native';
+import { ImageBackground, StyleSheet, Image, Text, View, SafeAreaView, StatusBar, ScrollView, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/core';
 
@@ -11,6 +11,7 @@ import ImgColeta from '../../assets/garbage-truck.png';
 import ImgPEV from '../../assets/recycling.png';
 import ImgCidadaoFiscal from '../../assets/olho.png'
 import ImgCep from '../../assets/updated.png';
+import ImgBackground from '../../assets/background-icon.png';
 
 export function Home() {
     const [userName, setUserName] = useState<string>();
@@ -60,83 +61,88 @@ export function Home() {
                 activeIconBack={false} 
                 activeIconAbout={true}
             />
-            <View style={styles.header}>
-                <Text style={styles.meeting}>
-                    Bem vindo(a),
-                </Text>
-                <Text style={styles.userName}>
-                    {userName}!
-                </Text>
-            </View>
 
-            <View style={styles.main}>
-                <Text style={styles.cep}>CEP: {userCep}</Text>
-                <Text style={styles.address}>
-                    {userRua} {"\n"}
-                    Bairro: {userBairro} {"\n"}
-                    {userLocalidade} - {userUf}
-                </Text>
-            </View>
+            <ImageBackground source={ImgBackground} resizeMode="cover" style={styles.image}>
 
-            <View style={styles.footer}>
-                <TouchableOpacity 
-                    activeOpacity={0.5} 
-                    style={styles.menuItem}
-                    onPress={() => navigation.navigate('Coleta', {cep: userCep, bairro: userBairro})}
-                >
-                    <Image 
-                        source={ImgColeta} 
-                        style={styles.menuItemImage}
-                    />
-                    <Text style={styles.menuItemText}>
-                        Coletas
+                <View style={styles.header}>
+                    <Text style={styles.meeting}>
+                        Bem vindo(a),
                     </Text>
-                </TouchableOpacity> 
+                    <Text style={styles.userName}>
+                        {userName}!
+                    </Text>
+                </View>
 
-                <TouchableOpacity 
-                    activeOpacity={0.5} 
-                    style={styles.menuItem}
-                    onPress={() => navigation.navigate('Ecoponto', {cep: userCep, bairro: userBairro})}
-                >
-                    <Image 
-                        source={ImgPEV} 
-                        style={styles.menuItemImage}
-                    />
-                    <Text style={styles.menuItemText}>
-                        PEV
+                <View style={styles.main}>
+                    <Text style={styles.cep}>CEP: {userCep}</Text>
+                    <Text style={styles.address}>
+                        {userRua} {"\n"}
+                        Bairro: {userBairro} {"\n"}
+                        {userLocalidade} - {userUf}
                     </Text>
-                </TouchableOpacity> 
-                
-                <TouchableOpacity 
-                    activeOpacity={0.5} 
-                    style={styles.menuItem}
-                    onPress={() => navigation.navigate('Cidadao', {nome:userName})}
-                >
-                    <Image 
-                        source={ImgCidadaoFiscal} 
-                        style={styles.menuItemImage}
-                    />
-                    <Text style={styles.menuItemText}>
-                        Cidadão {'\n'} 
-                        Fiscal
-                    </Text>
-                </TouchableOpacity> 
+                </View>
 
-                <TouchableOpacity 
-                    activeOpacity={0.5} 
-                    style={styles.menuItem}
-                    onPress={() => navigation.navigate('DataPage')}
-                >
-                    <Image 
-                        source={ImgCep} 
-                        style={styles.menuItemImage}
-                    />
-                    <Text style={styles.menuItemText}>
-                        Atualizar {'\n'} 
-                        CEP
-                    </Text>
-                </TouchableOpacity>
-            </View>
+                <View style={styles.footer}>
+                    <TouchableOpacity 
+                        activeOpacity={0.5} 
+                        style={styles.menuItem}
+                        onPress={() => navigation.navigate('Coleta', {cep: userCep, bairro: userBairro})}
+                    >
+                        <Image 
+                            source={ImgColeta} 
+                            style={styles.menuItemImage}
+                        />
+                        <Text style={styles.menuItemText}>
+                            Coletas
+                        </Text>
+                    </TouchableOpacity> 
+
+                    <TouchableOpacity 
+                        activeOpacity={0.5} 
+                        style={styles.menuItem}
+                        onPress={() => navigation.navigate('Ecoponto', {cep: userCep, bairro: userBairro})}
+                    >
+                        <Image 
+                            source={ImgPEV} 
+                            style={styles.menuItemImage}
+                        />
+                        <Text style={styles.menuItemText}>
+                            PEV
+                        </Text>
+                    </TouchableOpacity> 
+                    
+                    <TouchableOpacity 
+                        activeOpacity={0.5} 
+                        style={styles.menuItem}
+                        onPress={() => navigation.navigate('Cidadao', {nome:userName})}
+                    >
+                        <Image 
+                            source={ImgCidadaoFiscal} 
+                            style={styles.menuItemImage}
+                        />
+                        <Text style={styles.menuItemText}>
+                            Cidadão {'\n'} 
+                            Fiscal
+                        </Text>
+                    </TouchableOpacity> 
+
+                    <TouchableOpacity 
+                        activeOpacity={0.5} 
+                        style={styles.menuItem}
+                        onPress={() => navigation.navigate('DataPage')}
+                    >
+                        <Image 
+                            source={ImgCep} 
+                            style={styles.menuItemImage}
+                        />
+                        <Text style={styles.menuItemText}>
+                            Atualizar {'\n'} 
+                            CEP
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+
+            </ImageBackground>
         </SafeAreaView>
     )
 }
@@ -200,7 +206,7 @@ const styles = StyleSheet.create({
         //backgroundColor: colors.gray
     },
     menuItem: {
-        backgroundColor: colors.gray_light,
+        backgroundColor: colors.white,
         height: 125,
         width: 125,
         margin: '1%',
@@ -220,5 +226,9 @@ const styles = StyleSheet.create({
     menuItemImage: {
         height: 65,
         width: 65
+    },
+    image: {
+        flex: 1,
+        justifyContent: "center"
     }
 });

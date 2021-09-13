@@ -117,10 +117,10 @@ export function Ecoponto() {
                             ]}
                             onPress={()=> handleSelectItem(item.id)}
                         >
-                        <Text style={styles.titleFilter}>
-                            {item.title}
-                        </Text>
-                   </TouchableOpacity>
+                            <Text style={styles.titleFilter}>
+                                {item.title}
+                            </Text>
+                        </TouchableOpacity>
                    ))}
                 </ScrollView>
             </View>
@@ -164,7 +164,8 @@ export function Ecoponto() {
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        width: '100%',    
+        width: '100%',   
+        backgroundColor: colors.background 
     },
     title:{
        marginLeft:15,

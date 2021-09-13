@@ -109,7 +109,8 @@ export function Detail() {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        marginLeft: 0
+        marginLeft: 0,
+        backgroundColor: colors.background 
     },
     detailBox: {
         width: '100%',

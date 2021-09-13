@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "conscientiza_pn",
-    "slug": "conscientiza_pn",
+    "name": "ConscientizaPN",
+    "slug": "ConscientizaPN",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
