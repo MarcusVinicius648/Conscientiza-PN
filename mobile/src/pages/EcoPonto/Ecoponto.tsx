@@ -39,6 +39,7 @@ export function Ecoponto() {
     
     useEffect(()=>{
         async function loadPosition(){
+
             const {status} = await Location.requestForegroundPermissionsAsync();
             
             if (status !== 'granted'){
@@ -46,7 +47,7 @@ export function Ecoponto() {
                 return;
             }
 
-            const location = await Location.getCurrentPositionAsync();
+            const location = await Location.getCurrentPositionAsync({});
             const {latitude, longitude} = location.coords;
             
             setInicialPositions([
