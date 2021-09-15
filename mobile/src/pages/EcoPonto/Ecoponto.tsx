@@ -51,7 +51,9 @@ export function Ecoponto() {
 
             try {
                 location = await Location.getCurrentPositionAsync({
-                    accuracy: Location.Accuracy.BestForNavigation
+                    accuracy: Location.Accuracy.BestForNavigation,
+                    mayShowUserSettingsDialog: true,
+                    
                 });
             } catch {
                 location = await Location.getLastKnownPositionAsync({
@@ -67,8 +69,8 @@ export function Ecoponto() {
                 ]);
             } else {
                 setInicialPositions([
-                    -20.41557397807853, 
-                    -42.90842130196299
+                    -20.409795983395213, 
+                    -42.89450318166993
                 ]);
             }
         }
