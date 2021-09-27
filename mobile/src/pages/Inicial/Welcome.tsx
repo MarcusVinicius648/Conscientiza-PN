@@ -1,15 +1,10 @@
-import React, { useState }  from 'react';
+import React, { useEffect, useState }  from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
-
 import imageWelcome from '../../assets/imgwelcome.png';
-
 import { Entypo } from '@expo/vector-icons';
-
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-
 import { useNavigation } from '@react-navigation/core';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -18,15 +13,16 @@ export function Welcome() {
     const[userCep,setUserCep]= useState<string>();
     const navigation = useNavigation();
 
+    useEffect(() => {
+        async function loadUserCEP() {
+            const userCep = await AsyncStorage.getItem('@conscientizaPn:cep');
+            setUserCep(userCep || '');
+        }      
+
+        loadUserCEP(); 
+    }, []);
+
     function handleStart() {
-        async function setCep(){
-            const cep = await AsyncStorage.getItem('@conscientizaPn:cep')
-            setUserCep(cep || '')
-        }
-        console.log(userCep)
-
-       setCep()
-
         if(!userCep){
             navigation.navigate('DataPage') //This function move on the client to DataPage
         }else{  
@@ -54,10 +50,9 @@ export function Welcome() {
                     activeOpacity={0.7}
                     onPress={handleStart}
                 >
-                    <Entypo 
-                        name="chevron-thin-right" 
-                        style={styles.buttonIcon} 
-                    />
+                    <Text style={styles.buttomText}>
+                        Iniciar
+                    </Text>                    
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
@@ -110,9 +105,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 56,
-        width: 56,
+        width: 120,
         borderRadius: 16,
         marginBottom: 6
+    },
+    buttomText: {
+        textAlign: 'center',
+        fontFamily: fonts.text,
+        fontSize: 20,
+        color: colors.white
     },
     buttonIcon: {
         color: colors.white,

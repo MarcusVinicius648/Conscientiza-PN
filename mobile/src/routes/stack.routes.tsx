@@ -6,6 +6,8 @@ import { DataPage } from '../pages/Inicial/DataPage';
 import { Home } from '../pages/Inicial/Home';
 import { Coleta } from '../pages/Coleta/Coleta';
 import { Cidadao } from '../pages/Cidadao/Cidadao';
+import { Registro } from '../pages/Cidadao/Registro';
+import { Detalhes } from '../pages/Cidadao/Detalhes';
 import { Ecoponto } from '../pages/EcoPonto/Ecoponto';
 import { Volumosos } from '../pages/Coleta/Volumosos';
 import { Residencial } from '../pages/Coleta/Residencial';
@@ -84,6 +86,14 @@ const AppRoute: React.FC = () => (
         <stackRoutes.Screen 
             name="Detail" 
             component={Detail} 
+        />
+        <stackRoutes.Screen 
+            name="Registro" 
+            component={Registro} 
+        />
+        <stackRoutes.Screen 
+            name="Detalhes" 
+            component={Detalhes} 
         />
     </stackRoutes.Navigator>
 )

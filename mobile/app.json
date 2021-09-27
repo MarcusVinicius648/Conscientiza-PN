@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "conscientiza_pn",
-    "slug": "conscientiza_pn",
+    "name": "ConscientizaPN",
+    "slug": "ConscientizaPN",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,9 +24,15 @@
     "android": {
       "package": "edu.ifmg.conscientizapn",
       "versionCode": 1,
+      "permissions": ["CAMERA", "ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "ACCESS_BACKGROUND_LOCATION", "FOREGROUND_SERVICE"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCr3VoX1zND3XNU3XL-4uyR2tUQ5gNHPX0"
+        }
       }
     },
     "web": {

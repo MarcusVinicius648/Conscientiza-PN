@@ -38,7 +38,7 @@ export function CardHeader({ title, page }: CardHeaderProps){
 const styles = StyleSheet.create({
     container: {
         height: 38,
-        backgroundColor: colors.blue,
+        backgroundColor: colors.green_dark,
         borderRadius: 10,
         marginLeft: 10,
         marginRight: 10,

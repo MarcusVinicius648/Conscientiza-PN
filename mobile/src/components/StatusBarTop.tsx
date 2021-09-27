@@ -55,31 +55,29 @@ const styles = StyleSheet.create({
         backgroundColor: colors.green,
         height: 56,
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
+        justifyContent: 'space-between'
     },
     iconBack: {
         alignItems: 'center',
         justifyContent: 'center',
         height: 56,
-        width: 60
+        width: '15%'
     },
     titleRegion: {
-        height: 46,
-        marginRight:300
+        height: 56,
+        width: '70%',
+        //backgroundColor: '#FF0000'
     },
     iconHelp: {
         alignItems: 'center',
         justifyContent: 'center',
         height: 56,
-        width: 60
+        width: '15%'
     },
     text: {
         position: 'absolute',
-        paddingRight:80,
         marginTop: 16,
         fontFamily: fonts.text,
-        //fontWeight: '500',
         fontSize: 20,
         color: colors.white
     },
