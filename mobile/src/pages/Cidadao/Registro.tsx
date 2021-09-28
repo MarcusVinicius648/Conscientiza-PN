@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import {SafeAreaView, StyleSheet,Alert, View,TouchableOpacity,Text, TextInput, ScrollView} from 'react-native';
+import {SafeAreaView, StyleSheet,Alert, View,TouchableOpacity,Text, TextInput, ScrollView, FlatList} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/core';
 import { StatusBarTop } from '../../components/StatusBarTop';
 import { Feather as Icon } from '@expo/vector-icons';
@@ -18,13 +18,14 @@ export function Registro(){
     const route = useRoute();
     const Username = route.params as Params;
     const [file, setFile] = useState();
+    const [photoOptions, setPhotoOptions] = useState(false)
 
     function CriarRegistro(){
         
     }
 
     function AcessarFoto(){
-       
+       setPhotoOptions(!photoOptions)
     }
 
     return(
@@ -53,7 +54,7 @@ export function Registro(){
                         style={[styles.textInput,styles.DescTextInput]}
                     />
                 </View>
-
+           
                 <View style={styles.cameraContainer}>
                     <TouchableOpacity
                         activeOpacity={0.7}
@@ -68,7 +69,6 @@ export function Registro(){
                         </Text>
                     </TouchableOpacity> 
                 </View>
-
                 <TouchableOpacity 
                     style={styles.buttonContainer}
                     activeOpacity={0.7}
@@ -77,7 +77,50 @@ export function Registro(){
                  <Button title={'Criar Ocorrência'}/>
                 </TouchableOpacity>
             </ScrollView>
-           
+            {photoOptions &&(
+                    <View style={styles.ContainerFooter}>
+                        <View style={styles.photoContainer}>
+                            <Text style={styles.photoTitle}>
+                                Adicionar uma imagem à ocorrência:
+                            </Text>
+                            <TouchableOpacity
+                                activeOpacity={0.7}
+                                onPress={AcessarFoto}
+                                style={styles.photoButtonContainer}
+                            >
+                                <View>
+                                    <Text style={styles.photoButtonTitle}>
+                                        Tirar a foto   
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                activeOpacity={0.7}
+                                onPress={AcessarFoto}
+                                style={styles.photoButtonContainer}
+                            >
+                                <View>
+                                    <Text style={styles.photoButtonTitle}>
+                                        Escolher da galeria   
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                activeOpacity={0.7}
+                                onPress={AcessarFoto}
+                                style={styles.photoButtonContainer}
+                            >
+                                <View>
+                                    <Text style={styles.photoButtonTitle}>
+                                        Cancelar  
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                            
+                        </View>
+                    </View>
+            )}
+               
         </SafeAreaView>
     )
 };
@@ -132,5 +175,35 @@ const styles = StyleSheet.create({
         marginLeft:'5%',
         marginTop:40,
         marginBottom: 30,
+    },
+    ContainerFooter:{
+        position:'absolute',
+        height:'100%',
+        width:'100%',
+        justifyContent:'flex-end'
+    },
+    photoContainer:{
+        backgroundColor:colors.white,
+        width:'100%',
+        alignItems:'center',
+        height: 200
+    },
+    photoTitle:{
+        marginTop:14,
+        fontFamily:fonts.heading,
+        fontSize:16
+    },
+    photoButtonContainer:{
+        marginTop:15,
+        width:'90%',
+        height:30,
+        alignItems:'center',
+        justifyContent:'center',
+        backgroundColor:colors.green,
+        borderRadius: 20
+    },
+    photoButtonTitle:{
+        fontFamily:fonts.complement,
+        fontSize:12
     },
 });

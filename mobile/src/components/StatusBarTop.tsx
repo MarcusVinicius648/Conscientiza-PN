@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         marginTop: 16,
         fontFamily: fonts.text,
-        fontSize: 20,
+        fontSize: 18,
         color: colors.white
     },
 });
