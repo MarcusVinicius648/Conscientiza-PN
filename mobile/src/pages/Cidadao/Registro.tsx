@@ -4,6 +4,7 @@ import {useNavigation, useRoute} from '@react-navigation/core';
 import { StatusBarTop } from '../../components/StatusBarTop';
 import { Feather as Icon } from '@expo/vector-icons';
 import { Button } from '../../components/Button';
+import ImagePicker from 'react-native-image-crop-picker';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
@@ -19,6 +20,7 @@ export function Registro(){
     const Username = route.params as Params;
     const [file, setFile] = useState();
     const [photoOptions, setPhotoOptions] = useState(false)
+    const [image, setImage] = useState('')
 
     function CriarRegistro(){
         
@@ -26,6 +28,30 @@ export function Registro(){
 
     function AcessarFoto(){
        setPhotoOptions(!photoOptions)
+    }
+
+    function TakePhotoFromCamera(){
+        ImagePicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true,
+          }).then(image => {
+            console.log(image);
+            setImage(image.path);
+          });
+          
+    }
+
+    function ChoosePhotoFromLibrary(){
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+          }).then(image => {
+            console.log(image);
+            setImage(image.path);
+          });
+          
     }
 
     return(
@@ -78,14 +104,14 @@ export function Registro(){
                 </TouchableOpacity>
             </ScrollView>
             {photoOptions &&(
-                    <View style={styles.ContainerFooter}>
+                   <View style={styles.ContainerFooter}>
                         <View style={styles.photoContainer}>
                             <Text style={styles.photoTitle}>
                                 Adicionar uma imagem à ocorrência:
                             </Text>
                             <TouchableOpacity
                                 activeOpacity={0.7}
-                                onPress={AcessarFoto}
+                                onPress={TakePhotoFromCamera}
                                 style={styles.photoButtonContainer}
                             >
                                 <View>
@@ -96,7 +122,7 @@ export function Registro(){
                             </TouchableOpacity>
                             <TouchableOpacity
                                 activeOpacity={0.7}
-                                onPress={AcessarFoto}
+                                onPress={ChoosePhotoFromLibrary}
                                 style={styles.photoButtonContainer}
                             >
                                 <View>
@@ -128,7 +154,7 @@ export function Registro(){
 const styles = StyleSheet.create({
     container:{
         width:'100%',
-        flex:1
+        flex:1,
     },
     cameraContainer:{
         marginLeft:'5%',
@@ -186,7 +212,9 @@ const styles = StyleSheet.create({
         backgroundColor:colors.white,
         width:'100%',
         alignItems:'center',
-        height: 200
+        height: 250,
+        borderTopWidth:1,
+        borderTopColor:colors.green_dark
     },
     photoTitle:{
         marginTop:14,
@@ -194,16 +222,16 @@ const styles = StyleSheet.create({
         fontSize:16
     },
     photoButtonContainer:{
-        marginTop:15,
+        marginTop:25,
         width:'90%',
-        height:30,
+        height:40,
         alignItems:'center',
         justifyContent:'center',
         backgroundColor:colors.green,
-        borderRadius: 20
+        borderRadius: 15
     },
     photoButtonTitle:{
         fontFamily:fonts.complement,
-        fontSize:12
+        fontSize:13
     },
 });
