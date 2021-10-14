@@ -114,7 +114,7 @@ export function Home() {
                     <TouchableOpacity 
                         activeOpacity={0.5} 
                         style={styles.menuItem}
-                        onPress={() => navigation.navigate('Cidadao', {nome:userName})}
+                        onPress={() => navigation.navigate('Cidadao', {name:userName})}
                     >
                         <Image 
                             source={ImgCidadaoFiscal} 

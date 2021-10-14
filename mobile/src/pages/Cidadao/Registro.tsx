@@ -1,10 +1,12 @@
 import React,{useEffect,useState} from 'react';
-import {SafeAreaView, StyleSheet,Alert, View,TouchableOpacity,Text, TextInput, ScrollView, FlatList} from 'react-native';
+import {SafeAreaView, StyleSheet, Alert, View,TouchableOpacity,Text, TextInput, ScrollView, FlatList} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/core';
 import { StatusBarTop } from '../../components/StatusBarTop';
 import { Feather as Icon } from '@expo/vector-icons';
 import { Button } from '../../components/Button';
-import ImagePicker from 'react-native-image-crop-picker';
+import * as Location from 'expo-location';
+import api from '../../server/api';
+//import ImagePicker from 'react-native-image-crop-picker';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
@@ -17,13 +19,57 @@ interface Params{
 export function Registro(){
     const navigation = useNavigation();
     const route = useRoute();
-    const Username = route.params as Params;
+    
     const [file, setFile] = useState();
-    const [photoOptions, setPhotoOptions] = useState(false)
-    const [image, setImage] = useState('')
+    const [photoOptions, setPhotoOptions] = useState(false);
 
-    function CriarRegistro(){
-        
+    const username = route.params as Params;
+    const [foto, setFoto] = useState('foto_fake');
+    const [descricao, setDescricao] = useState('');
+    const [ocorrenciaPositions, setOcorrenciaPositions] = useState<[number,number]>([0,0,]);
+
+    useEffect(()=>{
+        async function loadPosition(){
+            const {status} = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted'){
+                Alert.alert('Precisamos de sua permissão para obter a localização');
+                return;
+            }
+
+            const location = await Location.getCurrentPositionAsync();
+            const {latitude, longitude} = location.coords;
+            
+            setOcorrenciaPositions([
+                latitude,
+                longitude
+            ]);
+           
+        }
+        loadPosition();
+    },[]);
+
+    async function CriarRegistro(){
+        const latitude = ocorrenciaPositions[0]
+        const longitude = ocorrenciaPositions[1]
+        const reportacoes = 1
+        const nomeUsuario = username.nome
+        const data = {
+            descricao,
+            foto,
+            latitude,
+            longitude,
+            reportacoes,
+            nomeUsuario
+        };
+        console.log(nomeUsuario)
+        //await api.post('ocorrencias',data);
+        //Alert.alert('Registro feito com sucesso!')
+        //navigation.goBack();
+
+    }
+
+    function handleGravarDescricao(desc:string){
+        setDescricao(desc)
     }
 
     function AcessarFoto(){
@@ -31,28 +77,27 @@ export function Registro(){
     }
 
     function TakePhotoFromCamera(){
-        ImagePicker.openCamera({
+        /*ImagePicker.openCamera({
             width: 300,
             height: 400,
             cropping: true,
           }).then(image => {
             console.log(image);
             setImage(image.path);
-          });
-          
+          }); */
     }
 
     function ChoosePhotoFromLibrary(){
-        ImagePicker.openPicker({
+       /* ImagePicker.openPicker({
             width: 300,
             height: 400,
             cropping: true
           }).then(image => {
             console.log(image);
             setImage(image.path);
-          });
-          
+          }); */
     }
+    
 
     return(
         <SafeAreaView style={styles.container}>
@@ -69,14 +114,17 @@ export function Registro(){
                     <TextInput
                         placeholder={'Bairro'} 
                         style={styles.textInput}
+                        editable={false}
                     />
                     <TextInput
                         placeholder={'Rua'} 
                         style={styles.textInput}
+                        editable={false}
                     />
                     <TextInput
                         placeholder={'Descrição'} 
                         multiline={true}
+                        onChangeText={handleGravarDescricao}
                         style={[styles.textInput,styles.DescTextInput]}
                     />
                 </View>
