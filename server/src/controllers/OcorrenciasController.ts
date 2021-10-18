@@ -25,5 +25,18 @@ class OcorrenciasController{
         return response.json({sucess:true})
     }
 
+    async show(request:Request, response:Response){
+        const ocorrencias = await knex('ocorrencias').select('*');
+
+        const serializedOcorrencias = ocorrencias.map(ocorrencia =>{
+            return{
+                id:ocorrencia.id,
+                latitude: ocorrencia.latitude,
+                longitude: ocorrencia.longitude,
+            };
+        });
+        return response.json(serializedOcorrencias);
+    }
+
 };
 export default OcorrenciasController;

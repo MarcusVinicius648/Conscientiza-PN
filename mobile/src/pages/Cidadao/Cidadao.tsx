@@ -5,6 +5,8 @@ import { useNavigation, useRoute } from '@react-navigation/core';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import {Button} from '../../components/Button';
+import { Feather as Icon } from '@expo/vector-icons';
+import api from '../../server/api';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
@@ -14,11 +16,18 @@ interface Params{
     nome: string
 }
 
+interface Ocorrencias{
+    id:number,
+    latitude:number,
+    longitude:number
+}
+
 export function Cidadao() {
     const navigation = useNavigation();
     const route = useRoute();
     const Username = route.params as Params
-    const[initialPositions, setInicialPositions] = useState<[number,number]>([0,0,]);
+    const [initialPositions, setInicialPositions] = useState<[number,number]>([0,0,]);
+    const [ocorrencias, setOcorrencias] = useState<Ocorrencias[]>([]);
 
     useEffect(()=>{
         async function loadPosition(){
@@ -40,6 +49,12 @@ export function Cidadao() {
         loadPosition();
     },[]);
 
+    useEffect(()=>{
+        api.get('ocorrencias').then(response=>{
+            setOcorrencias(response.data);
+        })
+    },[]);
+
     return (
         <SafeAreaView style={styles.container}>
             <StatusBarTop 
@@ -47,10 +62,20 @@ export function Cidadao() {
                 activeIconAbout={false} 
                 activeIconBack={true}
             />
-            <View style={styles.titleContainer}>
-                <Text style={styles.title}>
-                     Quanto mais vermelho o ícone estiver, significa que mais pessoas estão insatisfeitas com o mesmo problema!
-                </Text>
+            <View style={styles.footerContainer}>
+                    <View style={styles.iconContainer}>
+                        <View style={styles.mapLocalization}></View> 
+                            <View style={styles.mapLocalizationRegion}>
+                               <Text style={styles.icon}>
+                                    !
+                               </Text>  
+                        </View>
+                    </View>  
+                        <Text style={styles.legend}>
+                            Quanto mais avermelhado o ponto estiver, {'\n'} 
+                            mais pessoas estão insatisfeitas {'\n'}
+                            com o mesmo problema.
+                        </Text>
             </View>
 
             <View style={styles.mapContainer}>
@@ -64,21 +89,24 @@ export function Cidadao() {
                             longitudeDelta: 0.014,
                         }}
                     > 
+                        {ocorrencias.map(ocorrencia =>(
                             <Marker
-                                coordinate={{ 
-                                    latitude:-20.410735550013100, 
-                                    longitude:-42.89270396080260, 
-                                }}
-                                style={styles.marker} 
-                                onPress= {() => navigation.navigate('Detalhes')}
+                            coordinate={{ 
+                                latitude:ocorrencia.latitude, 
+                                longitude:ocorrencia.longitude, 
+                            }}
+                            style={styles.marker} 
+                            onPress= {() => navigation.navigate('Detalhes')}
+                            key={ocorrencia.id}
                             >
-                                <View style={[styles.arrowDown,styles.mapMarkerArrowRed]}></View>   
-                                <View style={[styles.mapMarkerContainer,styles.mapMarkerContainerRed]}>
+                                <View style={styles.arrowDown}></View>   
+                                <View style={styles.mapMarkerContainer}>
                                     <Text style={styles.mapMarkerTitle}>
                                         !
                                     </Text>   
                                 </View>
-                            </Marker>            
+                        </Marker>         
+                        ))}    
                     </MapView>
             )}
             </View>
@@ -126,15 +154,15 @@ const styles = StyleSheet.create({
         marginTop:-8
     },
     marker:{
-        width: 60,
-        height: 60,
+        width: 40,
+        height: 40,
     },
     markerContainer:{
-        width: 60,
-        height: 60,
+        width: 40,
+        height: 40,
     },
     mapMarkerContainer:{
-        width: 50,
+        width: 40,
         height: 40,
         backgroundColor: colors.green,
         flexDirection: 'column',
@@ -144,7 +172,7 @@ const styles = StyleSheet.create({
     },
     arrowDown:{
         position: 'absolute',
-        marginLeft: 19,
+        marginLeft: 8,
         marginTop: 38,
         width: 0,
         height:0,
@@ -163,11 +191,43 @@ const styles = StyleSheet.create({
         lineHeight: 15,
         paddingTop:25
     },
-    mapMarkerContainerRed:{
-        backgroundColor:colors.red,
+    mapLocalizationRegion:{
+        width: 32,
+        height: 32,
+        backgroundColor: colors.green,
+        borderRadius: 4,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    mapMarkerArrowRed:{
-        borderTopColor:colors.red,
+    iconContainer:{
+        margin:15,
+        marginTop:25
+    },
+    icon:{
+        color:colors.white,
+        fontSize:25
+    },
+    mapLocalization:{
+        borderLeftWidth: 10,
+        borderLeftColor: 'transparent',
+        borderRightWidth: 10,
+        borderRightColor: 'transparent',
+        borderTopColor:colors.green,
+        borderTopWidth: 10,
+        marginTop:30,
+        marginLeft:6,
+        position:'absolute'
+    },
+    footerContainer: {
+        flexDirection: 'row'
+    },
+    legend:{
+        marginTop: 10,
+        marginBottom: 10,
+        textAlign: 'left', 
+        fontSize: 14,
+        fontFamily: fonts.complement
     },
 });
+
 
