@@ -26,6 +26,8 @@ export function Registro(){
     const username = route.params as Params;
     const [foto, setFoto] = useState('foto_fake');
     const [descricao, setDescricao] = useState('');
+    const [rua, setRua] = useState('');
+    const [bairro, setBairro] = useState('');
     const [ocorrenciaPositions, setOcorrenciaPositions] = useState<[number,number]>([0,0,]);
 
     useEffect(()=>{
@@ -53,23 +55,34 @@ export function Registro(){
         const longitude = ocorrenciaPositions[1]
         const reportacoes = 1
         const nomeUsuario = username.nome
+        
         const data = {
             descricao,
             foto,
             latitude,
             longitude,
             reportacoes,
-            nomeUsuario
+            nomeUsuario,
+            bairro,
+            rua
         };
         console.log(nomeUsuario)
-        //await api.post('ocorrencias',data);
-        //Alert.alert('Registro feito com sucesso!')
-        //navigation.goBack();
+        await api.post('ocorrencias',data);
+        Alert.alert('Registro feito com sucesso!')
+        navigation.goBack();
 
     }
 
     function handleGravarDescricao(desc:string){
         setDescricao(desc)
+    }
+
+    function handleGravarRua(rua:string){
+        setRua(rua)
+    }
+
+    function handleGravarBairro(bairro:string){
+        setBairro(bairro)
     }
 
     function AcessarFoto(){
@@ -114,12 +127,12 @@ export function Registro(){
                     <TextInput
                         placeholder={'Bairro'} 
                         style={styles.textInput}
-                        editable={false}
+                        onChangeText={handleGravarBairro}
                     />
                     <TextInput
                         placeholder={'Rua'} 
                         style={styles.textInput}
-                        editable={false}
+                        onChangeText={handleGravarRua}
                     />
                     <TextInput
                         placeholder={'Descrição'} 

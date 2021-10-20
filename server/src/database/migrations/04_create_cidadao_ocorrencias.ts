@@ -8,6 +8,8 @@ export async function up(knex:Knex){
         table.decimal('longitude').notNullable();
         table.integer('reportacoes').notNullable();
         table.string('nomeUsuario').notNullable();
+        table.string('bairro').notNullable();
+        table.string('rua').notNullable();
     });
 }
 export async function down(knex:Knex){

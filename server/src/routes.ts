@@ -18,5 +18,6 @@ routes.get('/points',pointsController.index);
 routes.get('/points/:id',pointsController.show);
 routes.post('/ocorrencias', ocorrenciasController.create);
 routes.get('/ocorrencias', ocorrenciasController.show);
+routes.get('/ocorrencias/:id',ocorrenciasController.showId);
 
 export default routes;

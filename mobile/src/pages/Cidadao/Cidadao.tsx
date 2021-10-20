@@ -25,7 +25,8 @@ interface Ocorrencias{
 export function Cidadao() {
     const navigation = useNavigation();
     const route = useRoute();
-    const Username = route.params as Params
+    const Username = route.params as Params;
+    const nome = Username.nome;
     const [initialPositions, setInicialPositions] = useState<[number,number]>([0,0,]);
     const [ocorrencias, setOcorrencias] = useState<Ocorrencias[]>([]);
 
@@ -54,6 +55,10 @@ export function Cidadao() {
             setOcorrencias(response.data);
         })
     },[]);
+
+    function handleNavigateToDetail(id: number) {
+        navigation.navigate('Detalhes', { ocorrencias_id: id });
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -96,7 +101,7 @@ export function Cidadao() {
                                 longitude:ocorrencia.longitude, 
                             }}
                             style={styles.marker} 
-                            onPress= {() => navigation.navigate('Detalhes')}
+                            onPress= {()=>handleNavigateToDetail(ocorrencia.id)}
                             key={ocorrencia.id}
                             >
                                 <View style={styles.arrowDown}></View>   
@@ -114,7 +119,7 @@ export function Cidadao() {
             <TouchableOpacity 
                 activeOpacity={0.8}
                 style={styles.buttonContainer}
-                onPress={() => navigation.navigate('Registro',{nome:Username})}
+                onPress={() => navigation.navigate('Registro',{nome})}
             > 
                 <Button title={'+ Registrar uma ocorrência'}/>
             </TouchableOpacity>
@@ -151,7 +156,8 @@ const styles = StyleSheet.create({
     buttonContainer:{
         marginHorizontal:50,
         width: '70%',
-        marginTop:-8
+        marginTop:-15,
+        
     },
     marker:{
         width: 40,
@@ -201,7 +207,7 @@ const styles = StyleSheet.create({
     },
     iconContainer:{
         margin:15,
-        marginTop:25
+        marginTop:20
     },
     icon:{
         color:colors.white,
@@ -215,14 +221,14 @@ const styles = StyleSheet.create({
         borderTopColor:colors.green,
         borderTopWidth: 10,
         marginTop:30,
-        marginLeft:6,
+        marginLeft:5.5,
         position:'absolute'
     },
     footerContainer: {
         flexDirection: 'row'
     },
     legend:{
-        marginTop: 10,
+        marginTop: 5,
         marginBottom: 10,
         textAlign: 'left', 
         fontSize: 14,
