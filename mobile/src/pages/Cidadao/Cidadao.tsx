@@ -24,6 +24,7 @@ interface Ocorrencias{
 
 export function Cidadao() {
     const navigation = useNavigation();
+    const [load, setLoad] = useState(true);
     const route = useRoute();
     const Username = route.params as Params;
     const nome = Username.nome;
@@ -51,10 +52,14 @@ export function Cidadao() {
     },[]);
 
     useEffect(()=>{
+        navigation.addListener('focus',() =>{
+            setLoad(!load)
+        });
+        
         api.get('ocorrencias').then(response=>{
             setOcorrencias(response.data);
-        })
-    },[]);
+        });
+    },[load,navigation]);
 
     function handleNavigateToDetail(id: number) {
         navigation.navigate('Detalhes', { ocorrencias_id: id });

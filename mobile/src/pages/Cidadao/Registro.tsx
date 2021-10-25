@@ -100,16 +100,7 @@ export function Registro(){
           }); */
     }
 
-    function ChoosePhotoFromLibrary(){
-       /* ImagePicker.openPicker({
-            width: 300,
-            height: 400,
-            cropping: true
-          }).then(image => {
-            console.log(image);
-            setImage(image.path);
-          }); */
-    }
+    function ChoosePhotoFromLibrary(){}
     
 
     return(

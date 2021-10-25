@@ -15,6 +15,7 @@ import { Seletiva } from '../pages/Coleta/Seletiva';
 import { About } from '../pages/Inicial/About';
 import { Detail } from '../pages/EcoPonto/Detail';
 import { Rural } from '../pages/Coleta/Rural';
+import { CameraPage } from '../pages/Cidadao/CameraPage';
 import color from '../styles/colors';
 
 const stackRoutes = createStackNavigator();
@@ -94,6 +95,10 @@ const AppRoute: React.FC = () => (
         <stackRoutes.Screen 
             name="Detalhes" 
             component={Detalhes} 
+        />
+        <stackRoutes.Screen 
+            name="CameraPage" 
+            component={CameraPage} 
         />
     </stackRoutes.Navigator>
 )
