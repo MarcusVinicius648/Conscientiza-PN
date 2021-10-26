@@ -90,14 +90,7 @@ export function Registro(){
     }
 
     function TakePhotoFromCamera(){
-        /*ImagePicker.openCamera({
-            width: 300,
-            height: 400,
-            cropping: true,
-          }).then(image => {
-            console.log(image);
-            setImage(image.path);
-          }); */
+        navigation.navigate('CameraPage')
     }
 
     function ChoosePhotoFromLibrary(){}
