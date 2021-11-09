@@ -87,7 +87,9 @@ const styles= StyleSheet.create({
     },
     OcorrenciaImage:{
         width: '80%',
-        height: 200
+        height: 200,
+        resizeMode:'contain',
+        borderRadius:10
     },
     textContainer:{
         marginTop:10,
