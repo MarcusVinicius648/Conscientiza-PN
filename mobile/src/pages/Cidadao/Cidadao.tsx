@@ -115,7 +115,7 @@ export function Cidadao() {
                                         !
                                     </Text>   
                                 </View>
-                        </Marker>         
+                            </Marker>         
                         ))}    
                     </MapView>
             )}
@@ -124,7 +124,7 @@ export function Cidadao() {
             <TouchableOpacity 
                 activeOpacity={0.8}
                 style={styles.buttonContainer}
-                onPress={() => navigation.navigate('Registro',{nome})}
+                onPress={() => navigation.navigate('Registro',{nome: nome, photo: null})}
             > 
                 <Button title={'+ Registrar uma ocorrência'}/>
             </TouchableOpacity>
@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         width: '100%',
+        backgroundColor: colors.background
     },
     titleContainer:{
         marginLeft:15,

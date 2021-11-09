@@ -1,29 +1,29 @@
 import React,{useEffect,useState} from 'react';
-import {SafeAreaView, StyleSheet, Alert, View,TouchableOpacity,Text, TextInput, ScrollView, FlatList} from 'react-native';
+import {SafeAreaView, StyleSheet, Alert, View,TouchableOpacity,Text, TextInput, ScrollView, Image, Platform} from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/core';
+import * as ImagePicker from 'expo-image-picker';
 import { StatusBarTop } from '../../components/StatusBarTop';
 import { Feather as Icon } from '@expo/vector-icons';
 import { Button } from '../../components/Button';
 import * as Location from 'expo-location';
 import api from '../../server/api';
-//import ImagePicker from 'react-native-image-crop-picker';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-import { Assets } from '@react-navigation/stack';
 
 interface Params{
-    nome:string
+    nome: string,
+    photo: any | null
 }
 
 export function Registro(){
     const navigation = useNavigation();
     const route = useRoute();
-    
-    const [file, setFile] = useState();
-    const [photoOptions, setPhotoOptions] = useState(false);
+    const dataParams = route.params as Params;
 
-    const username = route.params as Params;
+    const [image, setImage] = useState('');
+    
+    const [photoOptions, setPhotoOptions] = useState(false);
     const [foto, setFoto] = useState('foto_fake');
     const [descricao, setDescricao] = useState('');
     const [rua, setRua] = useState('');
@@ -45,16 +45,36 @@ export function Registro(){
                 latitude,
                 longitude
             ]);
-           
         }
         loadPosition();
     },[]);
 
+    async function acessarGaleria(){
+        if (Platform.OS !== 'web') {
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+                alert('Desculpe, precisamos de permissão para acessar sua galeria!');
+            } else {
+                let result = await ImagePicker.launchImageLibraryAsync({
+                    mediaTypes: ImagePicker.MediaTypeOptions.All,
+                    allowsEditing: true,
+                    quality: 1,
+                });
+            
+                if (!result.cancelled) {
+                    setImage(result.uri);
+                    dataParams.photo = null;
+                    setPhotoOptions(!photoOptions);
+                }
+            }
+        }        
+    }
+
     async function CriarRegistro(){
-        const latitude = ocorrenciaPositions[0]
-        const longitude = ocorrenciaPositions[1]
-        const reportacoes = 1
-        const nomeUsuario = username.nome
+        const latitude = ocorrenciaPositions[0];
+        const longitude = ocorrenciaPositions[1];
+        const reportacoes = 1;
+        const nomeUsuario = dataParams.nome;
         
         const data = {
             descricao,
@@ -66,35 +86,30 @@ export function Registro(){
             bairro,
             rua
         };
-        console.log(nomeUsuario)
-        await api.post('ocorrencias',data);
-        Alert.alert('Registro feito com sucesso!')
-        navigation.goBack();
 
+        if (descricao != ''){
+            await api.post('ocorrencias',data);
+            Alert.alert('Registro feito com sucesso!');
+
+            navigation.goBack();
+        } else {
+            Alert.alert('Informe uma descrição da ocorrência registrada!');
+        }
     }
 
     function handleGravarDescricao(desc:string){
         setDescricao(desc)
     }
 
-    function handleGravarRua(rua:string){
-        setRua(rua)
-    }
-
-    function handleGravarBairro(bairro:string){
-        setBairro(bairro)
-    }
-
     function AcessarFoto(){
-       setPhotoOptions(!photoOptions)
+       setPhotoOptions(!photoOptions);
     }
 
     function TakePhotoFromCamera(){
-        navigation.navigate('CameraPage')
-    }
-
-    function ChoosePhotoFromLibrary(){}
-    
+        setPhotoOptions(!photoOptions);
+        setImage('');
+        navigation.navigate('CameraPage');
+    }  
 
     return(
         <SafeAreaView style={styles.container}>
@@ -108,38 +123,51 @@ export function Registro(){
                 showsVerticalScrollIndicator={false}
             >
                 <View style={styles.inputsContainer}>
+                    <Text style={{
+                        fontFamily: fonts.text,
+                        color: colors.gray_dark,
+                        marginBottom: 5,
+                    }}> 
+                        Digite aqui algo sobre a ocorrência 
+                    </Text>           
                     <TextInput
-                        placeholder={'Bairro'} 
-                        style={styles.textInput}
-                        onChangeText={handleGravarBairro}
-                    />
-                    <TextInput
-                        placeholder={'Rua'} 
-                        style={styles.textInput}
-                        onChangeText={handleGravarRua}
-                    />
-                    <TextInput
-                        placeholder={'Descrição'} 
                         multiline={true}
                         onChangeText={handleGravarDescricao}
-                        style={[styles.textInput,styles.DescTextInput]}
+                        style={[styles.textInput, {height: 150}]}
                     />
-                </View>
+                </View>               
            
-                <View style={styles.cameraContainer}>
-                    <TouchableOpacity
-                        activeOpacity={0.7}
-                        onPress={AcessarFoto}
-                    >
-                        <Icon
-                            name={'image'}
-                            style={styles.iconCamera}
-                        />
-                        <Text style={styles.textCamer}>
-                            Adicionar uma Foto
-                        </Text>
-                    </TouchableOpacity> 
+                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                    <View style={styles.cameraContainer}>
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            onPress={AcessarFoto}
+                        >                        
+                            <Icon
+                                name={'image'}
+                                style={styles.iconCamera}
+                            />
+                            <Text style={styles.textCamer}>
+                                Adicionar uma Foto
+                            </Text>                        
+                        </TouchableOpacity> 
+                    </View>
+
+                    { image != '' &&
+                        <Image 
+                            style={{ width: '50%', height: 200, marginLeft: '5%', marginTop: 5, borderRadius: 10, resizeMode: 'contain' }}
+                            source={{ uri: image}}
+                        />                            
+                    }
+
+                    { dataParams.photo &&
+                        <Image 
+                            style={{ width: '50%', height: 200, marginLeft: '5%', marginTop: 5, borderRadius: 10, resizeMode: 'contain' }}
+                            source={{ uri: dataParams.photo.uri}}
+                        />                            
+                    }
                 </View>
+
                 <TouchableOpacity 
                     style={styles.buttonContainer}
                     activeOpacity={0.7}
@@ -148,11 +176,12 @@ export function Registro(){
                  <Button title={'Criar Ocorrência'}/>
                 </TouchableOpacity>
             </ScrollView>
-            {photoOptions &&(
+
+            {photoOptions && (
                    <View style={styles.ContainerFooter}>
                         <View style={styles.photoContainer}>
                             <Text style={styles.photoTitle}>
-                                Adicionar uma imagem à ocorrência:
+                                Adicionar uma imagem
                             </Text>
                             <TouchableOpacity
                                 activeOpacity={0.7}
@@ -161,13 +190,13 @@ export function Registro(){
                             >
                                 <View>
                                     <Text style={styles.photoButtonTitle}>
-                                        Tirar a foto   
+                                        Tirar uma foto   
                                     </Text>
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 activeOpacity={0.7}
-                                onPress={ChoosePhotoFromLibrary}
+                                onPress={acessarGaleria}
                                 style={styles.photoButtonContainer}
                             >
                                 <View>
@@ -200,21 +229,20 @@ const styles = StyleSheet.create({
     container:{
         width:'100%',
         flex:1,
+        backgroundColor: colors.background 
     },
     cameraContainer:{
-        marginLeft:'5%',
-        marginTop:30,
-        borderWidth:1,
+        marginTop: 5,
         borderRadius: 10,
-        borderColor: colors.gray,
-        height:150, 
-        width:'90%',
+        backgroundColor: colors.background,
+        height:100, 
+        width:'35%',
         alignItems:'center',
         justifyContent:'center',
     },
     iconCamera:{
-       fontSize:36,
-       alignSelf:'center',
+       fontSize: 36,
+       alignSelf: 'center',
        color: colors.gray_dark
     },
     textCamer:{
@@ -224,14 +252,14 @@ const styles = StyleSheet.create({
     inputsContainer:{
         flex:1,
         alignItems:'center',
-        marginTop: 35
+        marginTop: 25
     },
     textInput:{
-        borderWidth:1,
+        borderWidth: 1,
         borderColor: colors.gray,
         width: '90%',
-        height:60,
-        marginBottom:15,
+        height: 60,
+        marginBottom: 15,
         borderRadius: 10,
         fontFamily: fonts.text,
         color: colors.gray_dark,
@@ -239,12 +267,12 @@ const styles = StyleSheet.create({
     },
     DescTextInput:{
         height: 170,
-        paddingRight:15,
+        paddingRight:15
     },
     buttonContainer:{
         width:'90%',
         marginLeft:'5%',
-        marginTop:40,
+        marginTop: 15,
         marginBottom: 30,
     },
     ContainerFooter:{
@@ -254,22 +282,22 @@ const styles = StyleSheet.create({
         justifyContent:'flex-end'
     },
     photoContainer:{
-        backgroundColor:colors.white,
+        backgroundColor:colors.background,
         width:'100%',
         alignItems:'center',
         height: 250,
-        borderTopWidth:1,
+        borderTopWidth:2,
         borderTopColor:colors.green_dark
     },
     photoTitle:{
-        marginTop:14,
-        fontFamily:fonts.heading,
-        fontSize:16
+        marginTop:12,
+        fontFamily:fonts.heading,        
+        fontSize:14
     },
     photoButtonContainer:{
-        marginTop:25,
+        marginTop:15,
         width:'90%',
-        height:40,
+        height:50,
         alignItems:'center',
         justifyContent:'center',
         backgroundColor:colors.green,
@@ -277,6 +305,7 @@ const styles = StyleSheet.create({
     },
     photoButtonTitle:{
         fontFamily:fonts.complement,
-        fontSize:13
+        color: colors.white,
+        fontSize:15
     },
 });
