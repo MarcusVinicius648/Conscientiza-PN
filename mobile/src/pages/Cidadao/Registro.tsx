@@ -137,7 +137,7 @@ export function Registro(){
                     />
                 </View>               
            
-                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'center', borderWidth:1, borderColor:colors.gray, width:'90%', alignSelf:'center', borderRadius:10, paddingBottom:5 }}>
                     <View style={styles.cameraContainer}>
                         <TouchableOpacity
                             activeOpacity={0.7}
@@ -161,10 +161,10 @@ export function Registro(){
                     }
 
                     { dataParams.photo &&
-                        <Image 
-                            style={{ width: '50%', height: 200, marginLeft: '5%', marginTop: 5, borderRadius: 10, resizeMode: 'contain' }}
-                            source={{ uri: dataParams.photo.uri}}
-                        />                            
+                            <Image 
+                                style={{ width: '50%', height: 200, marginLeft: '5%', marginTop: 5, borderRadius: 10, resizeMode: 'contain' }}
+                                source={{ uri: dataParams.photo.uri}}
+                            />                        
                     }
                 </View>
 
@@ -232,12 +232,14 @@ const styles = StyleSheet.create({
         backgroundColor: colors.background 
     },
     cameraContainer:{
+        flex:1,
         marginTop: 5,
+        marginLeft:15,
         borderRadius: 10,
         backgroundColor: colors.background,
         height:100, 
         width:'35%',
-        alignItems:'center',
+        alignSelf:'center',
         justifyContent:'center',
     },
     iconCamera:{
