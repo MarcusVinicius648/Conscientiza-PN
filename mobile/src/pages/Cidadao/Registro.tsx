@@ -10,6 +10,7 @@ import api from '../../server/api';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Params {
     nome: string,
@@ -24,7 +25,8 @@ export function Registro() {
     const [image, setImage] = useState('');
 
     const [photoOptions, setPhotoOptions] = useState(false);
-    const [foto, setFoto] = useState('foto_fake');
+
+    const [usuario, setUsuario] = useState<string>();
     const [descricao, setDescricao] = useState('');
     const [rua, setRua] = useState('');
     const [bairro, setBairro] = useState('');
@@ -45,6 +47,9 @@ export function Registro() {
                 latitude,
                 longitude
             ]);
+
+            let user = await AsyncStorage.getItem('@conscientizaPn:userName');
+            setUsuario(user || '');  
         }
         loadPosition();
     }, []);
@@ -76,25 +81,74 @@ export function Registro() {
         const reportacoes = 1;
         const nomeUsuario = dataParams.nome;
 
-        const data = {
-            descricao,
-            foto,
-            latitude,
-            longitude,
-            reportacoes,
-            nomeUsuario,
-            bairro,
-            rua
-        };
-
-        if (descricao != '' || rua != '' || bairro != '') {
-            await api.post('ocorrencias', data);
-            Alert.alert('Registro feito com sucesso!');
-
-            navigation.goBack();
+        if (descricao == '' || rua == '' || bairro == '') {
+            Alert.alert('Informe todos dados da ocorrência!');
         } else {
-            Alert.alert('Informe os dados completos da ocorrência registrada!');
-        };
+
+            const file = image != '' ? image : dataParams.photo.uri;
+
+            let uriParts = file.split('.');
+            let fileType = uriParts[uriParts.length - 1];
+            
+            const imageData = new FormData();
+
+            const d = new Date();
+
+            imageData.append('file', 
+                JSON.parse(
+                    JSON.stringify(
+                        { 
+                            uri: file, 
+                            type: `image/${fileType}`, 
+                            name: `ocorrencia-${d.getDate()}-${d.getMonth()}-${d.getFullYear()}.${fileType}`
+                        }
+                    )                    
+                )
+            );
+
+            const headers = {
+                'headers': {
+                    Accept: 'application/json',
+                    'Content-Type': 'multipart/form-data',
+                }
+            }
+
+            let statusUpload;
+            let fileName;
+
+            await api.post("/upload", imageData, headers)
+                .then((response) => {
+                    statusUpload = 'success';
+                    fileName = response.data.key;
+                })
+                .catch((err) => {
+                    statusUpload = 'error';
+                    fileName = '';
+                    Alert.alert('Erro ao fazer upload da imagem. Erro: ' + err.response.data.mensagem);
+                });
+
+            if (statusUpload == 'success'){
+                const data = {
+                    descricao,
+                    foto: fileName,
+                    latitude,
+                    longitude,
+                    reportacoes,
+                    nomeUsuario: usuario,
+                    bairro,
+                    rua
+                };
+            
+                await api.post('ocorrencias', data)
+                    .then(() => {
+                        Alert.alert('Registro feito com sucesso!');
+                        navigation.goBack();
+                    })
+                    .catch((err) => {
+                        Alert.alert('Erro ao salvar ocorrência.');
+                    });
+            }            
+        }
     }
 
     function handleGravarDescricao(desc: string) {
