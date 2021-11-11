@@ -33,7 +33,7 @@ export function Detail() {
     useEffect(()=>{
         api.get(`points/${routeParams.point_id}`).then( (response) => {
             setData(response.data);
-          });
+        });
     },[]);
     
     function handleWhatsapp() {
@@ -72,7 +72,7 @@ export function Detail() {
 
             <Image 
                 style={styles.pointImage} 
-                source={require('../../assets/atack.png')} 
+                source={{uri: `https://conscientizapn.s3.sa-east-1.amazonaws.com/PEV/${data.imagem}.jpeg`}} 
             />
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>
@@ -108,8 +108,7 @@ export function Detail() {
 }
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
-        marginLeft: 0,
+        flex: 1,
         backgroundColor: colors.background 
     },
     detailBox: {
@@ -145,11 +144,10 @@ const styles = StyleSheet.create({
         color: colors.white
     },
     pointImage: {
-        width: '100%',
         height: 210,
-        resizeMode: 'cover',
-        borderRadius: 9,
-        marginTop: 10,
+        resizeMode: 'contain',
+        borderRadius: 5,
+        margin: 10,
     },
     titleContainer:{
         marginLeft:10,
