@@ -111,8 +111,8 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
     textContainer: {
-        margin: 15,
-        width: '100%',
+        marginLeft: 15,
+        width: '90%',
     },
     text: {
         fontFamily: fonts.complement,
@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     reportContainer: {
-        marginTop: 0,
         alignItems: 'center',
         borderTopColor: colors.green,
         borderTopWidth: 1,
@@ -144,6 +143,6 @@ const styles = StyleSheet.create({
         color: colors.green
     },
     reportButton: {
-        marginBottom: 20,
+        marginBottom: 10,
     },
 })
