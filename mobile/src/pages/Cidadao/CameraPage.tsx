@@ -19,8 +19,8 @@ export function CameraPage(){
     let camera: Camera;
 
     async function handleTakePicture(){
-        const photo: any = await camera.takePictureAsync();
-        console.log(photo);
+        const options = { quality: 0.5, base64: true };
+        const photo: any = await camera.takePictureAsync(options);
         setPreviewVisible(true);
         setCapturedImage(photo);
     }

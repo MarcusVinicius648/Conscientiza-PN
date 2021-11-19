@@ -7,6 +7,7 @@ import { Feather as Icon } from '@expo/vector-icons';
 import { Button } from '../../components/Button';
 import * as Location from 'expo-location';
 import api from '../../server/api';
+import { Load } from '../../components/Load';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
@@ -31,6 +32,7 @@ export function Registro() {
     const [rua, setRua] = useState('');
     const [bairro, setBairro] = useState('');
     const [ocorrenciaPositions, setOcorrenciaPositions] = useState<[number, number]>([0, 0,]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         async function loadPosition() {
@@ -116,6 +118,8 @@ export function Registro() {
             let statusUpload;
             let fileName;
 
+            setLoading(true);
+
             await api.post("/upload", imageData, headers)
                 .then((response) => {
                     statusUpload = 'success';
@@ -124,6 +128,7 @@ export function Registro() {
                 .catch((err) => {
                     statusUpload = 'error';
                     fileName = '';
+                    setLoading(false);
                     Alert.alert('Erro ao fazer upload da imagem. Erro: ' + err.response.data.mensagem);
                 });
 
@@ -141,10 +146,12 @@ export function Registro() {
             
                 await api.post('ocorrencias', data)
                     .then(() => {
+                        setLoading(false);
                         Alert.alert('Registro feito com sucesso!');
                         navigation.goBack();
                     })
                     .catch((err) => {
+                        setLoading(false);
                         Alert.alert('Erro ao salvar ocorrência.');
                     });
             }            
@@ -172,6 +179,9 @@ export function Registro() {
         setImage('');
         navigation.navigate('CameraPage');
     }
+
+    if (loading)
+        return <Load />
 
     return (
         <SafeAreaView style={styles.container}>

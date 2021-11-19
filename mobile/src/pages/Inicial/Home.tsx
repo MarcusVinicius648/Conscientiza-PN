@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ImageBackground, StyleSheet, Image, Text, View, SafeAreaView, StatusBar, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, Text, View, SafeAreaView, StatusBar, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/core';
 
@@ -11,7 +11,6 @@ import ImgColeta from '../../assets/garbage-truck.png';
 import ImgPEV from '../../assets/recycling.png';
 import ImgCidadaoFiscal from '../../assets/olho.png'
 import ImgCep from '../../assets/updated.png';
-import ImgBackground from '../../assets/background-icon.png';
 
 export function Home() {
     const [userName, setUserName] = useState<string>();
@@ -26,7 +25,7 @@ export function Home() {
     useEffect(() => {
         async function loadUserName() {
             let user = await AsyncStorage.getItem('@conscientizaPn:userName');
-            setUserName(user || '');            
+            setUserName(user || '');
         }
 
         async function loadUserCEP() {
@@ -46,103 +45,99 @@ export function Home() {
 
             const uf = await AsyncStorage.getItem('@conscientizaPn:uf');
             setUserUf(uf || '');
-        }        
+        }
 
         loadUserAddres();
         loadUserName();
-        loadUserCEP(); 
+        loadUserCEP();
     }, []);
-    
+
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar backgroundColor={colors.green_dark}/>  
-            <StatusBarTop 
-                title={'Conscientiza PN'} 
-                activeIconBack={false} 
+            <StatusBar backgroundColor={colors.green_dark} />
+            <StatusBarTop
+                title={'Conscientiza PN'}
+                activeIconBack={false}
                 activeIconAbout={true}
             />
 
-            <ImageBackground source={ImgBackground} resizeMode="cover" style={styles.image}>
+            <View style={styles.header}>
+                <Text style={styles.meeting}>
+                    Bem vindo(a),
+                </Text>
+                <Text style={styles.userName}>
+                    {userName}!
+                </Text>
+            </View>
 
-                <View style={styles.header}>
-                    <Text style={styles.meeting}>
-                        Bem vindo(a),
+            <View style={styles.main}>
+                <Text style={styles.cep}>CEP: {userCep}</Text>
+                <Text style={styles.address}>
+                    {userRua} {"\n"}
+                    Bairro: {userBairro} {"\n"}
+                    {userLocalidade} - {userUf}
+                </Text>
+            </View>
+
+            <View style={styles.footer}>
+                <TouchableOpacity
+                    activeOpacity={0.5}
+                    style={styles.menuItem}
+                    onPress={() => navigation.navigate('Coleta', { cep: userCep, bairro: userBairro })}
+                >
+                    <Image
+                        source={ImgColeta}
+                        style={styles.menuItemImage}
+                    />
+                    <Text style={styles.menuItemText}>
+                        Coletas
                     </Text>
-                    <Text style={styles.userName}>
-                        {userName}!
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    activeOpacity={0.5}
+                    style={styles.menuItem}
+                    onPress={() => navigation.navigate('Ecoponto', { cep: userCep, bairro: userBairro })}
+                >
+                    <Image
+                        source={ImgPEV}
+                        style={styles.menuItemImage}
+                    />
+                    <Text style={styles.menuItemText}>
+                        PEV
                     </Text>
-                </View>
+                </TouchableOpacity>
 
-                <View style={styles.main}>
-                    <Text style={styles.cep}>CEP: {userCep}</Text>
-                    <Text style={styles.address}>
-                        {userRua} {"\n"}
-                        Bairro: {userBairro} {"\n"}
-                        {userLocalidade} - {userUf}
+                <TouchableOpacity
+                    activeOpacity={0.5}
+                    style={styles.menuItem}
+                    onPress={() => navigation.navigate('Cidadao', { userName })}
+                >
+                    <Image
+                        source={ImgCidadaoFiscal}
+                        style={styles.menuItemImage}
+                    />
+                    <Text style={styles.menuItemText}>
+                        Cidadão {'\n'}
+                        Fiscal
                     </Text>
-                </View>
+                </TouchableOpacity>
 
-                <View style={styles.footer}>
-                    <TouchableOpacity 
-                        activeOpacity={0.5} 
-                        style={styles.menuItem}
-                        onPress={() => navigation.navigate('Coleta', {cep: userCep, bairro: userBairro})}
-                    >
-                        <Image 
-                            source={ImgColeta} 
-                            style={styles.menuItemImage}
-                        />
-                        <Text style={styles.menuItemText}>
-                            Coletas
-                        </Text>
-                    </TouchableOpacity> 
-
-                    <TouchableOpacity 
-                        activeOpacity={0.5} 
-                        style={styles.menuItem}
-                        onPress={() => navigation.navigate('Ecoponto', {cep: userCep, bairro: userBairro})}
-                    >
-                        <Image 
-                            source={ImgPEV} 
-                            style={styles.menuItemImage}
-                        />
-                        <Text style={styles.menuItemText}>
-                            PEV
-                        </Text>
-                    </TouchableOpacity> 
-                    
-                    <TouchableOpacity 
-                        activeOpacity={0.5} 
-                        style={styles.menuItem}
-                        onPress={() => navigation.navigate('Cidadao', {userName})}
-                    >
-                        <Image 
-                            source={ImgCidadaoFiscal} 
-                            style={styles.menuItemImage}
-                        />
-                        <Text style={styles.menuItemText}>
-                            Cidadão {'\n'} 
-                            Fiscal
-                        </Text>
-                    </TouchableOpacity> 
-
-                    <TouchableOpacity 
-                        activeOpacity={0.5} 
-                        style={styles.menuItem}
-                        onPress={() => navigation.navigate('DataPage')}
-                    >
-                        <Image 
-                            source={ImgCep} 
-                            style={styles.menuItemImage}
-                        />
-                        <Text style={styles.menuItemText}>
-                            Atualizar {'\n'} 
-                            CEP
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-
-            </ImageBackground>
+                <TouchableOpacity
+                    activeOpacity={0.5}
+                    style={styles.menuItem}
+                    onPress={() => navigation.navigate('DataPage')}
+                >
+                    <Image
+                        source={ImgCep}
+                        style={styles.menuItemImage}
+                    />
+                    <Text style={styles.menuItemText}>
+                        Atualizar {'\n'}
+                        CEP
+                    </Text>
+                </TouchableOpacity>
+            </View>
         </SafeAreaView>
     )
 }
@@ -187,7 +182,7 @@ const styles = StyleSheet.create({
         fontFamily: fonts.heading,
         color: colors.heading
     },
-    address: {  
+    address: {
         //lineHeight: 44,
         fontSize: 18,
         fontFamily: fonts.heading,
@@ -211,7 +206,7 @@ const styles = StyleSheet.create({
         width: 125,
         margin: '1%',
         alignItems: 'center',
-        justifyContent: 'center',        
+        justifyContent: 'center',
         borderRadius: 16
     },
     menuItemText: {

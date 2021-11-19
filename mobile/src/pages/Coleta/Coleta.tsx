@@ -7,6 +7,7 @@ import { CardItems } from '../../components/CardItems';
 import api from '../../server/api';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import { Load } from '../../components/Load';
 
 interface Params {
     cep: string;
@@ -28,11 +29,22 @@ export function Coleta() {
     const route = useRoute();
     const { cep, bairro } = route.params as Params;
 
-    useEffect(() => {
-        api.get(`coletas/${bairro}`).then(response => {
+    const [loading, setLoading] = useState(true);
+
+    async function fetchColetas() {
+        await api.get(`coletas/${bairro}`).then(response => {
             setData(response.data);
         }); 
+
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        fetchColetas();
     }, []);
+
+    if (loading)
+        return <Load />
 
     return (
         <SafeAreaView style={styles.container}>
